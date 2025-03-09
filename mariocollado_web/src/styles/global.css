@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-light: #181818;
+  --color-primary-dark: #020202;
+  --color-secondary-blue-light: #304958;
+  --color-secondary-gold-light: #998562;
+  --color-secondary-gray-light: #9A9E9E;
+  --color-secondary-yellow: #F9CD12;
+}
+
+/* Fuente global para el cuerpo */
+body {
+  font-family: 'Montserrat Variable', sans-serif;
+}
+
+/* Tipografías personalizadas para cada sección */
+.font-tech {
+  font-family: 'Press Start 2P', system-ui;
+}
+
+.font-film {
+  font-family: 'Alfa Slab One', system-ui;
+}
+
+.font-music {
+  font-family: 'Poiret One', system-ui;
+}
+
+.font-video {
+  font-family: 'Monoton', system-ui;
+}
+
+/* EFECTOS CARD INICIO MARIOCOLLADO */
+
+/* Estilo base de la tarjeta */
+/* Estilos comunes para todos los cards */
+.card {
+  @apply rounded-2xl bg-cover bg-center h-full;
+  transition: background-position 0.5s ease, transform 0.5s ease;
+}
+
+/* Hover effect: mover la imagen y aplicar un leve zoom */
+.card:hover {
+  background-position: 40% 70%;
+  transform: scale(0.80);
+}
+
+/* Contenido dentro de la tarjeta */
+.card-content {
+  @apply flex flex-col justify-center items-center h-full rounded-2xl bg-amber-50/10;
+}
+
+/* Estilo del título */
+.name-web {
+  @apply text-3xl font-bold text-white;
+}
