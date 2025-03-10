@@ -1,8 +1,2 @@
-.astro/content.d.ts
-.astro/content-assets.mjs
-.astro/content-modules.mjs
-.astro/data-store.json
-.astro/settings.json
-.astro/types.d.ts
-node_modules/
+.astro/
 node_modules/

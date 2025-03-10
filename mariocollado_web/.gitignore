@@ -4,6 +4,12 @@ node_modules/
 # Output directories (build and generated files)
 dist/
 .astro/
+.astro/content.d.ts
+.astro/content-assets.mjs
+.astro/content-modules.mjs
+.astro/data-store.json
+.astro/settings.json
+.astro/types.d.ts
 
 # Logs
 npm-debug.log*
