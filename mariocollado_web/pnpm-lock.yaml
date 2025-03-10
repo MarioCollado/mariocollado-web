@@ -17,6 +17,9 @@ importers:
       '@fontsource-variable/sixtyfour':
         specifier: ^5.2.5
         version: 5.2.5
+      '@fontsource/abril-fatface':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@fontsource/alfa-slab-one':
         specifier: ^5.2.5
         version: 5.2.5
@@ -242,6 +245,9 @@ packages:
 
   '@fontsource-variable/sixtyfour@5.2.5':
     resolution: {integrity: sha512-6O7Z1qoZW/KMoK/A3t4VC6r00CzuFr2wQu8a3JvD1fZ/JdfD1r7W/DxDT5CMzBs8dKQmWBR5LFc5Q2IehvfW5A==}
+
+  '@fontsource/abril-fatface@5.2.5':
+    resolution: {integrity: sha512-huJ57eyRSf6XdJoh218GLPOGbtp9MPvjMpOiLRDRmBd/TgHwsDeOVlKwaB3txV82hyGLKq6vT+fUsgC6KVqK3Q==}
 
   '@fontsource/alfa-slab-one@5.2.5':
     resolution: {integrity: sha512-v29GGfuDKFZNQaKAaFjYjrQhutGJ0CeyOQSXbwoNLhnaqv/WTSToSX0XjOtwUhgRH8xqdYjLaJOysYLy6ejAQA==}
@@ -1812,6 +1818,8 @@ snapshots:
   '@fontsource-variable/montserrat@5.2.5': {}
 
   '@fontsource-variable/sixtyfour@5.2.5': {}
+
+  '@fontsource/abril-fatface@5.2.5': {}
 
   '@fontsource/alfa-slab-one@5.2.5': {}
 

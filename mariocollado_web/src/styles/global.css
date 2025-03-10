@@ -4,9 +4,14 @@
   --color-primary-light: #181818;
   --color-primary-dark: #020202;
   --color-secondary-blue-light: #304958;
+  --color-secondary-red: #800000;
   --color-secondary-gold-light: #998562;
   --color-secondary-gray-light: #9A9E9E;
   --color-secondary-yellow: #F9CD12;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* Fuente global para el cuerpo */
@@ -19,12 +24,8 @@ body {
   font-family: 'Press Start 2P', system-ui;
 }
 
-.font-film {
-  font-family: 'Alfa Slab One', system-ui;
-}
-
 .font-music {
-  font-family: 'Poiret One', system-ui;
+  font-family: 'Abril Fatface', system-ui;
 }
 
 .font-video {
@@ -42,13 +43,12 @@ body {
 
 /* Hover effect: mover la imagen y aplicar un leve zoom */
 .card:hover {
-  background-position: 40% 70%;
   transform: scale(0.80);
 }
 
 /* Contenido dentro de la tarjeta */
 .card-content {
-  @apply flex flex-col justify-center items-center h-full rounded-2xl bg-amber-50/10;
+  @apply flex flex-col justify-center items-center h-full rounded-2xl bg-black/30;
 }
 
 /* Estilo del título */
