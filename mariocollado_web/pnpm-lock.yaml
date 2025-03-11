@@ -45,7 +45,7 @@ importers:
         specifier: ^5.4.2
         version: 5.4.2(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.34.9)(typescript@5.8.2)(yaml@2.7.0)
       tailwindcss:
-        specifier: ^4.0.3
+        specifier: ^4.0.12
         version: 4.0.12
 
 packages:

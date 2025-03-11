@@ -1,17 +1,13 @@
----
-import Film from "../components/Film.astro";
-import Music from "../components/Music.astro";
-import Contact from "../components/Contacto.astro";
-import Tech from "../components/Tech.astro";
----
-
-<section id="home" class="bg-primary-dark text-white p-12">
-  <div class="grid grid-cols-4 grid-rows-7 gap-5 container mx-auto h-screen">
+<section id="home" class="bg-primary-dark text-white p-12 h-screen">
+  <div class="grid grid-cols-4 grid-rows-6 gap-5 container mx-auto h-full">
+    <!-- FILM -->
     <a
       href="#film"
-      class="cursor-pointer card row-span-6 rounded-2xl bg-cover bg-[url('/fondo_camera2.jpg')]"
+      class="cursor-pointer card row-span-6 rounded-2xl bg-cover bg-[url('/fondo_camera2.jpg')] overflow-hidden"
     >
-      <div class="flex flex-col justify-center items-center h-full">
+      <div
+        class="flex flex-col justify-center items-center h-full opacity-0 transition-opacity duration-500 hover:opacity-100"
+      >
         <h1 class="font-video text-3xl">VIDEO/PHOTO</h1>
         <p class="text-lg w-3/4 mt-8 text-center drop-shadow-lg">
           Aquí encontrarás momentos capturados a través de mi cámara.
@@ -19,11 +15,14 @@ import Tech from "../components/Tech.astro";
       </div>
     </a>
 
+    <!-- MUSIC -->
     <a
       href="#music"
-      class="cursor-pointer card row-span-6 rounded-2xl bg-cover bg-[url('/fondo_music3.jpg')]"
+      class="cursor-pointer card row-span-6 rounded-2xl bg-cover bg-[url('/fondo_music3.jpg')] overflow-hidden"
     >
-      <div class="flex flex-col justify-center items-center h-full">
+      <div
+        class="flex flex-col justify-center items-center h-full opacity-0 transition-opacity duration-500 hover:opacity-100"
+      >
         <h1 class="font-music text-4xl font-bold">MUSIC</h1>
         <p class="text-lg w-3/4 mt-8 text-center">
           En este apartado aparecerá todo lo que produzco y publico.
@@ -31,11 +30,14 @@ import Tech from "../components/Tech.astro";
       </div>
     </a>
 
+    <!-- TECH -->
     <a
       href="#tech"
-      class="cursor-pointer card row-span-6 rounded-2xl bg-cover bg-[url('/fondo_tech.jpg')]"
+      class="cursor-pointer card row-span-6 rounded-2xl bg-cover bg-[url('/fondo_tech.jpg')] overflow-hidden"
     >
-      <div class="flex flex-col justify-center items-center h-full">
+      <div
+        class="flex flex-col justify-center items-center h-full opacity-0 transition-opacity duration-500 hover:opacity-100"
+      >
         <h1 class="font-tech text-4xl font-bold">TECH</h1>
         <p class="text-lg w-3/4 mt-8 text-center">
           En esta sección, compartiré otros proyectos tecnológicos.
@@ -43,15 +45,20 @@ import Tech from "../components/Tech.astro";
       </div>
     </a>
 
-    <a href="#" class="row-span-2 card bg-cover bg-[url('/fondo_cielo.jpg')]">
+    <!-- NOMBRE -->
+    <a
+      href="#"
+      class="row-span-2 card bg-cover bg-[url('/fondo_cielo.jpg')] overflow-hidden"
+    >
       <div class="card-content">
         <h1 class="name-web">mario collado</h1>
       </div>
     </a>
 
+    <!-- CONTACT -->
     <a
       href="#contact"
-      class="cursor-pointer card row-span-4 col-start-4 row-start-3 bg-secondary-red rounded-2xl"
+      class="cursor-pointer card row-span-4 col-start-4 row-start-3 bg-secondary-red rounded-2xl overflow-hidden"
     >
       <div class="flex flex-col justify-center items-center h-full">
         <h1 class="font-contacto text-3xl font-bold">CONTACTO</h1>

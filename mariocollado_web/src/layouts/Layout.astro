@@ -20,14 +20,16 @@ const { title = "mariocollado" } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/icon_web.svg" />
     <title>{title}</title>
   </head>
-  <body>
-    <slot />
+  <body class="snap-y snap-proximity overflow-y-scroll h-screen">
+    <slot /><!-- Aquí se renderizan las secciones -->
   </body>
 </html>
 
 <style>
   html,
   body {
+    font-family: "Montserrat Variable", sans-serif;
+    scroll-behavior: smooth;
     margin: 0;
     width: 100%;
     height: 100%;
