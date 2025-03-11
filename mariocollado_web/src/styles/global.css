@@ -9,6 +9,9 @@
   --color-secondary-orange-strong: #FF3F00;
 }
 
+html {
+  scroll-behavior: smooth; /* Hace que el scroll sea suave */
+}
 .scrollbar-none::-webkit-scrollbar {
   display: none; /* Para Chrome, Safari */
 }
