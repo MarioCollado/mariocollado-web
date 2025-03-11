@@ -2,12 +2,20 @@
 
 @theme {
   --color-primary-light: #FDFBD4;
-  --color-primary-dark: #FDFBD4;
-  --color-secondary-blue-light: #304958;
   --color-secondary-red: #800000;
-  --color-secondary-gold-light: #998562;
-  --color-secondary-gray-light: #9A9E9E;
-  --color-secondary-yellow: #F9CD12;
+  --color-secondary-gray: #403F4C;
+  --color-secondary-cyan: #07BEB8;
+  --color-secondary-orange: #FF7F11;
+  --color-secondary-orange-strong: #FF3F00;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Para Chrome, Safari */
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none; /* Para IE y Edge */
+  scrollbar-width: none; /* Para Firefox */
 }
 
 /* Tipografías personalizadas para cada sección */

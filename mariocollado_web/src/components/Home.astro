@@ -1,4 +1,11 @@
-<section id="home" class="bg-primary-dark text-white p-12 h-screen">
+---
+import Film from "../components/Film.astro";
+import Music from "../components/Music.astro";
+import Contact from "../components/Contacto.astro";
+import Tech from "../components/Tech.astro";
+---
+
+<section id="home" class="bg-primary-light text-white p-12 h-screen">
   <div class="grid grid-cols-4 grid-rows-6 gap-5 container mx-auto h-full">
     <!-- FILM -->
     <a
@@ -45,23 +52,40 @@
       </div>
     </a>
 
-    <!-- NOMBRE -->
-    <a
-      href="#"
-      class="row-span-2 card bg-cover bg-[url('/fondo_cielo.jpg')] overflow-hidden"
+    <div
+      class="row-span-2 card flex flex-col justify-center items-center text-center p-8 bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('/icon-profile/fondo_perfil.jpg')] bg-cover"
     >
-      <div class="card-content">
-        <h1 class="name-web">mario collado</h1>
+      <h1 class="name-web text-white text-3xl font-bold">mario collado</h1>
+      <div class="flex gap-4 mt-4">
+        <img
+          src="/icon-profile/icons8-github.svg"
+          alt="GitHub"
+          class="w-6 h-6"
+        />
+        <img
+          src="/icon-profile/icons8-instagram.svg"
+          alt="Instagram"
+          class="w-6 h-6"
+        />
+        <img
+          src="/icon-profile/icons8-spotify.svg"
+          alt="Spotify"
+          class="w-6 h-6"
+        />
+        <img
+          src="/icon-profile/icons8-linkedin.svg"
+          alt="LinkedIn"
+          class="w-6 h-6"
+        />
       </div>
-    </a>
-
+    </div>
     <!-- CONTACT -->
     <a
       href="#contact"
-      class="cursor-pointer card row-span-4 col-start-4 row-start-3 bg-secondary-red rounded-2xl overflow-hidden"
+      class="cursor-pointer card row-span-4 col-start-4 row-start-3 bg-secondary-orange rounded-2xl overflow-hidden"
     >
       <div class="flex flex-col justify-center items-center h-full">
-        <h1 class="font-contacto text-3xl font-bold">CONTACTO</h1>
+        <h1 class="text-3xl font-bold">CONTACTO</h1>
         <img
           src="/email.svg"
           alt="Contact Icon"
