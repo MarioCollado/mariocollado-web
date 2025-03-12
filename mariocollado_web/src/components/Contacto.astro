@@ -1,47 +1,44 @@
----
-// src/components/Contacto.astro
----
-
 <section
   id="contact"
   class="h-screen flex flex-col justify-center items-center text-secondary-gray relative space-y-8 snap-start"
 >
-  <!-- Flecha para volver a la sección anterior -->
   <a
     href="#tech"
-    id="scrollButton"
-    class="absolute top-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
+    class="scrollButton absolute top-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
   >
     <div class="relative flex justify-center items-center">
+      <!-- Efecto de sombra -->
+      <div
+        class="holdEffect absolute w-20 h-20 bg-green-600 rounded-full opacity-0 scale-0 hidden transition-all duration-1000 ease-out"
+      >
+      </div>
+
+      <!-- Flecha -->
       <img
         src="/arrow-bottom.svg"
         alt="Flecha arriba"
-        id="arrowIcon"
-        class="w-10 h-10 rotate-180 transition-opacity duration-300"
+        class="arrowIcon w-10 h-10 rotate-180 transition-opacity duration-500 ease-in-out"
       />
-      <!-- Efecto de sombra -->
-      <div
-        id="holdEffect"
-        class="absolute w-20 h-20 bg-green-600 rounded-full opacity-0 scale-0 transition-all duration-1000"
-      >
-      </div>
-      <!-- Icono de verificación (inicialmente oculto) -->
+
+      <!-- Icono de verificación -->
       <img
-        src="/icon-profile/icons8-verified.png"
+        src="/icon-profile/icons8-home.png"
         alt="Verificado"
-        id="verifiedIcon"
-        class="absolute w-8 h-8 opacity-0 scale-0 transition-all duration-500"
+        class="verifiedIcon w-8 h-8 absolute opacity-0 scale-0 hidden transition-all duration-500 ease-out"
       />
     </div>
   </a>
 
   <div
-    class="text-center max-w-2xl w-full p-8 bg-secondary-orange rounded-2xl shadow-lg"
+    class="text-center max-w-2xl w-full p-6 bg-secondary-orange rounded-2xl shadow-lg"
   >
-    <h1 class="text-4xl mb-4">CONTACTO</h1>
-    <p class="mb-6">Si deseas contactarme, completa el siguiente formulario:</p>
+    <h1 class="text-4xl mb-2">CONTACTO</h1>
+    <!-- Reducido margen inferior -->
+    <p class="mb-4">Si deseas contactarme, completa el siguiente formulario:</p>
+    <!-- Reducido margen inferior -->
 
-    <form action="#" method="POST" class="flex flex-col space-y-4">
+    <form action="#" method="POST" class="flex flex-col space-y-3">
+      <!-- Reducido el espacio entre los campos -->
       <label for="name" class="text-left">Nombre</label>
       <input
         type="text"

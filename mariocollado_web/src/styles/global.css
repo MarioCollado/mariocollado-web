@@ -61,3 +61,10 @@ html {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Transiciones de todos los elementos involucrados */
+.scrollButton .holdEffect,
+.scrollButton .arrowIcon,
+.scrollButton .verifiedIcon {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}

@@ -9,13 +9,29 @@
   <!-- Flecha para volver a la sección anterior -->
   <a
     href="#music"
-    class="absolute top-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
+    class="scrollButton absolute top-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
   >
-    <img
-      src="/arrow-bottom.svg"
-      alt="Flecha arriba"
-      class="w-10 h-10 rotate-180"
-    />
+    <div class="relative flex justify-center items-center">
+      <!-- Efecto de sombra -->
+      <div
+        class="holdEffect absolute w-20 h-20 bg-green-600 rounded-full opacity-0 scale-0 hidden transition-all duration-1000 ease-out"
+      >
+      </div>
+
+      <!-- Flecha -->
+      <img
+        src="/arrow-bottom.svg"
+        alt="Flecha arriba"
+        class="arrowIcon w-10 h-10 rotate-180 transition-opacity duration-500 ease-in-out"
+      />
+
+      <!-- Icono de verificación -->
+      <img
+        src="/icon-profile/icons8-home.png"
+        alt="Verificado"
+        class="verifiedIcon w-8 h-8 absolute opacity-0 scale-0 hidden transition-all duration-500 ease-out"
+      />
+    </div>
   </a>
 
   <!-- Contenedor principal -->
