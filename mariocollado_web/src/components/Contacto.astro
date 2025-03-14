@@ -1,7 +1,8 @@
 <section
   id="contact"
-  class="h-screen flex flex-col justify-center items-center text-secondary-gray relative space-y-8 snap-start"
+  class="h-screen flex flex-col justify-center items-center bg-primary-light text-gray-800 relative space-y-8 snap-start"
 >
+  <!-- Flecha para volver a la sección anterior -->
   <a
     href="#tech"
     class="scrollButton absolute top-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
@@ -9,7 +10,7 @@
     <div class="relative flex justify-center items-center">
       <!-- Efecto de sombra -->
       <div
-        class="holdEffect absolute w-20 h-20 bg-green-600 rounded-full opacity-0 scale-0 hidden transition-all duration-1000 ease-out"
+        class="holdEffect absolute w-20 h-20 bg-secondary-orange rounded-full opacity-0 scale-0 hidden transition-all duration-1000 ease-out"
       >
       </div>
 
@@ -29,48 +30,53 @@
     </div>
   </a>
 
+  <!-- Contenedor principal -->
   <div
-    class="text-center max-w-2xl w-full p-6 bg-secondary-orange rounded-2xl shadow-lg"
+    class="text-center max-w-2xl w-full p-8 bg-secondary-cyan rounded-none border-4 border-black shadow-[8px_8px_0_0_black]"
   >
-    <h1 class="text-4xl mb-2">CONTACTO</h1>
-    <!-- Reducido margen inferior -->
-    <p class="mb-4">Si deseas contactarme, completa el siguiente formulario:</p>
-    <!-- Reducido margen inferior -->
+    <h1 class="text-6xl font-bold mb-4 font-druk">CONTACTO</h1>
+    <p class="text-lg mb-6">
+      Si deseas contactarme, completa el siguiente formulario:
+    </p>
 
-    <form action="#" method="POST" class="flex flex-col space-y-3">
-      <!-- Reducido el espacio entre los campos -->
-      <label for="name" class="text-left">Nombre</label>
+    <!-- Formulario -->
+    <form action="#" method="POST" class="flex flex-col space-y-4">
+      <!-- Campo de nombre -->
+      <label for="name" class="text-left font-bold">Nombre</label>
       <input
         type="text"
         id="name"
         name="name"
         required
-        class="p-3 rounded-md text-black"
+        class="p-3 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] text-black placeholder-gray-600 focus:outline-none focus:shadow-[6px_6px_0_0_black] transition-all duration-200"
         placeholder="Tu nombre..."
       />
 
-      <label for="email" class="text-left">Correo Electrónico</label>
+      <!-- Campo de correo electrónico -->
+      <label for="email" class="text-left font-bold">Correo Electrónico</label>
       <input
         type="email"
         id="email"
         name="email"
         required
-        class="p-3 rounded-md text-black"
+        class="p-3 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] text-black placeholder-gray-600 focus:outline-none focus:shadow-[6px_6px_0_0_black] transition-all duration-200"
         placeholder="Tu correo..."
       />
 
-      <label for="message" class="text-left">Mensaje</label>
+      <!-- Campo de mensaje -->
+      <label for="message" class="text-left font-bold">Mensaje</label>
       <textarea
         id="message"
         name="message"
         rows="4"
         required
-        class="p-3 rounded-md text-black"
+        class="p-3 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] text-black placeholder-gray-600 focus:outline-none focus:shadow-[6px_6px_0_0_black] transition-all duration-200"
         placeholder="Escribe tu mensaje aquí..."></textarea>
 
+      <!-- Botón de enviar -->
       <button
         type="submit"
-        class="bg-secondary-gray text-primary-light px-6 py-3 rounded-lg hover:bg-gray-800 transition"
+        class="bg-[#FF6B6B] text-white px-8 py-4 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] hover:shadow-[6px_6px_0_0_black] transition-all duration-200 font-bold"
       >
         Enviar
       </button>

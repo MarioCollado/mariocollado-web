@@ -19,6 +19,7 @@ export function initHoldButton() {
 
     let holdTimeout;
     let isHoldTriggered = false;
+    let isMouseDown = false; // Variable para rastrear si el botón está siendo presionado
 
     // Verificar si los elementos existen
     if (!holdEffect || !arrowIcon || !verifiedIcon) {
@@ -36,6 +37,7 @@ export function initHoldButton() {
     // Iniciar animación al mantener pulsado
     const onMouseDown = () => {
       isHoldTriggered = false;
+      isMouseDown = true; // El botón está siendo presionado
 
       // Mostrar el sombreado lentamente con un retraso
       setTimeout(() => {
@@ -52,7 +54,7 @@ export function initHoldButton() {
         toggleElementVisibility(arrowIcon, false); // Desvanece la flecha
       }, 500); // Desaparece la flecha al mismo tiempo que el sombreado
 
-      // Ocultar el cursor al mantener presionado el botón
+      // Ocultar el cursor en todo el documento
       document.body.style.cursor = "none";
 
       holdTimeout = setTimeout(() => {
@@ -60,14 +62,23 @@ export function initHoldButton() {
         document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
 
         setTimeout(resetIcons, 1000); // Resetear después de 1 segundo
-      }, 1000); // 1 segundo para "hold"
+      }, 1700); // 1 segundo para "hold"
     };
 
     // Mostrar el cursor al soltar el clic
     const onMouseUpOrLeave = () => {
+      isMouseDown = false; // El botón ya no está siendo presionado
       document.body.style.cursor = "auto"; // Vuelve a la apariencia normal del cursor
       clearTimeout(holdTimeout);
       if (!isHoldTriggered) resetIcons();
+    };
+
+    // Ocultar el cursor cuando el mouse se mueve mientras el botón está presionado
+    const onMouseMove = () => {
+      if (isMouseDown) {
+        console.log("Mouse move detected while holding the button"); // Depuración
+        document.body.style.cursor = "none";
+      }
     };
 
     // Añadir evento de hover para reiniciar las animaciones
@@ -82,5 +93,6 @@ export function initHoldButton() {
     scrollButton.addEventListener("mousedown", onMouseDown);
     scrollButton.addEventListener("mouseup", onMouseUpOrLeave);
     scrollButton.addEventListener("mouseleave", onMouseUpOrLeave);
+    document.addEventListener("mousemove", onMouseMove); // Escuchar el evento mousemove en todo el documento
   });
 }
