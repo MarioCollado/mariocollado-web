@@ -65,7 +65,7 @@ html {
 
 /* Estilo base de la tarjeta */
 .card {
-  @apply rounded-2xl bg-cover bg-center h-full;
+  @apply bg-cover bg-center h-full;
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
   transform-origin: center;
   backface-visibility: hidden; /* Elimina flickering */
