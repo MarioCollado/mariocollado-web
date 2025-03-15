@@ -1,57 +1,115 @@
-@import "tailwindcss";
+@import "tailwindcss"; /* Importa todo Tailwind CSS */
 
 @theme {
-  --color-primary-light: #181818;
-  --color-primary-dark: #020202;
-  --color-secondary-blue-light: #304958;
+  --color-primary-light: #FDFBD4;
   --color-secondary-red: #800000;
-  --color-secondary-gold-light: #998562;
-  --color-secondary-gray-light: #9A9E9E;
-  --color-secondary-yellow: #F9CD12;
+  --color-secondary-gray: #403F4C;
+  --color-secondary-cyan: #07BEB8;
+  --color-secondary-orange: #FF7F11;
+  --color-secondary-orange-strong: #FF3F00;
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* Hace que el scroll sea suave */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Para Chrome, Safari */
 }
 
-/* Fuente global para el cuerpo */
-body {
-  font-family: 'Montserrat Variable', sans-serif;
+.scrollbar-none {
+  -ms-overflow-style: none; /* Para IE y Edge */
+  scrollbar-width: none; /* Para Firefox */
 }
 
 /* Tipografías personalizadas para cada sección */
-.font-tech {
-  font-family: 'Press Start 2P', system-ui;
+/* Druk Condensed Super */
+@font-face {
+  font-family: 'Druk Condensed';
+  src: url('/fonts/DrukCond-Super.woff2') format('woff2');
+  font-weight: 900; /* Super suele ser el peso más alto */
+  font-style: normal;
+  font-display: swap;
 }
 
-.font-music {
-  font-family: 'Abril Fatface', system-ui;
+/* Druk Wide Bold */
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('/fonts/DrukWide-Bold.woff2') format('woff2');
+  font-weight: bold; /* 700 */
+  font-style: normal;
+  font-display: swap;
 }
 
-.font-video {
-  font-family: 'Monoton', system-ui;
+/* Druk Wide Heavy */
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('/fonts/DrukWide-Heavy.woff2') format('woff2');
+  font-weight: 800; /* Heavy */
+  font-style: normal;
+  font-display: swap;
 }
 
-/* EFECTOS CARD INICIO MARIOCOLLADO */
+/* Druk Wide Super */
+@font-face {
+  font-family: 'Druk Wide';
+  src: url('/fonts/DrukWide-Super.woff2') format('woff2');
+  font-weight: 900; /* Super */
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-home {
+  font-family: 'Druk Wide', sans-serif;
+  font-weight: bold; /* O el peso que prefieras */
+  background-color: var(--color-secondary-cyan);
+  padding: 100%;
+}
 
 /* Estilo base de la tarjeta */
-/* Estilos comunes para todos los cards */
 .card {
-  @apply rounded-2xl bg-cover bg-center h-full;
-  transition: background-position 0.5s ease, transform 0.5s ease;
+  @apply bg-cover bg-center h-full;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transform-origin: center;
+  backface-visibility: hidden; /* Elimina flickering */
+  will-change: transform, opacity; /* Optimiza las animaciones */
 }
 
-/* Hover effect: mover la imagen y aplicar un leve zoom */
+/* Hover: hacer que la tarjeta se haga más pequeña */
 .card:hover {
-  transform: scale(0.80);
+  transform: scale(0.9); /* Reduce un 10% el tamaño */
 }
 
 /* Contenido dentro de la tarjeta */
 .card-content {
-  @apply flex flex-col justify-center items-center h-full rounded-2xl bg-black/30;
+  @apply flex flex-col justify-center items-center h-full rounded-2xl bg-black/30 text-white;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
-/* Estilo del título */
-.name-web {
-  @apply text-3xl font-bold text-white;
+/* Mostrar el contenido al hacer hover */
+.card:hover .card-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Superposición oscura */
+.overlay {
+  transition: opacity 0.5s ease-out;
+}
+
+/* Transiciones de todos los elementos involucrados */
+.scrollButton .holdEffect,
+.scrollButton .arrowIcon,
+.scrollButton .verifiedIcon {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+  
+.scrollButton {
+  cursor: none; /* Evita que aparezca la "manita" */
+}
+
+/* Clase para deshabilitar el scroll del cuerpo */
+.no-scroll {
+  overflow: hidden !important;
 }

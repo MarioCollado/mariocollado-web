@@ -1,0 +1,27 @@
+[
+    {
+        "tipo": "foto",
+        "ruta": "/photos/bisabuelos.webp",
+        "descripcion": "Una foto de mis bisabuelos"
+    },
+    {
+        "tipo": "video",
+        "ruta": "/videos/video_test1.webm",
+        "descripcion": "Un video interesante"
+    },
+    {
+        "tipo": "foto",
+        "ruta": "/photos/dedal.webp",
+        "descripcion": "Otra foto de un dedal"
+    },
+    {
+        "tipo": "video",
+        "ruta": "/videos/video_test2.webm",
+        "descripcion": "Otro video interesante"
+    },
+    {
+        "tipo": "foto",
+        "ruta": "/photos/flor-y.webp",
+        "descripcion": "Una foto de una flor"
+    }
+]

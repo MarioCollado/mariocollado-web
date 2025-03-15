@@ -21,7 +21,10 @@
     "@fontsource/smokum": "^5.2.5",
     "@tailwindcss/vite": "^4.0.3",
     "astro": "^5.4.2",
-    "tailwindcss": "^4.0.3"
+    "free-astro-components": "^1.2.0",
+    "micromodal": "^0.4.10",
+    "sweetalert2": "^11.17.2",
+    "tailwindcss": "^4.0.12"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

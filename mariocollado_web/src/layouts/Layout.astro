@@ -7,20 +7,21 @@ import "@fontsource/poiret-one";
 import "@fontsource/monoton";
 import "@fontsource/abril-fatface";
 
-import "@/styles/global.css";
+import "/src/styles/global.css";
 
 const { title = "mariocollado" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="overflow-y-scroll scrollbar-none overscroll-none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/icon_web.svg" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="bg-primary-light">
+    <body> </body>
     <slot />
   </body>
 </html>
