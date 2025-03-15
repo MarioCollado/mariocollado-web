@@ -1,5 +1,4 @@
 ---
-// src/components/Film.astro
 import content from "../json/content.json"; // Importar el JSON
 ---
 
@@ -63,29 +62,6 @@ import content from "../json/content.json"; // Importar el JSON
     <img src="/arrow-bottom.svg" alt="Flecha abajo" class="w-10 h-10" />
   </a>
 
-  <!-- Modal -->
-  <div
-    id="modal"
-    class="fixed inset-0 bg-secondary-gray flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 z-50"
-    onclick="closeModal()"
-  >
-    <div class="relative max-w-full max-h-full p-4">
-      <img
-        id="modal-image"
-        class="max-w-full max-h-[80vh] object-contain"
-        alt="Imagen en modal"
-      />
-      <video
-        id="modal-video"
-        class="max-w-full max-h-[80vh] object-contain hidden"
-        controls
-      >
-        <source id="modal-video-source" type="video/webm" />
-        Tu navegador no soporta la reproducción de videos.
-      </video>
-    </div>
-  </div>
-
-  <!-- Importar el archivo JS -->
-  <script type="module" src="src/js/filmZoom.js"></script>
+  <!-- Importar el archivo JS externo -->
+  <script type="module" src="/src/js/filmContent_zoom.js"></script>
 </section>

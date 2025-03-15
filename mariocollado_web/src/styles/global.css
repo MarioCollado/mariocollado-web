@@ -61,6 +61,8 @@ html {
 .font-home {
   font-family: 'Druk Wide', sans-serif;
   font-weight: bold; /* O el peso que prefieras */
+  background-color: var(--color-secondary-cyan);
+  padding: 100%;
 }
 
 /* Estilo base de la tarjeta */
@@ -105,4 +107,9 @@ html {
   
 .scrollButton {
   cursor: none; /* Evita que aparezca la "manita" */
+}
+
+/* Clase para deshabilitar el scroll del cuerpo */
+.no-scroll {
+  overflow: hidden !important;
 }
