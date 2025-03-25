@@ -1,0 +1,28 @@
+[
+    {
+      "id": "film",
+      "title": "VISUALS",
+      "image": "/sections/film.jpg",
+      "rowSpan": 6
+    },
+    {
+      "id": "music",
+      "title": "MUSIC",
+      "image": "/sections/music.jpg",
+      "rowSpan": 6
+    },
+    {
+      "id": "tech",
+      "title": "TECH",
+      "image": "/sections/tech.jpg",
+      "rowSpan": 6
+    },
+    {
+      "id": "contact",
+      "title": "CONTACT",
+      "image": "/sections/mail.jpg",
+      "rowSpan": 4,
+      "colStart": 4,
+      "rowStart": 3
+    }
+  ]

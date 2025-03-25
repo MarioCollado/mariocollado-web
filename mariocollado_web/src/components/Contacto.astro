@@ -19,6 +19,7 @@
         src="/arrow-bottom.svg"
         alt="Flecha arriba"
         class="arrowIcon w-10 h-10 rotate-180 transition-opacity duration-500 ease-in-out"
+        loading="lazy"
       />
 
       <!-- Icono de verificación -->
@@ -26,14 +27,13 @@
         src="/icon-profile/icons8-home.png"
         alt="Verificado"
         class="verifiedIcon w-8 h-8 absolute opacity-0 scale-0 hidden transition-all duration-500 ease-out"
+        loading="lazy"
       />
     </div>
   </a>
 
   <!-- Contenedor principal -->
-  <div
-    class="text-center max-w-2xl w-full p-8 bg-secondary-cyan rounded-none border-4 border-black shadow-[8px_8px_0_0_black]"
-  >
+  <div class="text-center max-w-2xl w-full p-8 bg-secondary-cyan rounded-none">
     <h1 class="text-6xl font-bold mb-4 font-druk">CONTACTO</h1>
     <p class="text-lg mb-6">
       Si deseas contactarme, completa el siguiente formulario:
@@ -48,7 +48,7 @@
         id="name"
         name="name"
         required
-        class="p-3 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] text-black placeholder-gray-600 focus:outline-none focus:shadow-[6px_6px_0_0_black] transition-all duration-200"
+        class="p-3 rounded-none border-4 text-black placeholder-gray-600 focus:outline-none focus:shadow-[0px_0px_7px_2px_black] transition-all duration-200"
         placeholder="Tu nombre..."
       />
 
@@ -59,7 +59,7 @@
         id="email"
         name="email"
         required
-        class="p-3 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] text-black placeholder-gray-600 focus:outline-none focus:shadow-[6px_6px_0_0_black] transition-all duration-200"
+        class="p-3 rounded-none border-4 text-black placeholder-gray-600 focus:outline-none focus:shadow-[0px_0px_7px_2px_black] transition-all duration-200"
         placeholder="Tu correo..."
       />
 
@@ -70,13 +70,13 @@
         name="message"
         rows="4"
         required
-        class="p-3 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] text-black placeholder-gray-600 focus:outline-none focus:shadow-[6px_6px_0_0_black] transition-all duration-200"
+        class="p-3 rounded-none border-4 text-black placeholder-gray-600 focus:outline-none focus:shadow-[0px_0px_7px_2px_black] transition-all duration-200"
         placeholder="Escribe tu mensaje aquí..."></textarea>
 
       <!-- Botón de enviar -->
       <button
         type="submit"
-        class="bg-secondary-orange text-white px-8 py-4 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] hover:shadow-[6px_6px_0_0_black] transition-all duration-200 font-bold"
+        class="bg-secondary-pink text-white px-8 py-4 rounded-none border-4 border-black hover:shadow-[0px_0px_7px_2px_black] transition-all duration-200 font-bold"
       >
         Enviar
       </button>

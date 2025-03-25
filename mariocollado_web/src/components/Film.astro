@@ -1,67 +1,11 @@
 ---
-import content from "../json/content.json"; // Importar el JSON
+import content from "../json/content.json";
+import Carousel from "../components/other/Carousel.astro";
 ---
 
 <section
   id="film"
-  class="h-screen flex flex-col justify-start items-center bg-primary-light text-gray-800 relative overflow-hidden snap-start"
+  class="h-screen bg-primary-light snap-start flex items-center justify-center"
 >
-  <!-- Flecha para volver a la sección anterior -->
-  <a
-    href="#home"
-    class="absolute top-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
-  >
-    <img
-      src="/arrow-bottom.svg"
-      alt="Flecha arriba"
-      class="w-10 h-10 rotate-180"
-    />
-  </a>
-
-  <!-- Contenedor de imágenes y videos en mosaico -->
-  <div
-    id="mosaic-container"
-    class="grid grid-cols-3 gap-4 p-32 w-full h-full overflow-y-auto"
-    style="grid-auto-rows: minmax(200px, auto);"
-    data-content={JSON.stringify(content)}
-  >
-    {
-      content.map((item, index) => (
-        <div
-          class={`${
-            item.tipo === "video" ? "relative" : ""
-          } border-4 border-black shadow-[8px_8px_0_0_black] cursor-pointer`}
-          onclick={`openModal(${index})`}
-        >
-          {item.tipo === "foto" ? (
-            <img
-              src={item.ruta}
-              alt={item.descripcion}
-              class="w-full h-full object-cover"
-            />
-          ) : (
-            <video class="w-full h-full object-cover">
-              <source src={item.ruta} type="video/webm" />
-              <source
-                src={item.ruta.replace(".webm", ".mp4")}
-                type="video/mp4"
-              />
-              Tu navegador no soporta la reproducción de videos.
-            </video>
-          )}
-        </div>
-      ))
-    }
-  </div>
-
-  <!-- Flecha para ir a la siguiente sección -->
-  <a
-    href="#music"
-    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
-  >
-    <img src="/arrow-bottom.svg" alt="Flecha abajo" class="w-10 h-10" />
-  </a>
-
-  <!-- Importar el archivo JS externo -->
-  <script type="module" src="/src/js/filmContent_zoom.js"></script>
+  <Carousel />
 </section>

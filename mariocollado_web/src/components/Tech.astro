@@ -23,6 +23,7 @@
         src="/arrow-bottom.svg"
         alt="Flecha arriba"
         class="arrowIcon w-10 h-10 rotate-180 transition-opacity duration-500 ease-in-out"
+        loading="lazy"
       />
 
       <!-- Icono de verificación -->
@@ -36,7 +37,7 @@
 
   <!-- Contenedor principal -->
   <div
-    class="text-center max-w-2xl w-full p-8 bg-[#4ECDC4] rounded-none border-4 border-black shadow-[8px_8px_0_0_black] space-y-8"
+    class="text-center max-w-2xl w-full p-8 bg-[#4ECDC4] rounded-none space-y-8"
   >
     <h1 class="text-6xl font-bold mb-4 font-druk">TECH</h1>
     <p class="text-lg">
@@ -48,14 +49,19 @@
       class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-x-8 md:space-y-0"
     >
       <img
-        src="https://github-readme-stats.vercel.app/api?username=MarioCollado&show_icons=true&theme=radical"
+        src="https://github-readme-stats.vercel.app/api?username=MarioCollado&show_icons=true&theme=radical&w=600&h=300"
         alt="GitHub Stats"
-        class="rounded-none border-4 border-black shadow-[4px_4px_0_0_black] w-full md:w-auto"
+        class="rounded-none w-full md:w-auto"
+        width={600}
+        height={300}
       />
+
       <img
-        src="https://github-readme-stats.vercel.app/api/top-langs/?username=MarioCollado&layout=compact&theme=radical"
+        src="https://github-readme-stats.vercel.app/api/top-langs/?username=MarioCollado&layout=compact&theme=radical&w=600&h=300"
         alt="Top Languages"
-        class="rounded-none border-4 border-black shadow-[4px_4px_0_0_black] w-full md:w-auto"
+        class="rounded-none w-full md:w-auto"
+        width={600}
+        height={300}
       />
     </div>
 
@@ -63,7 +69,7 @@
     <a
       href="https://github.com/MarioCollado"
       target="_blank"
-      class="bg-[#FF6B6B] text-white px-8 py-4 rounded-none border-4 border-black shadow-[4px_4px_0_0_black] hover:shadow-[6px_6px_0_0_black] transition-all duration-200"
+      class="bg-[#FF6B6B] text-white px-8 py-4 rounded-none border-4 border-black hover:shadow-[0px_0px_7px_2px_black] transition-all duration-200 font-bold"
     >
       Seguir en GitHub
     </a>
@@ -74,7 +80,12 @@
     href="#contact"
     class="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
   >
-    <img src="/arrow-bottom.svg" alt="Flecha abajo" class="w-10 h-10" />
+    <img
+      src="/arrow-bottom.svg"
+      alt="Flecha abajo"
+      class="w-10 h-10"
+      loading="lazy"
+    />
   </a>
 </section>
 ```

@@ -14,7 +14,7 @@
     <div class="relative flex justify-center items-center">
       <!-- Efecto de sombra -->
       <div
-        class="holdEffect absolute w-20 h-20 bg-secondary-orange rounded-full opacity-0 scale-0 hidden transition-all duration-1000 ease-out"
+        class="holdEffect absolute w-20 h-20 rounded-full opacity-0 scale-0 hidden transition-all duration-1000 ease-out"
       >
       </div>
 
@@ -23,6 +23,7 @@
         src="/arrow-bottom.svg"
         alt="Flecha arriba"
         class="arrowIcon w-10 h-10 rotate-180 transition-opacity duration-500 ease-in-out"
+        loading="lazy"
       />
 
       <!-- Icono de verificación -->
@@ -30,6 +31,7 @@
         src="/icon-profile/icons8-home.png"
         alt="Verificado"
         class="verifiedIcon w-8 h-8 absolute opacity-0 scale-0 hidden transition-all duration-500 ease-out"
+        loading="lazy"
       />
     </div>
   </a>
@@ -37,11 +39,10 @@
   <!-- Contenedor de las 3 playlists en fila (horizontal) -->
   <div class="flex flex-row space-x-8 justify-center">
     <!-- Playlist 1 -->
-    <div
-      class="max-w-md w-full bg-secondary-cyan p-6 rounded-none border-4 border-black shadow-[8px_8px_0_0_black]"
-    >
-      <h2 class="text-2xl mb-4 text -center font-bold">Todo lo que escucho</h2>
+    <div class="max-w-md w-full p-6 rounded-none">
+      <h2 class="text-2xl mb-4 text-center font-bold">Todo lo que escucho</h2>
       <iframe
+        title="playlist1"
         style="border-radius:0"
         src="https://open.spotify.com/embed/playlist/5ccbwKAM3fMNbG82oq89dX?utm_source=generator&theme=0"
         width="100%"
@@ -52,13 +53,12 @@
     </div>
 
     <!-- Playlist 2 -->
-    <div
-      class="max-w-md w-full bg-secondary-orange p-6 rounded-none border-4 border-black shadow-[8px_8px_0_0_black]"
-    >
+    <div class="max-w-md w-full p-6 rounded-none">
       <h2 class="text-2xl mb-4 text-center font-bold">
         Escucha "la renaissance"
       </h2>
       <iframe
+        title="playlist1"
         style="border-radius:0"
         src="https://open.spotify.com/embed/album/7bqMbjBDH5YXqErJmON5nd?utm_source=generator"
         width="100%"
@@ -69,11 +69,10 @@
     </div>
 
     <!-- Playlist 3 -->
-    <div
-      class="max-w-md w-full bg-secondary-red p-6 rounded-none border-4 border-black shadow-[8px_8px_0_0_black]"
-    >
+    <div class="max-w-md w-full p-6 rounded-none">
       <h2 class="text-2xl mb-4 text-center font-bold">Más alternativo</h2>
       <iframe
+        title="playlist1"
         style="border-radius:0"
         src="https://open.spotify.com/embed/playlist/6nFATDq2kBuOpKh6mKABVz?utm_source=generator&theme=0"
         width="100%"
@@ -89,6 +88,11 @@
     href="#tech"
     class="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
   >
-    <img src="/arrow-bottom.svg" alt="Flecha abajo" class="w-10 h-10" />
+    <img
+      src="/arrow-bottom.svg"
+      alt="Flecha abajo"
+      class="w-10 h-10"
+      loading="lazy"
+    />
   </a>
 </section>

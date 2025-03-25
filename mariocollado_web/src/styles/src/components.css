@@ -1,0 +1,28 @@
+.card {
+  @apply bg-cover bg-center h-full;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  border-radius: 2vh;
+}
+  
+.card:hover {
+  transform: scale(0.9);
+}
+
+.card-content {
+  @apply flex flex-col justify-center items-center h-full rounded-2xl bg-black/30 text-white;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.card:hover .card-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay {
+  transition: opacity 0.5s ease-out;
+}

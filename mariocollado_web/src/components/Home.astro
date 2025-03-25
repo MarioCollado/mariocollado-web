@@ -1,142 +1,56 @@
 ---
-import Film from "../components/Film.astro";
-import Music from "../components/Music.astro";
-import Contact from "../components/Contacto.astro";
-import Tech from "../components/Tech.astro";
+import cards from "../json/cards.json";
+import Card from "./other/CardHome.astro";
 ---
 
-<section id="home" class="bg-primary-light text-secondary-gray p-12 h-screen">
-  <div class="grid grid-cols-4 grid-rows-6 gap-5 container mx-auto h-full">
-    <!-- VISUALS -->
-    <a
-      href="#film"
-      class="cursor-pointer card row-span-6 rounded-none border-4 border-black shadow-[8px_8px_0_0_black] bg-cover bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url('/sections/film.jpg')] overflow-hidden relative"
-    >
-      <!-- Superposición oscura -->
-      <div
-        class="overlay absolute inset-0 bg-black opacity-0 transition-opacity duration-500 hover:opacity-60"
-      >
-      </div>
-      <!-- Titulo -->
-      <div
-        class="flex flex-col justify-center items-center h-full opacity-0 transition-opacity duration-500 hover:opacity-100 relative z-10"
-      >
-        <h1 class="font-home text-4xl font-bold">VISUALS</h1>
-      </div>
-    </a>
+<section
+  id="home"
+  class="bg-primary-light text-primary-light p-12 h-screen snap-start"
+>
+  <div
+    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-6 gap-5 container mx-auto h-full"
+  >
+    <!-- Todas las cards (incluyendo contacto) -->
+    {cards.map((card) => <Card card={card} />)}
 
-    <!-- MUSIC -->
-    <a
-      href="#music"
-      class="cursor-pointer card row-span-6 rounded-none border-4 border-black shadow-[8px_8px_0_0_black] bg-cover bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url('/sections/music.jpg')] overflow-hidden relative"
-    >
-      <!-- Superposición oscura -->
-      <div
-        class="overlay absolute inset-0 bg-black opacity-0 transition-opacity duration-500 hover:opacity-60"
-      >
-      </div>
-      <!-- Titulo -->
-      <div
-        class="flex flex-col justify-center items-center h-full opacity-0 transition-opacity duration-500 hover:opacity-100 relative z-10"
-      >
-        <h1 class="font-home text-4xl font-bold">MUSIC</h1>
-      </div>
-    </a>
-
-    <!-- TECH -->
-    <a
-      href="#tech"
-      class="cursor-pointer card row-span-6 rounded-none border-4 border-black shadow-[8px_8px_0_0_black] bg-cover bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url('/sections/tech.jpg')] overflow-hidden relative"
-    >
-      <!-- Superposición oscura -->
-      <div
-        class="overlay absolute inset-0 bg-black opacity-0 transition-opacity duration-500 hover:opacity-60"
-      >
-      </div>
-      <!-- Titulo -->
-      <div
-        class="flex flex-col justify-center items-center h-full opacity-0 transition-opacity duration-500 hover:opacity-100 relative z-10"
-      >
-        <h1 class="font-home text-4xl font-bold">TECH</h1>
-      </div>
-    </a>
-
-    <!-- PERFIL -->
+    <!-- Perfil -->
     <div
-      class="row-span-2 card flex flex-col justify-center items-center text-center p-8 rounded-none border-4 border-black shadow-[8px_8px_0_0_black] bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url('/sections/profile.jpg')] bg-cover"
+      class="card group relative rounded-none overflow-hidden flex flex-col justify-center items-center text-center p-8"
+      style="
+        grid-column: 4;
+        grid-row: 1 / span 2;
+        background: url('/sections/profile.jpg') center/cover;
+      "
     >
-      <h1 class="text-white text-3xl font-bold">mario collado</h1>
-      <div class="flex gap-4 mt-4">
-        <!-- Enlace a GitHub -->
-        <a
-          href="https://github.com/MarioCollado"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="/icon-profile/icons8-github.svg"
-            alt="GitHub"
-            class="w-6 h-6"
-          />
-        </a>
-
-        <!-- Enlace a Instagram -->
-        <a
-          href="https://instagram.com/_mcollado"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="/icon-profile/icons8-instagram.svg"
-            alt="Instagram"
-            class="w-6 h-6"
-          />
-        </a>
-
-        <!-- Enlace a Spotify -->
-        <a
-          href="https://open.spotify.com/intl-es/artist/00AHCB6E3AOUE1fZ8j1tde?si=JYtV4DDTTzKgFZLtA_7Tcg"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="/icon-profile/icons8-spotify.svg"
-            alt="Spotify"
-            class="w-6 h-6"
-          />
-        </a>
-
-        <!-- Enlace a LinkedIn -->
-        <a
-          href="https://linkedin.com/in/mario-collado"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="/icon-profile/icons8-linkedin.svg"
-            alt="LinkedIn"
-            class="w-6 h-6"
-          />
-        </a>
+      <a href="#contact" class="absolute inset-0"></a>
+      <div
+        class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300"
+      >
+      </div>
+      <div class="relative z-10">
+        <h1 class="text-white text-3xl font-bold">mario collado</h1>
+        <div class="flex gap-4 mt-4 justify-center">
+          {
+            ["github", "instagram", "spotify", "linkedin"].map((icon) => (
+              <a
+                href={`https://${icon}.com/${icon === "linkedin" ? "in/" : ""}mario-collado`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:scale-110 transition-transform"
+              >
+                <img
+                  src={`/icon-profile/icons8-${icon}.svg`}
+                  alt={icon}
+                  class="w-6 h-6"
+                  loading="lazy"
+                  width="24"
+                  height="24"
+                />
+              </a>
+            ))
+          }
+        </div>
       </div>
     </div>
-
-    <!-- CONTACT -->
-    <a
-      href="#contact"
-      class="cursor-pointer card row-span-4 col-start-4 row-start-3 rounded-none border-4 border-black shadow-[8px_8px_0_0_black] bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url('/sections/mail.jpg')] bg-cover overflow-hidden relative"
-    >
-      <!-- Superposición oscura -->
-      <div
-        class="overlay absolute inset-0 bg-black opacity-0 transition-opacity duration-500 hover:opacity-60"
-      >
-      </div>
-      <!-- Contenido -->
-      <div
-        class="flex flex-col justify-center items-center h-full opacity-0 transition-opacity duration-500 hover:opacity-100 relative z-10"
-      >
-        <h1 class="font-home text-4xl font-bold">CONTACT</h1>
-      </div>
-    </a>
   </div>
 </section>

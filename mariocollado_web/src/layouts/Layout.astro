@@ -9,11 +9,11 @@ import "@fontsource/abril-fatface";
 
 import "/src/styles/global.css";
 
-const { title = "mariocollado" } = Astro.props;
+const title = "mariocollado";
 ---
 
 <!doctype html>
-<html lang="es" class="overflow-y-scroll scrollbar-none overscroll-none">
+<html lang="es" class="">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -21,7 +21,6 @@ const { title = "mariocollado" } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="bg-primary-light">
-    <body> </body>
     <slot />
   </body>
 </html>
