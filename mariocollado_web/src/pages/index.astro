@@ -10,10 +10,14 @@ import Footer from "@/components/Footer.astro";
 ---
 
 <Layout>
-  <Home />
-  <Film />
-  <Music />
-  <Tech />
-  <Contacto />
-  <Footer />
+  <main
+    class="h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory m-0 p-0"
+  >
+    <Home class="snap-start" />
+    <Film class="snap-start" />
+    <Music class="snap-start" />
+    <Tech class="snap-start" />
+    <Contacto class="snap-start" />
+    <Footer class="snap-start" />
+  </main>
 </Layout>

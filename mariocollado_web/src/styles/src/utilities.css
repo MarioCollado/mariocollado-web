@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-light: #FDFBD4;
+  --color-secondary-red: #800000;
+  --color-secondary-gray: #403F4C;
+  --color-secondary-cyan: #07BEB8;
+  --color-secondary-orange: #FF7F11;
+  --color-secondary-orange-strong: #FF3F00;
+  --color-secondary-pink: #FF6B6B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+  overflow: hidden;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.no-scroll-zoom {
+  overflow: hidden;
+}

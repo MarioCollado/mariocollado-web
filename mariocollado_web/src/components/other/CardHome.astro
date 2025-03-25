@@ -1,0 +1,32 @@
+---
+const { card } = Astro.props;
+---
+
+<div
+  class="card group relative rounded-none overflow-hidden z-20"
+  style={`
+    ${card.colStart ? `grid-column: ${card.colStart};` : ""}
+    ${card.rowStart ? `grid-row: ${card.rowStart}/span ${card.rowSpan};` : `grid-row: span ${card.rowSpan};`}
+  `}
+>
+  <a
+    href={`#${card.id}`}
+    class="absolute inset-0 block z-10"
+    onclick={`document.getElementById('${card.id}')?.scrollIntoView({ behavior: 'smooth' })`}
+  >
+    <div
+      class="h-full w-full"
+      style={`background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('${card.image}') center/cover`}
+    >
+      <div
+        class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+      >
+      </div>
+      <div
+        class="flex flex-col justify-center items-center h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-20"
+      >
+        <h1 class="font-home text-4xl font-bold">{card.title}</h1>
+      </div>
+    </div>
+  </a>
+</div>
