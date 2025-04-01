@@ -13,10 +13,10 @@ const title = "mariocollado";
 ---
 
 <!doctype html>
-<html lang="es" class="">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/icon_web.svg" />
     <title>{title}</title>
 
@@ -26,82 +26,28 @@ const title = "mariocollado";
       href="/node_modules/@fontsource/abril-fatface/files/abril-fatface-latin-400-normal.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossorigin="anonymous"
     />
 
-    <!-- Estilos para font-display: swap -->
-    <style>
-      /* Aplicar font-display: swap a todas las fuentes */
-      @font-face {
-        font-family: "Montserrat";
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "Press Start 2P";
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "Alfa Slab One";
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "Poiret One";
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "Monoton";
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "Abril Fatface";
-        font-display: swap;
-      }
-    </style>
-
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
-      crossorigin="anonymous"></script>
-    <!-- Script para carga progresiva de fuentes decorativas -->
     <script>
-      // Función para cargar fuentes decorativas de manera progresiva
-      document.addEventListener("DOMContentLoaded", function () {
-        // Esperar a que la página se haya renderizado
+      document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
-          // Crear elementos de enlace para cada fuente decorativa
-          const decorativeFonts = [
-            {
-              href: "/node_modules/@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2",
-              family: "Press Start 2P",
-            },
-            {
-              href: "/node_modules/@fontsource/alfa-slab-one/files/alfa-slab-one-latin-400-normal.woff2",
-              family: "Alfa Slab One",
-            },
-            {
-              href: "/node_modules/@fontsource/poiret-one/files/poiret-one-latin-400-normal.woff2",
-              family: "Poiret One",
-            },
-            {
-              href: "/node_modules/@fontsource/monoton/files/monoton-latin-400-normal.woff2",
-              family: "Monoton",
-            },
-            {
-              href: "/node_modules/@fontsource/abril-fatface/files/abril-fatface-latin-400-normal.woff2",
-              family: "Abril Fatface",
-            },
-          ];
-
-          decorativeFonts.forEach((font) => {
+          [
+            "press-start-2p",
+            "alfa-slab-one",
+            "poiret-one",
+            "monoton",
+            "abril-fatface",
+          ].forEach((font) => {
             const link = document.createElement("link");
             link.rel = "preload";
-            link.href = font.href;
+            link.href = `/node_modules/@fontsource/${font}/files/${font}-latin-400-normal.woff2`;
             link.as = "font";
             link.type = "font/woff2";
             link.crossOrigin = "anonymous";
             document.head.appendChild(link);
           });
-        }, 200); // Retraso de 200ms para priorizar la carga inicial
+        }, 200);
       });
     </script>
   </head>

@@ -7,7 +7,7 @@ const { title, src, highlight = false, class: className } = Astro.props;
   class={`${className} h-full transition-all duration-300 ${highlight ? "transform scale-[1.02] z-10" : "hover:scale-[1.01]"}`}
 >
   <div
-    class={`h-full flex flex-col bg-white/50 backdrop-blur-sm border-3 ${highlight ? "border-accent shadow-lg" : "border-black shadow-md"} p-4`}
+    class={`h-full flex flex-col rounded-lg bg-white/50  border-3 ${highlight ? "border-accent shadow-lg" : "border-black shadow-md"} p-4`}
   >
     <h2
       class={`text-xl font-bold text-center mb-3 ${highlight ? "text-accent" : "text-gray-800"}`}
