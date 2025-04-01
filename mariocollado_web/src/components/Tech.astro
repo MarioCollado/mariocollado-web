@@ -1,91 +1,142 @@
 ---
 // src/components/Tech.astro
+import { Octokit } from "@octokit/rest";
+
+const octokit = new Octokit();
+let repos = [];
+
+try {
+  const response = await octokit.repos.listForUser({
+    username: "MarioCollado",
+    sort: "updated",
+    direction: "desc",
+    per_page: 6, // Reducido para pantalla vertical
+  });
+  repos = response.data;
+} catch (error) {
+  console.error("Error fetching GitHub repos:", error);
+  repos = [];
+}
 ---
 
 <section
   id="tech"
-  class="h-screen flex flex-col justify-center items-center bg-primary-light text-gray-800 relative space-y-8 snap-start"
+  class="h-screen flex flex-col justify-between py-8 bg-primary-light text-gray-800 relative overflow-hidden snap-start"
 >
-  <!-- Flecha para volver a la sección anterior -->
-  <a
-    href="#music"
-    class="scrollButton absolute top-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
-  >
-    <div class="relative flex justify-center items-center">
-      <!-- Efecto de sombra -->
-      <div
-        class="holdEffect absolute w-20 h-20 bg-secondary-orange rounded-full opacity-0 scale-0 hidden transition-all duration-1000 ease-out"
+  <!-- Contenido principal compacto -->
+  <div class="w-full px-4 md:px-8 max-w-6xl mx-auto flex-1 flex flex-col">
+    <!-- Encabezado compacto -->
+    <div class="text-center mb-4 md:mb-6">
+      <h1
+        class="text-5xl md:text-6xl font-bold font-druk text-transparent bg-clip-text bg-gradient-to-r from-secondary-pink to-secondary-cyan"
       >
-      </div>
-
-      <!-- Flecha -->
-      <img
-        src="/arrow-bottom.svg"
-        alt="Flecha arriba"
-        class="arrowIcon w-10 h-10 rotate-180 transition-opacity duration-500 ease-in-out"
-        loading="lazy"
-      />
-
-      <!-- Icono de verificación -->
-      <img
-        src="/icon-profile/icons8-home.png"
-        alt="Verificado"
-        class="verifiedIcon w-8 h-8 absolute opacity-0 scale-0 hidden transition-all duration-500 ease-out"
-      />
+        TECH
+      </h1>
+      <p class="text-lg md:text-xl mt-2 max-w-2xl mx-auto">
+        Mis proyectos técnicos y contribuciones en GitHub
+      </p>
     </div>
-  </a>
 
-  <!-- Contenedor principal -->
-  <div
-    class="text-center max-w-2xl w-full p-8 bg-[#4ECDC4] rounded-none space-y-8"
-  >
-    <h1 class="text-6xl font-bold mb-4 font-druk">TECH</h1>
-    <p class="text-lg">
-      Aquí puedes explorar algunos de mis proyectos y contribuciones en GitHub.
-    </p>
-
-    <!-- GitHub Stats -->
+    <!-- Grid de proyectos ajustado -->
     <div
-      class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-x-8 md:space-y-0"
+      class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 overflow-y-auto pb-4"
     >
-      <img
-        src="https://github-readme-stats.vercel.app/api?username=MarioCollado&show_icons=true&theme=radical&w=600&h=300"
-        alt="GitHub Stats"
-        class="rounded-none w-full md:w-auto"
-        width={600}
-        height={300}
-      />
+      {
+        repos.map((repo) => (
+          <div class="group relative h-full min-h-[180px]">
+            <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="h-full flex flex-col bg-white p-4 md:p-5 rounded-lg border-2 border-black hover:border-[#FF6B6B] transition-all duration-200 shadow-[3px_3px_0_black] hover:shadow-[5px_5px_0_#FF6B6B]"
+            >
+              <h3 class="font-bold text-lg md:text-xl mb-1 group-hover:text-[#FF6B6B] transition-colors truncate">
+                {repo.name}
+              </h3>
+              <p class="text-gray-600 text-sm mb-3 line-clamp-2 flex-grow">
+                {repo.description || "Proyecto sin descripción"}
+              </p>
 
-      <img
-        src="https://github-readme-stats.vercel.app/api/top-langs/?username=MarioCollado&layout=compact&theme=radical&w=600&h=300"
-        alt="Top Languages"
-        class="rounded-none w-full md:w-auto"
-        width={600}
-        height={300}
-      />
+              <div class="flex flex-wrap gap-1 mb-2">
+                {repo.language && (
+                  <span class="bg-gray-900 text-white px-2 py-1 text-xs rounded-full">
+                    {repo.language}
+                  </span>
+                )}
+              </div>
+
+              <div class="flex justify-between items-center pt-2 border-t border-gray-200 text-xs">
+                <span class="flex items-center">
+                  ⭐ {repo.stargazers_count}
+                </span>
+                <span class="flex items-center">🍴 {repo.forks_count}</span>
+                <span class="flex items-center">
+                  📅{" "}
+                  {new Date(repo.updated_at).toLocaleDateString("es-ES", {
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
+            </a>
+          </div>
+        ))
+      }
     </div>
 
-    <!-- Botón de seguir en GitHub -->
+    <!-- Stats compactas -->
+    <div class="bg-black p-4 rounded-lg mt-4">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-center md:text-left mb-2 md:mb-0">
+          <h3 class="text-lg font-bold text-white">Estadísticas GitHub</h3>
+        </div>
+        <div class="flex gap-2">
+          <img
+            src={`https://github-readme-stats.vercel.app/api?username=MarioCollado&show_icons=true&theme=dark&hide_border=true&count_private=true&line_height=24`}
+            alt="GitHub Stats"
+            class="rounded-lg h-[100px]"
+          />
+          <img
+            src={`https://github-readme-stats.vercel.app/api/top-langs/?username=MarioCollado&layout=compact&theme=dark&hide_border=true&langs_count=3`}
+            alt="Top Languages"
+            class="rounded-lg h-[100px]"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón compacto -->
+  <div class="text-center pt-2">
     <a
       href="https://github.com/MarioCollado"
       target="_blank"
-      class="bg-[#FF6B6B] text-white px-8 py-4 rounded-none border-4 border-black hover:shadow-[0px_0px_7px_2px_black] transition-all duration-200 font-bold"
+      class="inline-block bg-black text-white px-6 py-3 text-sm rounded-full border-2 border-black hover:bg-transparent hover:text-black transition-all duration-200 font-bold shadow-md hover:shadow-lg"
     >
-      Seguir en GitHub
+      Ver Perfil GitHub
     </a>
   </div>
-
-  <!-- Flecha para ir a la siguiente sección -->
-  <a
-    href="#contact"
-    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
-  >
-    <img
-      src="/arrow-bottom.svg"
-      alt="Flecha abajo"
-      class="w-10 h-10"
-      loading="lazy"
-    />
-  </a>
 </section>
-```
+
+<style>
+  /* Scroll personalizado para el grid de proyectos */
+  .overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .overflow-y-auto::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #ff6b6b;
+    border-radius: 3px;
+  }
+  .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: #e05555;
+  }
+
+  /* Asegurar que todo el contenido sea visible */
+  #tech {
+    box-sizing: border-box;
+  }
+</style>

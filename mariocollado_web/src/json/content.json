@@ -23,5 +23,11 @@
         "tipo": "foto",
         "ruta": "/photos/flor-y.webp",
         "descripcion": "Una foto de una flor"
+    },
+    {
+        "tipo": "foto",
+        "ruta": "/photos/nalon.webp",
+        "descripcion": "Una foto cerca del río Nalón"
+
     }
 ]
