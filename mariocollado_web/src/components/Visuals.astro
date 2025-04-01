@@ -1,0 +1,39 @@
+---
+// src/components/Film.astro
+import MasonryGallery from "./other/MasonryGallery.astro";
+---
+
+<section id="film" class="h-screen bg-primary-light snap-start relative">
+  <!-- Título como marca de agua -->
+  <div
+    class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 w-full px-4"
+  >
+    <h1
+      class="w-full max-w-full text-[min(20vw,180px)] font-bold font-druk text-transparent bg-clip-text bg-gradient-to-r from-secondary-pink/10 to-secondary-cyan/10 text-center truncate"
+    >
+      VISUALS
+    </h1>
+  </div>
+  <!-- Contenedor principal con scroll interno -->
+  <div class="h-full w-full">
+    <!-- Contenido centrado -->
+    <div class="relative z-10 container mx-auto px-32 min-h-full flex flex-col">
+      <!-- Cabecera (no fija) -->
+      <div class="flex flex-col items-center text-center py-12">
+        <h2
+          class="text-3xl md:text-4xl font-bold font-druk text-transparent bg-clip-text bg-gradient-to-r from-secondary-pink to-secondary-cyan"
+        >
+          VISUALS
+        </h2>
+        <p class="text-base md:text-lg text-gray-600 max-w-md mt-2">
+          Mi colección fotográfica y videográfica
+        </p>
+      </div>
+
+      <!-- Galería Masonry -->
+      <div class="flex-1 pb-12">
+        <MasonryGallery />
+      </div>
+    </div>
+  </div>
+</section>

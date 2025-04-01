@@ -1,40 +1,29 @@
 ---
+// src/components/other/MasonryGallery.astro
 import content from "../../json/content.json";
 ---
 
-<div class="grid">
+<div class="columns-2 md:columns-3 lg:columns-4 gap-4 px-4">
   {
     content.map((item) => (
-      <div class="grid-item">
+      <div class="mb-4 break-inside-avoid">
         {item.tipo === "foto" ? (
-          <img src={item.ruta} alt={item.descripcion} />
+          <img
+            src={item.ruta}
+            alt={item.descripcion}
+            class="w-full rounded-lg shadow-sm hover:shadow-md transition-shadow"
+            loading="lazy"
+          />
         ) : (
-          <video src={item.ruta} autoplay />
+          <video
+            src={item.ruta}
+            autoplay
+            muted
+            loop
+            class="w-full rounded-lg shadow-sm hover:shadow-md transition-shadow"
+          />
         )}
       </div>
     ))
   }
 </div>
-
-<style>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 10px;
-    justify-content: center;
-    align-items: start;
-  }
-
-  .grid-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .grid-item img,
-  .grid-item video {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-</style>

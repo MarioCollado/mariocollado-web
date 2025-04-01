@@ -1,98 +1,63 @@
 ---
 // src/components/Music.astro
+import PlaylistCard from "./other/PlaylistCard.astro";
 ---
 
 <section
   id="music"
-  class="h-screen flex flex-col justify-center items-center bg-primary-light text-gray-800 relative space-y-8 snap-start"
+  class="min-h-screen flex flex-col justify-center items-center bg-primary-light text-gray-800 relative snap-start py-8 md:py-12 overflow-hidden"
 >
-  <!-- Flecha para volver a la sección anterior -->
-  <a
-    href="#film"
-    class="scrollButton absolute top-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
+  <!-- Título como marca de agua -->
+  <div
+    class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 w-full px-4"
   >
-    <div class="relative flex justify-center items-center">
-      <!-- Efecto de sombra -->
-      <div
-        class="holdEffect absolute w-20 h-20 rounded-full opacity-0 scale-0 hidden transition-all duration-1000 ease-out"
-      >
-      </div>
-
-      <!-- Flecha -->
-      <img
-        src="/arrow-bottom.svg"
-        alt="Flecha arriba"
-        class="arrowIcon w-10 h-10 rotate-180 transition-opacity duration-500 ease-in-out"
-        loading="lazy"
-      />
-
-      <!-- Icono de verificación -->
-      <img
-        src="/icon-profile/icons8-home.png"
-        alt="Verificado"
-        class="verifiedIcon w-8 h-8 absolute opacity-0 scale-0 hidden transition-all duration-500 ease-out"
-        loading="lazy"
-      />
-    </div>
-  </a>
-
-  <!-- Contenedor de las 3 playlists en fila (horizontal) -->
-  <div class="flex flex-row space-x-8 justify-center">
-    <!-- Playlist 1 -->
-    <div class="max-w-md w-full p-6 rounded-none">
-      <h2 class="text-2xl mb-4 text-center font-bold">Todo lo que escucho</h2>
-      <iframe
-        title="playlist1"
-        style="border-radius:0"
-        src="https://open.spotify.com/embed/playlist/5ccbwKAM3fMNbG82oq89dX?utm_source=generator&theme=0"
-        width="100%"
-        height="500"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"></iframe>
-    </div>
-
-    <!-- Playlist 2 -->
-    <div class="max-w-md w-full p-6 rounded-none">
-      <h2 class="text-2xl mb-4 text-center font-bold">
-        Escucha "la renaissance"
-      </h2>
-      <iframe
-        title="playlist1"
-        style="border-radius:0"
-        src="https://open.spotify.com/embed/album/7bqMbjBDH5YXqErJmON5nd?utm_source=generator"
-        width="100%"
-        height="500"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"></iframe>
-    </div>
-
-    <!-- Playlist 3 -->
-    <div class="max-w-md w-full p-6 rounded-none">
-      <h2 class="text-2xl mb-4 text-center font-bold">Más alternativo</h2>
-      <iframe
-        title="playlist1"
-        style="border-radius:0"
-        src="https://open.spotify.com/embed/playlist/6nFATDq2kBuOpKh6mKABVz?utm_source=generator&theme=0"
-        width="100%"
-        height="500"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"></iframe>
-    </div>
+    <h1
+      class="w-full max-w-full text-[min(20vw,180px)] font-bold font-druk text-transparent bg-clip-text bg-gradient-to-r from-secondary-pink/10 to-secondary-cyan/10 text-center truncate"
+    >
+      MUSIC/SOUND
+    </h1>
   </div>
 
-  <!-- Flecha para ir a la siguiente sección -->
-  <a
-    href="#tech"
-    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300"
-  >
-    <img
-      src="/arrow-bottom.svg"
-      alt="Flecha abajo"
-      class="w-10 h-10"
-      loading="lazy"
-    />
-  </a>
+  <!-- Contenido principal centrado vertical y horizontalmente -->
+  <div class="flex-1 flex flex-col items-center justify-center py-8">
+    <!-- Cabecera centrada -->
+    <div class="text-center mb-8 px-4">
+      <h2
+        class="text-3xl md:text-4xl font-bold font-druk text-transparent bg-clip-text bg-gradient-to-r from-secondary-pink to-secondary-cyan"
+      >
+        MÚSICA
+      </h2>
+      <p class="text-base md:text-lg text-gray-600 max-w-md mt-3 mx-auto">
+        Descubre mis playlists y publicaciones musicales
+      </p>
+    </div>
+
+    <!-- Contenedor de playlists perfectamente centrado -->
+    <div class="w-full max-w-6xl px-4">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 justify-items-center"
+      >
+        <PlaylistCard
+          title="Todo lo que escucho"
+          src="https://open.spotify.com/embed/playlist/5ccbwKAM3fMNbG82oq89dX?utm_source=generator&theme=0"
+          class="w-full max-w-md"
+          highlight={false}
+        />
+
+        <PlaylistCard
+          title="Mi álbum 'la renaissance'"
+          src="https://open.spotify.com/embed/album/7bqMbjBDH5YXqErJmON5nd?utm_source=generator"
+          class="w-full max-w-md"
+          highlight={true}
+        />
+
+        <PlaylistCard
+          title="Exploración alternativa"
+          src="https://open.spotify.com/embed/playlist/6nFATDq2kBuOpKh6mKABVz?utm_source=generator&theme=0"
+          class="w-full max-w-md"
+          highlight={false}
+        />
+      </div>
+    </div>
+  </div>
 </section>
