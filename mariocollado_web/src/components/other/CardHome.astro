@@ -12,21 +12,17 @@ const { card } = Astro.props;
   <a
     href={`#${card.id}`}
     class="absolute inset-0 block z-10"
-    onclick={`document.getElementById('${card.id}')?.scrollIntoView({ behavior: 'smooth' })`}
+    onclick="handleClick(event)"
   >
-    <div
-      class="h-full w-full"
-      style={`background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('${card.image}') center/cover`}
-    >
-      <div
-        class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300"
-      >
-      </div>
-      <div
-        class="flex flex-col justify-center items-center h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-20"
-      >
-        <h1 class="font-home text-4xl font-bold">{card.title}</h1>
-      </div>
+    <div class="h-full w-full">
+      <img
+        src={card.image}
+        alt={card.title}
+        class="w-full h-full object-cover lazyload"
+        loading="lazy"
+      />
+
+      <h1 class="font-home text-4xl font-bold">{card.title}</h1>
     </div>
   </a>
 </div>

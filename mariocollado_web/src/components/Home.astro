@@ -1,6 +1,7 @@
 ---
-import cards from "../json/cards.json";
 import Card from "./other/CardHome.astro";
+import Profile from "./other/Profile.astro";
+import cards from "../json/cards.json";
 ---
 
 <section
@@ -10,47 +11,7 @@ import Card from "./other/CardHome.astro";
   <div
     class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-6 gap-5 container mx-auto h-full"
   >
-    <!-- Todas las cards (incluyendo contacto) -->
     {cards.map((card) => <Card card={card} />)}
-
-    <!-- Perfil -->
-    <div
-      class="card group relative rounded-none overflow-hidden flex flex-col justify-center items-center text-center p-8"
-      style="
-        grid-column: 4;
-        grid-row: 1 / span 2;
-        background: url('/sections/profile.jpg') center/cover;
-      "
-    >
-      <a href="#contact" class="absolute inset-0"></a>
-      <div
-        class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300"
-      >
-      </div>
-      <div class="relative z-10">
-        <h1 class="text-white text-3xl font-bold">mario collado</h1>
-        <div class="flex gap-4 mt-4 justify-center">
-          {
-            ["github", "instagram", "spotify", "linkedin"].map((icon) => (
-              <a
-                href={`https://${icon}.com/${icon === "linkedin" ? "in/" : ""}mario-collado`}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:scale-110 transition-transform"
-              >
-                <img
-                  src={`/icon-profile/icons8-${icon}.svg`}
-                  alt={icon}
-                  class="w-6 h-6"
-                  loading="lazy"
-                  width="24"
-                  height="24"
-                />
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </div>
+    <Profile />
   </div>
 </section>

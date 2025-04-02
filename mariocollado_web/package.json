@@ -29,6 +29,7 @@
     "packery": "^3.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.55.0",
     "svelte": "^5.25.3",
     "svelte-carousel": "^1.0.25",
     "sweetalert2": "^11.17.2"

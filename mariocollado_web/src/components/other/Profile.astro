@@ -1,0 +1,38 @@
+---
+import socialLinks from "@/json/social.json";
+---
+
+<div
+  class="card group relative rounded-none overflow-hidden flex flex-col justify-center items-center text-center p-8"
+  style="grid-column: 4; grid-row: 1 / span 2; background: url('/sections/profile.jpg') center/cover;"
+>
+  <a href="#contact" class="absolute inset-0"></a>
+  <div
+    class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300"
+  >
+  </div>
+  <div class="relative z-10">
+    <h1 class="text-white text-3xl font-bold">mario collado</h1>
+    <div class="flex gap-4 mt-4 justify-center">
+      {
+        socialLinks.map((link) => (
+          <a
+            href={`https://${link.url}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:scale-110 transition-transform"
+          >
+            <img
+              src={`/icon-profile/icons8-${link.name}.svg`}
+              alt={link.name}
+              class="w-6 h-6"
+              loading="lazy"
+              width="24"
+              height="24"
+            />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>

@@ -12,6 +12,9 @@ export default defineConfig({
       include: ["packery"], // Incluir Packery en la optimización de dependencias de Vite
     },
   },
-
   integrations: [react(), alpine()],
+  server: {
+    port: 4321,
+    host: "127.0.0.1",
+  },
 });
