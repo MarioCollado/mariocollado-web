@@ -1,0 +1,38 @@
+---
+let showNav = false;
+
+const handleScroll = () => {
+  if (window.scrollY > 100) {
+    showNav = true;
+  } else {
+    showNav = false;
+  }
+};
+
+if (typeof window !== "undefined") {
+  window.addEventListener("scroll", handleScroll);
+}
+---
+
+{
+  showNav && (
+    <nav class="fixed top-0 left-0 right-0 bg-blue-500 p-4 text-white z-50">
+      <ul class="flex space-x-2 text-sm text-gray-700 font-medium">
+        <li>
+          <button
+            onclick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            class="text-blue-600 hover:text-blue-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Inicio
+          </button>
+        </li>
+        <li>
+          <span class="text-gray-400"> &gt; </span>
+        </li>
+        <li>
+          <span class="text-gray-500">Página Actual</span>
+        </li>
+      </ul>
+    </nav>
+  )
+}

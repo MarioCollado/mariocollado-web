@@ -1,4 +1,6 @@
 ---
+import Breadcrumbs from "@/components/other/Breadcrumbs.astro";
+console.log("Breadcrumbs componente cargado correctamente");
 import Layout from "@/layouts/Layout.astro";
 import Music from "@/components/Music.astro";
 import Visuals from "@/components/Visuals.astro";
@@ -10,8 +12,10 @@ import Footer from "@/components/Footer.astro";
 
 <Layout>
   <main
-    class="h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory m-0 p-0"
+    class="h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory m-0 p-0 no-scrollbar"
   >
+    <!-- Migas de pan (Componente React) -->
+    <Breadcrumbs />
     <!-- Marca de agua fija -->
     <div
       class="fixed inset-0 flex items-center justify-center pointer-events-none z-1 w-full px-4"
@@ -22,6 +26,7 @@ import Footer from "@/components/Footer.astro";
         mariocollado.
       </h1>
     </div>
+
     <Home class="snap-start" />
     <Music class="snap-start" />
     <Visuals class="snap-start" />

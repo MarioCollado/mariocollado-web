@@ -2,3 +2,14 @@
 @import "./src/typography.css";
 @import "./src/components.css";
 @import "./src/utilities.css";
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+  

@@ -1,28 +1,38 @@
 [
     {
+        "tipo": "video",
+        "ruta": "/videos/w-snach.webm",
+        "descripcion": "Montaje W-SNACH"
+    },
+    {
         "tipo": "foto",
         "ruta": "/photos/bisabuelos.webp",
         "descripcion": "Una foto de mis bisabuelos"
-    },
-    {
-        "tipo": "video",
-        "ruta": "/videos/video_test1.webm",
-        "descripcion": "Un video interesante"
-    },
+    },      
     {
         "tipo": "foto",
-        "ruta": "/photos/dedal.webp",
-        "descripcion": "Otra foto de un dedal"
+        "ruta": "/photos/caldoveiro_1.webp",
+        "descripcion": "Pico Caldoveiro"
     },
     {
         "tipo": "video",
-        "ruta": "/videos/video_test2.webm",
-        "descripcion": "Otro video interesante"
+        "ruta": "/videos/caldoveiro_dark.webm",
+        "descripcion": "Montaje ruta Pico Caldoveiro"
     },
     {
         "tipo": "foto",
         "ruta": "/photos/flor-y.webp",
         "descripcion": "Una foto de una flor"
+    },
+    {
+        "tipo": "foto",
+        "ruta": "/photos/caldoveiro_4.webp",
+        "descripcion": "Pico Caldoveiro"
+    },
+    {
+        "tipo": "video",
+        "ruta": "/videos/cielo.webm",
+        "descripcion": "Montaje video del cielo"
     },
     {
         "tipo": "foto",
