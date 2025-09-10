@@ -9,8 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/alpinejs": "^0.4.3",
-    "@astrojs/tailwind": "^6.0.1",
+    "@astrojs/alpinejs": "^0.4.9",
+    "@astrojs/tailwind": "^6.0.2",
     "@fontsource-variable/montserrat": "^5.2.5",
     "@fontsource/abril-fatface": "^5.2.5",
     "@fontsource/alfa-slab-one": "^5.2.5",
@@ -18,9 +18,10 @@
     "@fontsource/poiret-one": "^5.2.5",
     "@fontsource/press-start-2p": "^5.2.5",
     "@octokit/rest": "^21.1.1",
+    "@supabase/supabase-js": "^2.57.4",
     "@types/react-dom": "^19.0.4",
     "alpinejs": "^3.14.9",
-    "astro": "^5.5.4",
+    "astro": "^5.13.6",
     "free-astro-components": "^1.2.0",
     "imagesloaded": "^5.0.0",
     "jquery": "^3.7.1",

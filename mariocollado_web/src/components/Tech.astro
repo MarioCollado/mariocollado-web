@@ -5,16 +5,17 @@ import { Octokit } from "@octokit/rest";
 const octokit = new Octokit({
   auth: import.meta.env.GITHUB_TOKEN,
 });
-let repos = [];
+type UserRepos = Awaited<ReturnType<typeof octokit.repos.listForUser>>["data"];
+let repos: UserRepos = [];
 
 try {
-  const response = await octokit.repos.listForUser({
+  const { data } = await octokit.repos.listForUser({
     username: "MarioCollado",
     sort: "updated",
     direction: "desc",
     per_page: 6, // Reducido para pantalla vertical
   });
-  repos = response.data;
+  repos = data;
 } catch (error) {
   console.error("Error fetching GitHub repos:", error);
   repos = [];
@@ -26,7 +27,7 @@ try {
   class="h-screen flex flex-col justify-between py-8 bg-primary-light text-gray-800 relative overflow-hidden snap-start"
 >
   <!-- Contenido principal compacto -->
-  <div class="w-full px-4 md:px-8 max-w-5xl mx-auto flex-1 flex flex-col">
+  <div class="w-full px-4 py-4 md:px-8 max-w-5xl mx-auto flex-1 flex flex-col">
     <!-- Encabezado compacto -->
     <div class="text-center mb-4 md:mb-6">
       <h1
@@ -72,37 +73,19 @@ try {
                 <span class="flex items-center">🍴 {repo.forks_count}</span>
                 <span class="flex items-center">
                   📅{" "}
-                  {new Date(repo.updated_at).toLocaleDateString("es-ES", {
-                    month: "short",
-                    year: "numeric",
-                  })}
+                  {new Date(String(repo.updated_at)).toLocaleDateString(
+                    "es-ES",
+                    {
+                      month: "short",
+                      year: "numeric",
+                    }
+                  )}
                 </span>
               </div>
             </a>
           </div>
         ))
       }
-    </div>
-
-    <!-- Stats compactas -->
-    <div class="bg-black p-4 rounded-lg mt-4">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="text-center md:text-left mb-2 md:mb-0">
-          <h3 class="text-lg font-bold text-white">Estadísticas GitHub</h3>
-        </div>
-        <div class="flex gap-2">
-          <img
-            src={`https://github-readme-stats.vercel.app/api?username=MarioCollado&show_icons=true&theme=dark&hide_border=true&count_private=true&line_height=24`}
-            alt="GitHub Stats"
-            class="rounded-lg h-[100px]"
-          />
-          <img
-            src={`https://github-readme-stats.vercel.app/api/top-langs/?username=MarioCollado&layout=compact&theme=dark&hide_border=true&langs_count=3`}
-            alt="Top Languages"
-            class="rounded-lg h-[100px]"
-          />
-        </div>
-      </div>
     </div>
   </div>
 
@@ -125,14 +108,14 @@ try {
     height: 6px;
   }
   .overflow-y-auto::-webkit-scrollbar-track {
-    background: color-primary-light;
+    background: var(--color-primary-light);
   }
   .overflow-y-auto::-webkit-scrollbar-thumb {
-    background: color-secondary-pink;
+    background: var(--color-secondary-pink);
     border-radius: 3px;
   }
   .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-    background: color-secondary-pink;
+    background: var(--color-secondary-pink);
   }
 
   /* Asegurar que todo el contenido sea visible */
