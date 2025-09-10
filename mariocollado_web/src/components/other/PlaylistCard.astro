@@ -1,5 +1,12 @@
 ---
 // src/components/other/PlaylistCard.astro
+export interface Props {
+  title: string;
+  src: string;
+  highlight?: boolean;
+  class?: string;
+}
+
 const { title, src, highlight = false, class: className } = Astro.props;
 ---
 

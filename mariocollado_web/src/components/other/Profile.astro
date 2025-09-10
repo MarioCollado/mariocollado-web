@@ -20,6 +20,8 @@ import socialLinks from "@/json/social.json";
             target="_blank"
             rel="noopener noreferrer"
             class="hover:scale-110 transition-transform"
+            aria-label={`Abrir perfil en ${link.name}`}
+            title={link.name}
           >
             <img
               src={`/icon-profile/icons8-${link.name}.svg`}

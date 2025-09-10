@@ -6,12 +6,12 @@ import cards from "../json/cards.json";
 
 <section
   id="home"
-  class="bg-primary-light text-primary-light p-12 h-screen snap-start"
+  class="bg-primary-light text-gray-800 p-12 h-screen snap-start"
 >
   <div
     class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-6 gap-5 container mx-auto h-full"
   >
-    {cards.map((card) => <Card card={card} />)}
+    {cards.map((card) => <Card card={card as any} />)}
     <Profile />
   </div>
 </section>

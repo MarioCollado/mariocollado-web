@@ -25,16 +25,6 @@
   transform: translateY(0);
 }
 
-/* Overlay effect on hover */
-.overlay {
-  transition: opacity 0.5s ease-out;
-}
-
-/* Agregamos un poco de espacio a las cards si es necesario */
-.card img {
-  border-radius: 2vh;
-}
-
 /* Ajuste para la transición de las imágenes y sobreponiendo las capas */
 .card a {
   position: relative;
@@ -62,16 +52,4 @@
   height: 100%;
   object-fit: cover;
   border-radius: 2vh;
-}
-
-/* Transiciones para el hover del contenido */
-.card-content {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-}
-
-.card:hover .card-content {
-  opacity: 1;
-  transform: translateY(0);
 }

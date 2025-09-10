@@ -1,6 +1,25 @@
 ---
 // src/components/other/MasonryGallery.astro
-import content from "../../json/content.json";
+import { supabase } from "@/lib/supabase";
+
+const { data: rows } = await supabase
+  .from("media_items")
+  .select("path, tipo, descripcion, orden, created_at, published")
+  .eq("published", true)
+  .order("orden", { ascending: true })
+  .order("created_at", { ascending: true });
+
+interface MediaItem {
+  tipo: string;
+  ruta: string;
+  descripcion: string;
+}
+
+const content: MediaItem[] = (rows ?? []).map((r: any) => ({
+  tipo: r.tipo,
+  ruta: supabase.storage.from("media").getPublicUrl(r.path).data.publicUrl,
+  descripcion: r.descripcion ?? r.path,
+}));
 ---
 
 <div class="columns-2 md:columns-3 lg:columns-4 gap-4 px-4">
@@ -28,6 +47,7 @@ import content from "../../json/content.json";
               autoplay
               muted
               loop
+              playsinline
               class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
