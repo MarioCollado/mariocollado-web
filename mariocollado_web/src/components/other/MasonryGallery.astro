@@ -15,11 +15,35 @@ interface MediaItem {
   descripcion: string;
 }
 
-const content: MediaItem[] = (rows ?? []).map((r: any) => ({
-  tipo: r.tipo,
-  ruta: supabase.storage.from("media").getPublicUrl(r.path).data.publicUrl,
-  descripcion: r.descripcion ?? r.path,
-}));
+// Intentar usar URLs firmadas (funciona con bucket privado). Si falla, usar URL pública.
+const content: MediaItem[] = await (async () => {
+  const list = rows ?? [];
+  const signed = await Promise.all(
+    list.map(async (r: any) => {
+      try {
+        const { data, error } = await supabase.storage
+          .from("media")
+          .createSignedUrl(r.path, 60 * 60); // 1 hora
+        const ruta = error
+          ? supabase.storage.from("media").getPublicUrl(r.path).data.publicUrl
+          : data!.signedUrl;
+        return {
+          tipo: r.tipo,
+          ruta,
+          descripcion: r.descripcion ?? r.path,
+        } as MediaItem;
+      } catch {
+        return {
+          tipo: r.tipo,
+          ruta: supabase.storage.from("media").getPublicUrl(r.path).data
+            .publicUrl,
+          descripcion: r.descripcion ?? r.path,
+        } as MediaItem;
+      }
+    })
+  );
+  return signed;
+})();
 ---
 
 <div class="columns-2 md:columns-3 lg:columns-4 gap-4 px-4">

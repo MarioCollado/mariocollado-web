@@ -1,10 +1,22 @@
 ---
 import socialLinks from "@/json/social.json";
+import { supabase } from "@/lib/supabase";
+
+// Obtener URL (firmada si el bucket es privado; pública si es público)
+const SECTIONS_PATH = "sections/faviconMCW.png";
+let bgUrl = supabase.storage.from("media").getPublicUrl(SECTIONS_PATH)
+  .data.publicUrl;
+try {
+  const { data, error } = await supabase.storage
+    .from("media")
+    .createSignedUrl(SECTIONS_PATH, 60 * 60);
+  if (!error && data?.signedUrl) bgUrl = data.signedUrl;
+} catch {}
 ---
 
 <div
   class="group relative rounded-lg overflow-hidden flex flex-col justify-center items-center text-center p-8"
-  style="grid-column: 4; grid-row: 1 / span 2; background: url('/sections/faviconMCW.png') center/cover;"
+  style={`grid-column: 4; grid-row: 1 / span 2; background: url('${bgUrl}') center/cover;`}
 >
   <a href="#contact" class="absolute inset-0"></a>
   <div
