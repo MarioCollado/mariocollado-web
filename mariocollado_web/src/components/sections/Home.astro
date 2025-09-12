@@ -1,7 +1,9 @@
 ---
-import Card from "./other/CardHome.astro";
-import Profile from "./other/Profile.astro";
-import cards from "../json/cards.json";
+import Card from "@/components/ui/CardHome.astro";
+import Profile from "@/components/ui/Profile.astro";
+import { getHomeCards } from "@/lib/assets";
+
+const cards = await getHomeCards();
 ---
 
 <section

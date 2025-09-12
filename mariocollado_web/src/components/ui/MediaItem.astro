@@ -1,0 +1,45 @@
+---
+export interface Props {
+  item: {
+    tipo: string;
+    ruta: string;
+    descripcion: string;
+  };
+}
+
+const { item } = Astro.props;
+---
+
+{
+  item.tipo === "foto" ? (
+    <div class="relative overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+      <img
+        src={item.ruta}
+        alt={item.descripcion}
+        class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-white text-sm font-medium translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+          {item.descripcion}
+        </p>
+      </div>
+    </div>
+  ) : (
+    <div class="relative overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+      <video
+        src={item.ruta}
+        autoplay
+        muted
+        loop
+        playsinline
+        class="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+        <p class="text-white text-sm font-medium translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+          {item.descripcion}
+        </p>
+      </div>
+    </div>
+  )
+}
