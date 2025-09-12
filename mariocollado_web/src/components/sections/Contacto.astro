@@ -1,0 +1,250 @@
+<section
+  id="contact"
+  class="min-h-screen flex flex-col justify-center items-center bg-primary-light text-gray-800 relative snap-start py-8 md:py-12 overflow-hidden"
+>
+  <!-- Contenedor principal más compacto -->
+  <div class="relative z-10 w-full max-w-md px-4">
+    <div
+      class="bg-white/50 p-6 md:p-8 rounded-lg border-4 border-black shadow-xl transform transition-all duration-300"
+    >
+      <!-- Encabezado más compacto -->
+      <div class="text-center space-y-3 mb-6">
+        <h1
+          class="text-3xl md:text-4xl font-bold font-druk text-transparent bg-clip-text bg-gradient-to-r from-secondary-pink to-secondary-cyan"
+        >
+          CONTÁCTAME
+        </h1>
+        <p class="text-base md:text-lg text-gray-600">
+          Escríbeme y responderé lo antes posible
+        </p>
+      </div>
+
+      <!-- Mensaje de estado -->
+      <div
+        id="statusMessage"
+        class="hidden mb-4 p-3 rounded border-2 border-black text-center font-bold"
+      >
+      </div>
+
+      <!-- Formulario compacto -->
+      <form id="contactForm" class="space-y-4">
+        <!-- Grupo Nombre -->
+        <div class="space-y-1">
+          <label class="block font-bold text-base md:text-lg">Nombre</label>
+          <input
+            id="userName"
+            name="userName"
+            type="text"
+            class="w-full p-2 md:p-3 bg-white border-2 border-black rounded-none focus:border-secondary-pink focus:ring-1 focus:ring-secondary-cyan focus:shadow-[0_0_8px_0_rgba(236,72,153,0.3)] transition-all duration-200 placeholder-gray-400 text-sm md:text-base"
+            placeholder="Tu nombre"
+            required
+          />
+        </div>
+
+        <!-- Grupo Email -->
+        <div class="space-y-1">
+          <label class="block font-bold text-base md:text-lg">Email</label>
+          <input
+            id="userEmail"
+            name="userEmail"
+            type="email"
+            class="w-full p-2 md:p-3 bg-white border-2 border-black rounded-none focus:border-secondary-pink focus:ring-1 focus:ring-secondary-cyan focus:shadow-[0_0_8px_0_rgba(236,72,153,0.3)] transition-all duration-200 placeholder-gray-400 text-sm md:text-base"
+            placeholder="tu@email.com"
+            required
+          />
+        </div>
+
+        <!-- Grupo Mensaje -->
+        <div class="space-y-1">
+          <label class="block font-bold text-base md:text-lg">Mensaje</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            class="w-full p-2 md:p-3 bg-white border-2 border-black rounded-none focus:border-secondary-pink focus:ring-1 focus:ring-secondary-cyan focus:shadow-[0_0_8px_0_rgba(236,72,153,0.3)] transition-all duration-200 placeholder-gray-400 text-sm md:text-base"
+            placeholder="¿En qué puedo ayudarte?"
+            required></textarea>
+        </div>
+
+        <!-- Botón de enviar más compacto -->
+        <button
+          id="submitButton"
+          type="submit"
+          class="w-full bg-gradient-to-r from-secondary-pink to-secondary-cyan text-white px-4 py-2 md:px-6 md:py-3 rounded-none border-2 border-black font-bold text-base hover:shadow-[0_4px_12px_0_rgba(236,72,153,0.3)] hover:translate-y-[-1px] transition-all duration-200 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        >
+          <span id="buttonText">ENVIAR</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Configuración - Se actualiza automáticamente con tu dominio de Vercel
+  const API_ENDPOINT = `${window.location.origin}/api/save-message`;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contactForm") as HTMLFormElement;
+    const submitButton = document.getElementById(
+      "submitButton"
+    ) as HTMLButtonElement;
+    const buttonText = document.getElementById("buttonText") as HTMLSpanElement;
+    const statusMessage = document.getElementById(
+      "statusMessage"
+    ) as HTMLDivElement;
+
+    // Función para mostrar mensajes de estado
+    function showStatus(
+      message: string,
+      type: "success" | "error" | "loading"
+    ) {
+      statusMessage.textContent = message;
+      statusMessage.className = `mb-4 p-3 rounded border-2 border-black text-center font-bold ${
+        type === "success"
+          ? "bg-green-100 text-green-800"
+          : type === "error"
+            ? "bg-red-100 text-red-800"
+            : "bg-blue-100 text-blue-800"
+      }`;
+      statusMessage.classList.remove("hidden");
+    }
+
+    // Función para ocultar el mensaje de estado
+    function hideStatus() {
+      statusMessage.classList.add("hidden");
+    }
+
+    // Función para cambiar el estado del botón
+    function setButtonState(loading: boolean) {
+      if (loading) {
+        submitButton.disabled = true;
+        buttonText.textContent = "ENVIANDO...";
+      } else {
+        submitButton.disabled = false;
+        buttonText.textContent = "ENVIAR";
+      }
+    }
+
+    // Función para limpiar el formulario
+    function clearForm() {
+      form.reset();
+    }
+
+    // Manejador del formulario
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // Obtener datos del formulario
+      const formData = new FormData(form);
+      const data = {
+        userName: formData.get("userName") as string,
+        userEmail: formData.get("userEmail") as string,
+        message: formData.get("message") as string,
+      };
+
+      // Validaciones básicas
+      if (
+        !data.userName.trim() ||
+        !data.userEmail.trim() ||
+        !data.message.trim()
+      ) {
+        showStatus("Por favor, completa todos los campos", "error");
+        return;
+      }
+
+      // Validación de email básica
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(data.userEmail)) {
+        showStatus("Por favor, ingresa un email válido", "error");
+        return;
+      }
+
+      try {
+        setButtonState(true);
+        showStatus("Enviando mensaje...", "loading");
+
+        const response = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          showStatus(
+            "¡Mensaje enviado exitosamente! Te responderé pronto.",
+            "success"
+          );
+          clearForm();
+
+          // Ocultar mensaje después de 5 segundos
+          setTimeout(() => {
+            hideStatus();
+          }, 5000);
+        } else {
+          throw new Error(result.error || "Error desconocido");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        showStatus(
+          error instanceof Error && error.message.includes("fetch")
+            ? "Error de conexión. Verifica tu internet e intenta nuevamente."
+            : `Error: ${error instanceof Error ? error.message : "Error desconocido"}`,
+          "error"
+        );
+      } finally {
+        setButtonState(false);
+      }
+    });
+
+    // Ocultar mensaje de error cuando el usuario empiece a escribir de nuevo
+    const inputs = form.querySelectorAll("input, textarea");
+    inputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        if (
+          !statusMessage.classList.contains("hidden") &&
+          statusMessage.textContent?.includes("Error")
+        ) {
+          hideStatus();
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Animación para el loader en el botón */
+  #submitButton:disabled #buttonText::after {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 8px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Transición suave para mostrar/ocultar mensajes */
+  #statusMessage {
+    transition: all 0.3s ease-in-out;
+  }
+
+  #statusMessage.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+</style>
