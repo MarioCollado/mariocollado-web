@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",
-    "@astrojs/tailwind": "^6.0.2",
     "@fontsource-variable/montserrat": "^5.2.5",
     "@fontsource/abril-fatface": "^5.2.5",
     "@fontsource/alfa-slab-one": "^5.2.5",
@@ -19,7 +18,7 @@
     "@fontsource/press-start-2p": "^5.2.5",
     "@octokit/rest": "^21.1.1",
     "@supabase/supabase-js": "^2.57.4",
-    "@types/react-dom": "^19.0.4",
+    "@types/react-dom": "^19.1.1",
     "alpinejs": "^3.14.9",
     "astro": "^5.13.6",
     "free-astro-components": "^1.2.0",
@@ -28,10 +27,11 @@
     "masonry-layout": "^4.2.2",
     "micromodal": "^0.4.10",
     "packery": "^3.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-hook-form": "^7.55.0",
-    "svelte": "^5.25.3",
+    "resend": "^6.0.3",
+    "svelte": "^5.25.6",
     "svelte-carousel": "^1.0.25",
     "sweetalert2": "^11.17.2"
   },
@@ -42,16 +42,17 @@
     ]
   },
   "devDependencies": {
-    "@astrojs/react": "^4.2.1",
+    "@astrojs/react": "^4.2.3",
     "@astrojs/ts-plugin": "^1.10.4",
-    "@tailwindcss/postcss": "^4.0.15",
-    "@tailwindcss/vite": "^4.0.15",
-    "@types/react": "^19.0.0",
+    "@astrojs/vercel": "^8.2.7",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/react": "^19.1.0",
     "autoprefixer": "^10.4.21",
-    "glob": "^10.3.10",
-    "lru-cache": "^10.2.0",
+    "glob": "^10.4.5",
+    "lru-cache": "^10.4.3",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.15",
+    "tailwindcss": "^4.1.13",
     "typescript": "^5.8.2"
   }
 }
