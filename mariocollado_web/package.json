@@ -24,6 +24,7 @@
     "free-astro-components": "^1.2.0",
     "imagesloaded": "^5.0.0",
     "jquery": "^3.7.1",
+    "keen-slider": "^6.8.6",
     "masonry-layout": "^4.2.2",
     "micromodal": "^0.4.10",
     "packery": "^3.0.0",

@@ -1,0 +1,19 @@
+---
+import CarouselComponent from "../../lib/carousel";
+import { getAllMedia } from "../../lib/supabase";
+
+const media = await getAllMedia();
+console.log("Media loaded:", media);
+---
+
+<section>
+  {
+    media.length > 0 ? (
+      <CarouselComponent media={media} client:load />
+    ) : (
+      <div class="text-center text-gray-500">
+        <p>No hay contenido disponible en este momento.</p>
+      </div>
+    )
+  }
+</section>

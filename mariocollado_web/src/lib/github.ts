@@ -30,16 +30,18 @@ export async function getGitHubRepos(
       per_page: limit,
     });
 
-    return data.map((repo) => ({
-      id: repo.id,
-      name: repo.name,
-      description: repo.description,
-      html_url: repo.html_url,
-      language: repo.language,
-      stargazers_count: repo.stargazers_count,
-      forks_count: repo.forks_count,
-      updated_at: repo.updated_at,
-    }));
+    return data.map(
+      (repo): GitHubRepo => ({
+        id: Number(repo.id),
+        name: String(repo.name),
+        description: repo.description ? String(repo.description) : null,
+        html_url: String(repo.html_url),
+        language: repo.language ? String(repo.language) : null,
+        stargazers_count: Number(repo.stargazers_count || 0),
+        forks_count: Number(repo.forks_count || 0),
+        updated_at: String(repo.updated_at),
+      })
+    );
   } catch (error) {
     console.error("Error fetching GitHub repos:", error);
     return [];
