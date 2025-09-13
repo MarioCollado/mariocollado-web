@@ -65,12 +65,10 @@ export async function POST({ request }) {
 
     // Validar variables de entorno
     const supabaseUrl = import.meta.env.SUPABASE_URL;
-    // Preferir Service Role en el servidor; caer a ANON si no está definida
-    const supabaseKey =
-      import.meta.env.SUPABASE_SERVICE_ROLE ??
-      import.meta.env.SUPABASE_ANON_KEY;
+    const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY;
+    const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE;
 
-    if (!supabaseUrl || !supabaseKey) {
+    if (!supabaseUrl || !supabaseAnonKey) {
       console.error("Variables de Supabase no configuradas");
       return new Response(
         JSON.stringify({
@@ -83,6 +81,10 @@ export async function POST({ request }) {
         }
       );
     }
+
+    // Usar Service Role Key si está disponible, sino usar ANON KEY
+    const supabaseKey = supabaseServiceKey || supabaseAnonKey;
+    console.log("Usando clave:", supabaseServiceKey ? "SERVICE_ROLE" : "ANON");
 
     // Inicializar cliente de Supabase
     const supabase = createClient(supabaseUrl, supabaseKey);
