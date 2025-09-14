@@ -15,6 +15,7 @@ type CarouselProps = {
 export default function Carousel({ media }: CarouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [loaded, setLoaded] = useState(false)
+  
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slideChanged(slider) {
@@ -24,159 +25,145 @@ export default function Carousel({ media }: CarouselProps) {
       setLoaded(true)
     },
   })
+  
   const [thumbnailRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slides: {
       perView: 4,
-      spacing: 10,
+      spacing: 12,
     },
     breakpoints: {
-      "(min-width: 400px)": {
-        slides: { perView: 5, spacing: 10 },
-      },
-      "(min-width: 768px)": {
-        slides: { perView: 6, spacing: 10 },
-      },
-      "(min-width: 1024px)": {
-        slides: { perView: 8, spacing: 10 },
-      },
+      "(min-width: 400px)": { slides: { perView: 5, spacing: 12 } },
+      "(min-width: 768px)": { slides: { perView: 6, spacing: 12 } },
+      "(min-width: 1024px)": { slides: { perView: 8, spacing: 12 } },
     },
   })
 
   useEffect(() => {
     if (loaded && instanceRef.current) {
-      // Auto-advance slides every 8 seconds
       const timer = setInterval(() => {
-        instanceRef.current?.next()
-      }, 14000)
+        const currentIdx = instanceRef.current?.track.details.rel || 0
+        const currentItem = media[currentIdx]
+        
+        if (currentItem && currentItem.type === 'photo') {
+          instanceRef.current?.next()
+        }
+      }, 4000)
       
       return () => clearInterval(timer)
     }
-  }, [loaded, instanceRef])
+  }, [loaded, instanceRef, media])
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4">
-      {/* Main Carousel */}
-      <div ref={sliderRef} className="keen-slider rounded-lg overflow-hidden">
-        {media.map((item, idx) => (
-          <div key={idx} className="keen-slider__slide">
-            <div className="relative w-full h-[300px] md:h-[400px] flex items-center justify-cente">
-              {item.type === 'photo' ? (
-                <img
-                  src={item.url}
-                  alt={item.name}
-                  className="w-full h-full object-contain rounded-lg"
-                  loading="lazy"
-                />
-              ) : (
-                <video
-                  src={item.url}
-                  className="w-full h-full object-contain rounded-lg"
-                  controls
-                  preload="metadata"
-                >
-                  <source src={item.url} type="video/mp4" />
-                  <source src={item.url} type="video/webm" />
-                  Tu navegador no soporta la reproducción de videos.
-                </video>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Thumbnail Navigation */}
-      {loaded && media.length > 1 && (
-        <div
-          ref={thumbnailRef}
-          className="keen-slider thumbnail"
-          style={{ marginTop: "20px" }}
-        >
+    <div className="w-full max-w-5xl mx-auto">
+      <div className="relative group">
+        <div ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden shadow-lg">
           {media.map((item, idx) => (
             <div key={idx} className="keen-slider__slide">
-              <button
-                onClick={() => {
-                  instanceRef.current?.moveToIdx(idx)
-                }}
-                className={`relative w-full h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                  currentSlide === idx
-                    ? 'border-white shadow-lg scale-105'
-                    : 'border-gray-600 hover:border-gray-400'
-                }`}
-              >
+              <div className="relative w-auto h-[300px] md:h-[400px] flex items-center justify-center bg-gradient-to-br from-white/95 to-white/90 rounded-2xl border border-white/40 shadow-lg">
                 {item.type === 'photo' ? (
                   <img
                     src={item.url}
                     alt={item.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain rounded-xl"
+                    loading="lazy"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-800 flex items-center justify-center relative">
-                    <img
-                      src={item.url}
-                      alt={item.name}
-                      className="w-full h-full object-cover opacity-70"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M8 5v10l8-5-8-5z" />
-                      </svg>
-                    </div>
-                  </div>
+                  <video
+                    src={item.url}
+                    className="w-full h-full object-contain rounded-xl"
+                    controls
+                    preload="metadata"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={item.url} type="video/mp4" />
+                    <source src={item.url} type="video/webm" />
+                    Tu navegador no soporta la reproducción de videos.
+                  </video>
                 )}
-                {/* Active indicator */}
-                {currentSlide === idx && (
-                  <div className="absolute inset-0 bg-white/20 flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
-                )}
-              </button>
+              </div>
             </div>
           ))}
         </div>
-      )}
 
-      {/* Navigation Arrows for main carousel */}
-      {loaded && media.length > 1 && (
-        <>
-          <button
-            onClick={() => instanceRef.current?.prev()}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 z-10"
-            aria-label="Previous slide"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            onClick={() => instanceRef.current?.next()}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 z-10"
-            aria-label="Next slide"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </>
-      )}
+        {loaded && media.length > 1 && (
+          <>
+            <button
+              onClick={() => instanceRef.current?.prev()}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/95 backdrop-blur-sm hover:bg-white text-secondary-green p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 border border-white/40"
+              aria-label="Previous slide"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => instanceRef.current?.next()}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/95 backdrop-blur-sm hover:bg-white text-secondary-green p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 border border-white/40"
+              aria-label="Next slide"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </>
+        )}
+      </div>
 
-      {/* Slide Counter */}
       {loaded && media.length > 1 && (
-        <div className="text-center mt-3 text-gray-600">
-          <span className="text-sm">
-            {currentSlide + 1} / {media.length}
-          </span>
+        <div className="mt-6">
+          <div ref={thumbnailRef} className="keen-slider">
+            {media.map((item, idx) => (
+              <div key={idx} className="keen-slider__slide">
+                <button
+                  onClick={() => instanceRef.current?.moveToIdx(idx)}
+                  className={`relative w-full h-16 rounded-xl overflow-hidden transition-all duration-300 border-2 ${
+                    currentSlide === idx
+                      ? 'border-secondary-green scale-105 shadow-lg bg-white/90'
+                      : 'border-white/40 hover:border-secondary-green/50 hover:scale-102 hover:shadow-md opacity-70 hover:opacity-100 bg-white/80'
+                  }`}
+                >
+                  {item.type === 'photo' ? (
+                    <img
+                      src={item.url}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-100 flex items-center justify-center relative">
+                      <img
+                        src={item.url}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                        <div className="bg-white/95 backdrop-blur-sm p-2 rounded-full border border-white/40">
+                          <svg className="w-4 h-4 text-secondary-green" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M8 5v10l8-5-8-5z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
-      <style>{`
-        .thumbnail .keen-slider__slide {
-          cursor: pointer;
-        }
-        .thumbnail .keen-slider__slide.active {
-          border: 2px solid #fff;
-        }
-      `}</style>
+      {loaded && media.length > 1 && (
+        <div className="text-center mt-4">
+          <div className="inline-flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-white/40">
+            <span className="text-sm font-medium text-secondary-green">
+              {currentSlide + 1} / {media.length}
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

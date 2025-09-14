@@ -54,10 +54,10 @@ export function mapAssetsToCards(assets: SectionAsset[]): CardData[] {
   ];
 
   const fallbackPaths = {
-    music: "sections/music.jpg",
-    film: "sections/film.jpg",
-    tech: "sections/tech.jpg",
-    contact: "sections/mail.jpg",
+    music: "sections/wmusic.png",
+    film: "sections/wfilm.png",
+    tech: "sections/wtech.png",
+    contact: "sections/wmail.png",
   };
 
   return sectionConfig.map((config) => {
