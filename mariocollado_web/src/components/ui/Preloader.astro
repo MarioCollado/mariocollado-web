@@ -1,0 +1,188 @@
+---
+// Componente de preloader simple y elegante
+---
+
+<div id="preloader" class="preloader">
+  <div class="preloader-content">
+    <div class="logo-container">
+      <h1 class="logo-text">mariocollado.</h1>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Simular progreso de carga
+  let progress = 0;
+  const progressFill = document.getElementById("progressFill");
+  const progressText = document.getElementById("progressText");
+
+  const updateProgress = () => {
+    progress += Math.random() * 15; // Incremento aleatorio para simular carga real
+
+    if (progress > 100) progress = 100;
+
+    if (progressFill && progressText) {
+      progressFill.style.width = progress + "%";
+      progressText.textContent = Math.round(progress) + "%";
+    }
+
+    if (progress < 100) {
+      setTimeout(updateProgress, 100 + Math.random() * 200);
+    }
+  };
+
+  // Iniciar la barra de progreso
+  setTimeout(updateProgress, 300);
+
+  // Ocultar preloader cuando la página esté completamente cargada
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    if (preloader) {
+      // Asegurar que la barra llegue al 100%
+      if (progressFill && progressText) {
+        progressFill.style.width = "100%";
+        progressText.textContent = "100%";
+      }
+
+      // Pequeño delay para que se vea el 100%
+      setTimeout(() => {
+        preloader.style.opacity = "0";
+        preloader.style.transform = "scale(0.8)";
+
+        // Remover del DOM después de la animación
+        setTimeout(() => {
+          preloader.remove();
+        }, 500);
+      }, 500);
+    }
+  });
+</script>
+
+<style>
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .preloader-content {
+    text-align: center;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .logo-text {
+    font-family: "Druk", sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1e40af;
+    margin: 0;
+    animation: fadeInUp 1s ease-out;
+    letter-spacing: 0.05em;
+  }
+
+  .progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(30, 64, 175, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1e40af, #3b82f6);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+    position: relative;
+  }
+
+  .progress-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+
+  .progress-text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #64748b;
+    text-align: center;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .logo-text {
+      font-size: 2rem;
+    }
+
+    .progress-container {
+      max-width: 250px;
+    }
+
+    .progress-bar {
+      height: 3px;
+    }
+  }
+</style>

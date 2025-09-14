@@ -12,4 +12,33 @@
       scrollbar-width: none;
     }
   }
+
+/* Mejoras simples de rendimiento */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimización de imágenes */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Transiciones suaves para elementos interactivos */
+a, button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Mejorar la percepción de velocidad */
+.card, .hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
   

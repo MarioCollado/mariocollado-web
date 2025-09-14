@@ -13,7 +13,7 @@ const { card } = Astro.props;
 ---
 
 <div
-  class="card group relative rounded-none overflow-hidden z-20"
+  class="card group relative rounded-xl overflow-hidden z-20 shadow-lg hover:shadow-xl transition-shadow duration-300"
   style={`
     ${card.colStart ? `grid-column: ${card.colStart};` : ""}
     ${card.rowStart ? `grid-row: ${card.rowStart}/span ${card.rowSpan};` : `grid-row: span ${card.rowSpan};`}

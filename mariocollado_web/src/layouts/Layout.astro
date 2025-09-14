@@ -8,6 +8,7 @@ import "@fontsource/monoton";
 import "@fontsource/abril-fatface";
 
 import "/src/styles/global.css";
+import Preloader from "@/components/ui/Preloader.astro";
 
 const title = "mariocollado";
 ---
@@ -56,6 +57,7 @@ const title = "mariocollado";
     </script>
   </head>
   <body class="bg-primary-light">
+    <Preloader />
     <slot />
   </body>
 </html>

@@ -93,7 +93,7 @@ export default function Carousel({ media }: CarouselProps) {
           <>
             <button
               onClick={() => instanceRef.current?.prev()}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/95 backdrop-blur-sm hover:bg-white text-secondary-green p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 border border-white/40"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/95 backdrop-blur-sm hover:bg-white text-secondary-blue p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 border border-white/40"
               aria-label="Previous slide"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ export default function Carousel({ media }: CarouselProps) {
             </button>
             <button
               onClick={() => instanceRef.current?.next()}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/95 backdrop-blur-sm hover:bg-white text-secondary-green p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 border border-white/40"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/95 backdrop-blur-sm hover:bg-white text-secondary-blue p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 border border-white/40"
               aria-label="Next slide"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,7 +141,7 @@ export default function Carousel({ media }: CarouselProps) {
                       />
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
                         <div className="bg-white/95 backdrop-blur-sm p-2 rounded-full border border-white/40">
-                          <svg className="w-4 h-4 text-secondary-green" fill="currentColor" viewBox="0 0 20 20">
+                          <svg className="w-4 h-4 text-secondary-blue" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M8 5v10l8-5-8-5z" />
                           </svg>
                         </div>
@@ -158,7 +158,7 @@ export default function Carousel({ media }: CarouselProps) {
       {loaded && media.length > 1 && (
         <div className="text-center mt-4">
           <div className="inline-flex items-center bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-white/40">
-            <span className="text-sm font-medium text-secondary-green">
+            <span className="text-sm font-medium text-secondary-blue">
               {currentSlide + 1} / {media.length}
             </span>
           </div>

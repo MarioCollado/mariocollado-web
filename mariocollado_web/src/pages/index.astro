@@ -11,17 +11,20 @@ import Footer from "@/components/sections/Footer.astro";
 
 <Layout>
   <main
+    id="main-container"
     class="h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory m-0 p-0 no-scrollbar"
   >
     <!-- Migas de pan (Componente React) -->
     <Breadcrumbs />
-    <!-- Marca de agua fija -->
+
+    <!-- Marca de agua lateral -->
+    <!-- Reemplazar el div watermark por esto: -->
     <div
-      class="fixed inset-0 flex items-center justify-center pointer-events-none z-1 w-full px-4"
+      id="watermark"
+      class="fixed bottom-8 left-1/2 -translate-x-1/2 pointer-events-none z-10 opacity-0"
+      style="transition: opacity 0.8s ease;"
     >
-      <h1
-        class="w-full max-w-full text-[min(20vw,180px)] font-bold font-druk text-transparent bg-clip-text bg-gradient-to-r from-secondary-blue/10 to-secondary-purple/10 text-center"
-      >
+      <h1 class="text-3xl font-bold font-druk text-secondary-blue/60">
         mariocollado.
       </h1>
     </div>
@@ -30,7 +33,36 @@ import Footer from "@/components/sections/Footer.astro";
     <Music class="snap-start" />
     <Visuals class="snap-start" />
     <Tech class="snap-start" />
-    <Contacto class="snap-start" />
+    <Contacto id="contact" class="snap-start" />
     <Footer class="snap-start" />
   </main>
 </Layout>
+
+<script>
+  const container = document.getElementById("main-container");
+  const watermark = document.getElementById("watermark");
+  const contact = document.getElementById("contact");
+
+  if (container && contact) {
+    container.addEventListener("scroll", () => {
+      const contactTop = contact.offsetTop;
+      const contactHeight = contact.offsetHeight;
+      const scrollTop = container.scrollTop;
+      const windowHeight = container.clientHeight;
+
+      // Si estamos en la sección de contacto
+      if (
+        scrollTop + windowHeight > contactTop &&
+        scrollTop < contactTop + contactHeight
+      ) {
+        if (watermark) {
+          watermark.style.opacity = "1";
+        }
+      } else {
+        if (watermark) {
+          watermark.style.opacity = "0";
+        }
+      }
+    });
+  }
+</script>
