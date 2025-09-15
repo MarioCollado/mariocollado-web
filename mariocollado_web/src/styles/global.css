@@ -41,4 +41,26 @@ a, button {
 .hover-lift:hover {
   transform: translateY(-2px);
 }
+
+/* Responsive improvements for Home section */
+@media (max-width: 1023px) {
+  .card {
+    min-height: 150px !important;
+  }
+  
+  .card h1 {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .card {
+    min-height: 180px !important;
+  }
+  
+  .card h1 {
+    font-size: 1.5rem !important;
+  }
+}
   

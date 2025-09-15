@@ -50,7 +50,7 @@ export function mapAssetsToCards(assets: SectionAsset[]): CardData[] {
     { id: "music", title: "MUSIC", rowSpan: 6 },
     { id: "film", title: "VISUALS", rowSpan: 6 },
     { id: "tech", title: "TECH", rowSpan: 6 },
-    { id: "contact", title: "CONTACT", rowSpan: 4, colStart: 4, rowStart: 3 },
+    { id: "contact", title: "CONTACT", rowSpan: 6, colStart: 4, rowStart: 2 },
   ];
 
   const fallbackPaths = {

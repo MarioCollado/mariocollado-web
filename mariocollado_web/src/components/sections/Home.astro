@@ -8,12 +8,35 @@ const cards = await getHomeCards();
 
 <section
   id="home"
-  class="bg-primary-light text-gray-800 p-12 h-screen snap-start"
+  class="bg-primary-light text-gray-800 p-4 sm:p-6 md:p-8 lg:p-12 h-screen snap-start overflow-hidden flex items-center"
 >
-  <div
-    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-6 gap-5 container mx-auto h-full"
-  >
-    {cards.map((card) => <Card card={card as any} />)}
-    <Profile />
+  <!-- Layout para móviles y tablets -->
+  <div class="lg:hidden w-full">
+    <div
+      class="grid grid-cols-2 gap-3 sm:gap-4 container mx-auto max-h-[90vh] overflow-hidden"
+    >
+      <!-- Perfil ocupando 2 columnas en la primera fila -->
+      <div class="col-span-2 h-24 sm:h-28">
+        <Profile />
+      </div>
+      <!-- Cards en 2x2 grid - cuadrados perfectos -->
+      {
+        cards.map((card) => (
+          <div class="col-span-1 aspect-square">
+            <Card card={card as any} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Layout para desktop (original pero con altura controlada) -->
+  <div class="hidden lg:block w-full">
+    <div
+      class="grid grid-cols-4 gap-5 container mx-auto h-[80vh] max-h-[600px]"
+    >
+      {cards.map((card) => <Card card={card as any} />)}
+      <Profile />
+    </div>
   </div>
 </section>

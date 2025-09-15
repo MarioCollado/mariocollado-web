@@ -13,10 +13,10 @@ const { card } = Astro.props;
 ---
 
 <div
-  class="card group relative rounded-xl overflow-hidden z-20 shadow-lg hover:shadow-xl transition-shadow duration-300"
+  class="card group relative rounded-xl overflow-hidden z-20 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full w-full"
   style={`
     ${card.colStart ? `grid-column: ${card.colStart};` : ""}
-    ${card.rowStart ? `grid-row: ${card.rowStart}/span ${card.rowSpan};` : `grid-row: span ${card.rowSpan};`}
+    ${card.rowStart ? `grid-row: ${card.rowStart}/span 5;` : `grid-row: span ${card.rowSpan};`}
   `}
 >
   <a
@@ -24,7 +24,7 @@ const { card } = Astro.props;
     class="absolute inset-0 block z-10"
     onclick="handleClick(event)"
   >
-    <div class="h-full w-full">
+    <div class="h-full w-full relative">
       <img
         src={card.image}
         alt={card.title}
@@ -32,7 +32,16 @@ const { card } = Astro.props;
         loading="lazy"
       />
 
-      <h1 class="font-home text-4xl font-bold">{card.title}</h1>
+      <!-- Overlay para el texto -->
+      <div
+        class="absolute inset-0 bg-black/20 flex items-center justify-center"
+      >
+        <h1
+          class="font-home text-sm sm:text-base lg:text-2xl xl:text-3xl font-bold text-white text-center px-2 drop-shadow-lg"
+        >
+          {card.title}
+        </h1>
+      </div>
     </div>
   </a>
 </div>

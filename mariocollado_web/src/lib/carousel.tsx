@@ -122,8 +122,8 @@ export default function Carousel({ media }: CarouselProps) {
                   onClick={() => instanceRef.current?.moveToIdx(idx)}
                   className={`relative w-full h-16 rounded-xl overflow-hidden transition-all duration-300 border-2 ${
                     currentSlide === idx
-                      ? 'border-secondary-green scale-105 shadow-lg bg-white/90'
-                      : 'border-white/40 hover:border-secondary-green/50 hover:scale-102 hover:shadow-md opacity-70 hover:opacity-100 bg-white/80'
+                      ? 'border-secondary-blue scale-105 shadow-lg bg-white/90'
+                      : 'border-white/40 hover:border-secondary-blue/50 hover:scale-102 hover:shadow-md opacity-70 hover:opacity-100 bg-white/80'
                   }`}
                 >
                   {item.type === 'photo' ? (
@@ -135,7 +135,7 @@ export default function Carousel({ media }: CarouselProps) {
                   ) : (
                     <div className="w-full h-full bg-gray-100 flex items-center justify-center relative">
                       <img
-                        src={item.url}
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-8xBnLkglFihNDAiJGmgK-5UK_CaKUC92Iw&s"
                         alt={item.name}
                         className="w-full h-full object-cover"
                       />
