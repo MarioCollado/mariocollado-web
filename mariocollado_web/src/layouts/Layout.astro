@@ -9,6 +9,7 @@ import "@fontsource/abril-fatface";
 
 import "/src/styles/global.css";
 import Preloader from "@/components/ui/Preloader.astro";
+import LanguageSelector from "@/components/LanguageSelector.astro";
 
 const title = "mariocollado";
 ---
@@ -58,6 +59,7 @@ const title = "mariocollado";
   </head>
   <body class="bg-primary-light">
     <Preloader />
+    <LanguageSelector />
     <slot />
   </body>
 </html>

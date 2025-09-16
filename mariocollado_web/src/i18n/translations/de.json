@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "projects": "Projekte",
+    "contact": "Kontakt"
+  },
+  "home": {
+    "title": "Willkommen",
+    "subtitle": "Full Stack Entwickler",
+    "description": "Erstaunliche digitale Erfahrungen schaffen"
+  },
+  "profile": {
+    "social_label": "Profil auf {platform} öffnen",
+    "contact_link": "Kontakt"
+  },
+  "cards": {
+    "tech": "Technologie",
+    "film": "Film",
+    "projects": "Projekte",
+    "about": "Über mich"
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "read_more": "Mehr lesen",
+    "back": "Zurück"
+  },
+  "contact": {
+    "title": "KONTAKTIERE MICH",
+    "subtitle": "Schreib mir und ich antworte so schnell wie möglich",
+    "name": "Name",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "name_placeholder": "Ihr Name",
+    "email_placeholder": "ihre@email.com",
+    "message_placeholder": "Wie kann ich Ihnen helfen?",
+    "send": "SENDEN",
+    "sending": "SENDE...",
+    "success": "Nachricht erfolgreich gesendet! Ich werde bald antworten.",
+    "error": "Fehler beim Senden der Nachricht",
+    "error_empty_fields": "Bitte füllen Sie alle Felder aus",
+    "error_invalid_email": "Bitte geben Sie eine gültige E-Mail ein",
+    "error_connection": "Verbindungsfehler. Überprüfen Sie Ihr Internet und versuchen Sie es erneut.",
+    "error_unknown": "Unbekannter Fehler"
+  }
+}

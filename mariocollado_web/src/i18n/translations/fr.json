@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Bienvenue",
+    "subtitle": "Développeur Full Stack",
+    "description": "Créer des expériences numériques incroyables"
+  },
+  "profile": {
+    "social_label": "Ouvrir le profil sur {platform}",
+    "contact_link": "Contact"
+  },
+  "cards": {
+    "tech": "Technologie",
+    "film": "Cinéma",
+    "projects": "Projets",
+    "about": "À propos"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "read_more": "Lire plus",
+    "back": "Retour"
+  },
+  "contact": {
+    "title": "CONTACTEZ-MOI",
+    "subtitle": "Écrivez-moi et je répondrai dès que possible",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "name_placeholder": "Votre nom",
+    "email_placeholder": "votre@email.com",
+    "message_placeholder": "Comment puis-je vous aider?",
+    "send": "ENVOYER",
+    "sending": "ENVOI...",
+    "success": "Message envoyé avec succès! Je répondrai bientôt.",
+    "error": "Erreur lors de l'envoi du message",
+    "error_empty_fields": "Veuillez remplir tous les champs",
+    "error_invalid_email": "Veuillez entrer un email valide",
+    "error_connection": "Erreur de connexion. Vérifiez votre internet et réessayez.",
+    "error_unknown": "Erreur inconnue"
+  }
+}

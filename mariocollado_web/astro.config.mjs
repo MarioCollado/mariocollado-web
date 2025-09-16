@@ -13,6 +13,13 @@ export default defineConfig({
       include: ["packery"], // Incluir Packery en la optimización de dependencias de Vite
     },
   },
+  i18n: {
+    defaultLocale: "es",
+    locales: ["es", "en", "fr", "de"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [react(), alpine()],
   output: "server",
   adapter: vercel(),

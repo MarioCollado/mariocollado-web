@@ -1,0 +1,47 @@
+{
+    "nav": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "projects": "Proyectos",
+      "contact": "Contacto"
+    },
+    "home": {
+      "title": "Bienvenido",
+      "subtitle": "Desarrollador Full Stack",
+      "description": "Creando experiencias digitales increíbles"
+    },
+    "profile": {
+      "social_label": "Abrir perfil en {platform}",
+      "contact_link": "Contactar"
+    },
+    "cards": {
+      "tech": "Tecnología",
+      "film": "Cine",
+      "projects": "Proyectos",
+      "about": "Sobre mí"
+    },
+    "common": {
+      "loading": "Cargando...",
+      "error": "Error",
+      "read_more": "Leer más",
+      "back": "Volver"
+    },
+    "contact": {
+      "title": "CONTÁCTAME",
+      "subtitle": "Escríbeme y responderé lo antes posible",
+      "name": "Nombre",
+      "email": "Email",
+      "message": "Mensaje",
+      "name_placeholder": "Tu nombre",
+      "email_placeholder": "tu@email.com",
+      "message_placeholder": "¿En qué puedo ayudarte?",
+      "send": "ENVIAR",
+      "sending": "ENVIANDO...",
+      "success": "¡Mensaje enviado exitosamente! Te responderé pronto.",
+      "error": "Error al enviar el mensaje",
+      "error_empty_fields": "Por favor, completa todos los campos",
+      "error_invalid_email": "Por favor, ingresa un email válido",
+      "error_connection": "Error de conexión. Verifica tu internet e intenta nuevamente.",
+      "error_unknown": "Error desconocido"
+    }
+  }

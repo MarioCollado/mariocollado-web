@@ -1,9 +1,12 @@
 ---
 import socialLinks from "@/json/social.json";
 import { supabase } from "@/lib/supabase";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
-// Obtener URL (firmada si el bucket es privado; pública si es público)
-const SECTIONS_PATH = "sections/faviconMCW.png";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const SECTIONS_PATH = "sections/iconBW.png";
 let bgUrl = supabase.storage.from("media").getPublicUrl(SECTIONS_PATH)
   .data.publicUrl;
 try {
@@ -32,7 +35,7 @@ try {
             target="_blank"
             rel="noopener noreferrer"
             class="hover:scale-110 transition-transform"
-            aria-label={`Abrir perfil en ${link.name}`}
+            aria-label={t("profile.social_label", { platform: link.name })}
             title={link.name}
           >
             <img

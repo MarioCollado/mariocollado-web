@@ -1,0 +1,130 @@
+---
+import {
+  languages,
+  getLangFromUrl,
+  getRouteFromUrl,
+  translatePath,
+} from "@/i18n/utils";
+import type { SupportedLanguage } from "@/i18n/types";
+
+const currentLang = getLangFromUrl(Astro.url);
+const currentRoute = getRouteFromUrl(Astro.url);
+
+const langFlags = {
+  es: "🇪🇸",
+  en: "🇺🇸",
+  fr: "🇫🇷",
+  de: "🇩🇪",
+};
+---
+
+<!-- Selector flotante fijo centrado -->
+<div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+  <div class="relative group">
+    <!-- Botón principal -->
+    <button
+      id="language-button"
+      class="flex items-center gap-2 px-4 py-3 bg-white/90 backdrop-blur-md rounded-full shadow-lg hover:shadow-xl border border-white/30 hover:bg-white transition-all duration-300 text-gray-700 hover:text-secondary-blue"
+      aria-label="Seleccionar idioma"
+    >
+      <span class="text-xl">{langFlags[currentLang]}</span>
+      <span class="uppercase font-semibold text-sm">{currentLang}</span>
+      <svg
+        class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+
+    <!-- Menú desplegable -->
+    <div
+      id="language-menu"
+      class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-white/30 py-2 min-w-[140px] opacity-0 invisible transform scale-95 transition-all duration-300 z-50"
+    >
+      {
+        Object.entries(languages).map(([lang, name]) => (
+          <a
+            href={translatePath(currentRoute, lang as SupportedLanguage)}
+            class={`flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-secondary-blue/10 transition-colors ${
+              currentLang === lang
+                ? "bg-secondary-blue/20 font-semibold text-secondary-blue"
+                : "text-gray-700 hover:text-secondary-blue"
+            }`}
+          >
+            <span class="text-lg">{langFlags[lang as SupportedLanguage]}</span>
+            <span>{name}</span>
+            {currentLang === lang && (
+              <svg
+                class="w-4 h-4 ml-auto text-secondary-blue"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("language-button");
+    const menu = document.getElementById("language-menu");
+
+    if (button && menu) {
+      let isOpen = false;
+
+      function toggleMenu() {
+        isOpen = !isOpen;
+        if (menu) {
+          if (isOpen) {
+            menu.classList.remove("opacity-0", "invisible", "scale-95");
+            menu.classList.add("opacity-100", "visible", "scale-100");
+          } else {
+            menu.classList.remove("opacity-100", "visible", "scale-100");
+            menu.classList.add("opacity-0", "invisible", "scale-95");
+          }
+        }
+      }
+      // Add event listener only if button exists
+      button?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      // Cerrar al hacer clic fuera
+      document.addEventListener("click", (event) => {
+        if (
+          !button.contains(event.target as Node) &&
+          !menu.contains(event.target as Node)
+        ) {
+          if (isOpen) {
+            toggleMenu();
+          }
+        }
+      });
+
+      // Cerrar con Escape
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && isOpen) {
+          toggleMenu();
+        }
+      });
+    }
+  });
+</script>

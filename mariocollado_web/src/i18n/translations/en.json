@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Welcome",
+    "subtitle": "Full Stack Developer",
+    "description": "Creating amazing digital experiences"
+  },
+  "profile": {
+    "social_label": "Open profile on {platform}",
+    "contact_link": "Contact"
+  },
+  "cards": {
+    "tech": "Technology",
+    "film": "Film",
+    "projects": "Projects",
+    "about": "About me"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "read_more": "Read more",
+    "back": "Back"
+  },
+  "contact": {
+    "title": "CONTACT ME",
+    "subtitle": "Write to me and I'll respond as soon as possible",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "name_placeholder": "Your name",
+    "email_placeholder": "your@email.com",
+    "message_placeholder": "How can I help you?",
+    "send": "SEND",
+    "sending": "SENDING...",
+    "success": "Message sent successfully! I'll respond soon.",
+    "error": "Error sending message",
+    "error_empty_fields": "Please fill in all fields",
+    "error_invalid_email": "Please enter a valid email",
+    "error_connection": "Connection error. Check your internet and try again.",
+    "error_unknown": "Unknown error"
+  }
+}
