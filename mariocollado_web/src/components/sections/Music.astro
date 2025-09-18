@@ -1,113 +1,179 @@
 ---
-import PlaylistCard from "@/components/ui/PlaylistCard.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const playlists = [
+  {
+    id: "5ccbwKAM3fMNbG82oq89dX",
+    title: t('music.playlist_everything'),
+    description: t('music.playlist_everything_desc'),
+    type: "playlist",
+    gradient: "from-purple-500 to-pink-500"
+  },
+  {
+    id: "7bqMbjBDH5YXqErJmON5nd",
+    title: t('music.album_renaissance'),
+    description: t('music.album_renaissance_desc'),
+    type: "album",
+    gradient: "from-orange-500 to-red-500"
+  },
+  {
+    id: "6nFATDq2kBuOpKh6mKABVz",
+    title: t('music.playlist_work'),
+    description: t('music.playlist_work_desc'),
+    type: "playlist",
+    gradient: "from-blue-500 to-green-500"
+  }
+];
 ---
 
 <section
   id="music"
   class="min-h-screen flex flex-col justify-center items-center bg-primary-light text-gray-800 relative snap-start py-8 md:py-12 overflow-hidden"
 >
-  <div class="flex-1 flex flex-col items-center justify-center py-12 relative">
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-red-50/20 to-orange-50/20"
-    >
-    </div>
+  <!-- Decoraciones de fondo -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-purple-200/20 to-pink-200/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-20 right-10 w-64 h-64 bg-gradient-to-r from-blue-200/20 to-green-200/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-orange-200/10 to-red-200/10 rounded-full blur-3xl"></div>
+  </div>
 
-    <div class="text-center mb-12 px-4 relative z-10">
-      <div class="inline-flex items-center gap-3 mb-6">
-        <h2
-          class="text-2xl md:text-3xl font-bold font-druk text-secondary-blue tracking-wide"
-        >
-          MÚSICA
+  <!-- Contenido principal -->
+  <div class="flex-1 flex flex-col items-center justify-center py-12 relative z-10 w-full max-w-7xl mx-auto px-4">
+    
+    <!-- Header modernizado -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center justify-center gap-4 mb-6">
+        <!-- Icono musical con animación -->
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur opacity-75 animate-pulse"></div>
+          <div class="relative p-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+            </svg>
+          </div>
+        </div>
+        
+        <h2 class="text-4xl md:text-5xl font-bold font-druk bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent tracking-wide">
+          {t('music.title')}
         </h2>
       </div>
-      <p class="text-sm md:text-base text-gray-600 max-w-md mx-auto font-light">
-        Descubre mis playlists y publicaciones musicales
+      
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
+        {t('music.subtitle')}
       </p>
+      
+      <!-- Línea decorativa animada -->
+      <div class="mt-8 flex justify-center">
+        <div class="h-1 w-24 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 rounded-full"></div>
+      </div>
     </div>
 
-    <div class="w-full max-w-6xl px-4 relative z-10">
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
-      >
-        <div class="group w-full max-w-md">
-          <div
-            class="backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:shadow-xl border border-white/30 hover:border-secondary-blue/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
-          >
-            <div class="flex items-center mb-4">
-              <div class="w-2 h-8 bg-secondary-blue rounded-full mr-3"></div>
-              <h3
-                class="font-bold text-lg text-gray-800 group-hover:text-secondary-blue transition-colors"
-              >
-                Todo lo que escucho
-              </h3>
-            </div>
-            <div class="rounded-xl overflow-hidden shadow-md">
-              <iframe
-                style="border-radius:12px"
-                src="https://open.spotify.com/embed/playlist/5ccbwKAM3fMNbG82oq89dX?utm_source=generator"
-                width="100%"
-                height="352"
-                frameborder="0"
-                allowfullscreen=""
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"></iframe>
-            </div>
-          </div>
-        </div>
+    <!-- Grid de playlists modernizado -->
+    <div class="w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+        {playlists.map((playlist, index) => (
+          <div class="group relative" style={`animation-delay: ${index * 200}ms`}>
+            <!-- Card principal -->
+            <div class="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 overflow-hidden hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] hover:-translate-y-2">
+              
+              <!-- Header de la card con gradiente -->
+              <div class={`h-24 bg-gradient-to-r ${playlist.gradient} relative overflow-hidden`}>
+                <!-- Patrón decorativo -->
+                <div class="absolute inset-0 opacity-20">
+                  <div class="absolute top-2 left-2 w-8 h-8 border-2 border-white/30 rounded-full"></div>
+                  <div class="absolute top-6 right-4 w-4 h-4 border-2 border-white/40 rounded-full"></div>
+                  <div class="absolute bottom-3 left-8 w-6 h-6 border-2 border-white/20 rounded-full"></div>
+                </div>
+                
+                <!-- Icono del tipo -->
+                <div class="absolute top-4 right-4">
+                  {playlist.type === 'album' ? (
+                    <svg class="w-6 h-6 text-white/90" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5s2.01-4.5 4.5-4.5 4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
+                    </svg>
+                  ) : (
+                    <svg class="w-6 h-6 text-white/90" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/>
+                    </svg>
+                  )}
+                </div>
+              </div>
 
-        <div class="group w-full max-w-md">
-          <div
-            class="backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:shadow-xl border border-white/30 hover:border-secondary-blue/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
-          >
-            <div class="flex items-center mb-4">
-              <div class="w-2 h-8 bg-secondary-blue rounded-full mr-3"></div>
-              <h3
-                class="font-bold text-lg text-gray-800 group-hover:text-secondary-blue transition-colors"
-              >
-                Mi álbum "la renaissance"
-              </h3>
-            </div>
-            <div class="rounded-xl overflow-hidden shadow-md">
-              <iframe
-                data-testid="embed-iframe"
-                style="border-radius:12px"
-                src="https://open.spotify.com/embed/album/7bqMbjBDH5YXqErJmON5nd?utm_source=generator"
-                width="100%"
-                height="352"
-                frameborder="0"
-                allowfullscreen=""
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"></iframe>
-            </div>
-          </div>
-        </div>
+              <!-- Contenido de la card -->
+              <div class="p-6">
+                <!-- Título y descripción -->
+                <div class="mb-6">
+                  <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-pink-600 group-hover:bg-clip-text transition-all duration-300">
+                    {playlist.title}
+                  </h3>
+                  <p class="text-sm text-gray-600 leading-relaxed">
+                    {playlist.description}
+                  </p>
+                </div>
 
-        <div class="group w-full max-w-md">
-          <div
-            class="backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:shadow-xl border border-white/30 hover:border-secondary-blue/30 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
-          >
-            <div class="flex items-center mb-4">
-              <div class="w-2 h-8 bg-secondary-blue rounded-full mr-3"></div>
-              <h3
-                class="font-bold text-lg text-gray-800 group-hover:text-secondary-blue transition-colors"
-              >
-                Para trabajar
-              </h3>
+                <!-- Iframe container mejorado -->
+                <div class="relative rounded-2xl overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-500">
+                  <iframe
+                    style="border-radius:16px"
+                    src={`https://open.spotify.com/embed/${playlist.type}/${playlist.id}?utm_source=generator`}
+                    width="100%"
+                    height="352"
+                    frameborder="0"
+                    allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  ></iframe>
+                  
+                  <!-- Overlay sutil -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent rounded-2xl pointer-events-none"></div>
+                </div>
+              </div>
+
+              <!-- Footer con stats simulados -->
+              <div class="px-6 pb-6">
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                  <div class="flex items-center gap-4">
+                    <span class="flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                      {playlist.type === 'album' ? 'Álbum' : 'Playlist'}
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                      </svg>
+                      Favorito
+                    </span>
+                  </div>
+                  <span class="opacity-75">Spotify</span>
+                </div>
+              </div>
             </div>
-            <div class="rounded-xl overflow-hidden shadow-md">
-              <iframe
-                style="border-radius:12px"
-                src="https://open.spotify.com/embed/playlist/6nFATDq2kBuOpKh6mKABVz?utm_source=generator"
-                width="100%"
-                height="352"
-                frameborder="0"
-                allowfullscreen=""
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"></iframe>
-            </div>
+
+            <!-- Efecto de glow en hover -->
+            <div class={`absolute -inset-1 bg-gradient-to-r ${playlist.gradient} rounded-3xl blur opacity-0 group-hover:opacity-20 transition duration-1000 -z-10`}></div>
           </div>
-        </div>
+        ))}
       </div>
+    </div>
+
+    <!-- Call to action -->
+    <div class="mt-16 text-center">
+      <a 
+        href="https://open.spotify.com/user/tu-usuario" 
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white rounded-full font-bold hover:shadow-2xl hover:shadow-purple-500/25 hover:scale-105 transition-all duration-300"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
+        </svg>
+        {t('music.follow_spotify')}
+      </a>
     </div>
   </div>
 </section>

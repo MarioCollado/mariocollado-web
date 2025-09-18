@@ -6,6 +6,7 @@ import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+// Obtener URL (firmada si el bucket es privado; pública si es público)
 const SECTIONS_PATH = "sections/iconBW.png";
 let bgUrl = supabase.storage.from("media").getPublicUrl(SECTIONS_PATH)
   .data.publicUrl;
@@ -27,7 +28,7 @@ try {
   >
   </div>
   <div class="relative z-10 flex items-center justify-center h-full">
-    <div class="flex gap-2 sm:gap-3 lg:gap-4 justify-center">
+    <div class="flex gap-5 sm:gap-6 lg:gap-4 justify-center">
       {
         socialLinks.map((link) => (
           <a
@@ -41,7 +42,7 @@ try {
             <img
               src={`/icon-profile/icons8-${link.name}.svg`}
               alt={link.name}
-              class="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
+              class="w-7 h-7 sm:w-8 sm:h-8 lg:w-6 lg:h-6"
               loading="lazy"
               width="24"
               height="24"

@@ -1,47 +1,58 @@
 {
-    "nav": {
-      "home": "Inicio",
-      "about": "Acerca de",
-      "projects": "Proyectos",
-      "contact": "Contacto"
-    },
-    "home": {
-      "title": "Bienvenido",
-      "subtitle": "Desarrollador Full Stack",
-      "description": "Creando experiencias digitales increíbles"
-    },
-    "profile": {
-      "social_label": "Abrir perfil en {platform}",
-      "contact_link": "Contactar"
-    },
-    "cards": {
-      "tech": "Tecnología",
-      "film": "Cine",
-      "projects": "Proyectos",
-      "about": "Sobre mí"
-    },
-    "common": {
-      "loading": "Cargando...",
-      "error": "Error",
-      "read_more": "Leer más",
-      "back": "Volver"
-    },
-    "contact": {
-      "title": "CONTÁCTAME",
-      "subtitle": "Escríbeme y responderé lo antes posible",
-      "name": "Nombre",
-      "email": "Email",
-      "message": "Mensaje",
-      "name_placeholder": "Tu nombre",
-      "email_placeholder": "tu@email.com",
-      "message_placeholder": "¿En qué puedo ayudarte?",
-      "send": "ENVIAR",
-      "sending": "ENVIANDO...",
-      "success": "¡Mensaje enviado exitosamente! Te responderé pronto.",
-      "error": "Error al enviar el mensaje",
-      "error_empty_fields": "Por favor, completa todos los campos",
-      "error_invalid_email": "Por favor, ingresa un email válido",
-      "error_connection": "Error de conexión. Verifica tu internet e intenta nuevamente.",
-      "error_unknown": "Error desconocido"
-    }
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "home": {
+    "title": "Bienvenido",
+    "subtitle": "Desarrollador Full Stack",
+    "description": "Creando experiencias digitales increíbles"
+  },
+  "profile": {
+    "social_label": "Abrir perfil en {platform}",
+    "contact_link": "Contactar"
+  },
+  "cards": {
+    "tech": "Tecnología",
+    "film": "Cine",
+    "projects": "Proyectos",
+    "about": "Sobre mí"
+  },
+  "music": {
+    "title": "MÚSICA",
+    "subtitle": "Descubre mis playlists y publicaciones musicales que me acompañan en el proceso creativo",
+    "playlist_everything": "Todo lo que escucho",
+    "playlist_everything_desc": "Mi selección personal de canciones favoritas de todos los géneros y épocas",
+    "album_renaissance": "Mi álbum \"la renaissance\"",
+    "album_renaissance_desc": "Una colección original de mis composiciones y experimentos musicales",
+    "playlist_work": "Para trabajar",
+    "playlist_work_desc": "Música instrumental y ambient perfecta para concentrarse y crear",
+    "follow_spotify": "Seguir en Spotify"
+  },
+  "common":{
+    "loading": "Cargando...",
+    "error": "Error",
+    "read_more": "Leer más",
+    "back": "Volver"
+  },
+  "contact": {
+    "title": "CONTÁCTAME",
+    "subtitle": "Escríbeme y responderé lo antes posible",
+    "name": "Nombre",
+    "email": "Email",
+    "message": "Mensaje",
+    "name_placeholder": "Tu nombre",
+    "email_placeholder": "tu@email.com",
+    "message_placeholder": "¿En qué puedo ayudarte?",
+    "send": "ENVIAR",
+    "sending": "ENVIANDO...",
+    "success": "¡Mensaje enviado exitosamente! Te responderé pronto.",
+    "error": "Error al enviar el mensaje",
+    "error_empty_fields": "Por favor, completa todos los campos",
+    "error_invalid_email": "Por favor, ingresa un email válido",
+    "error_connection": "Error de conexión. Verifica tu internet e intenta nuevamente.",
+    "error_unknown": "Error desconocido"
   }
+}

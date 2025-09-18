@@ -20,7 +20,18 @@
     "projects": "Projekte",
     "about": "Über mich"
   },
-  "common": {
+  "music": {
+    "title": "MUSIK",
+    "subtitle": "Entdecken Sie meine Playlists und Musikveröffentlichungen, die mich im kreativen Prozess begleiten",
+    "playlist_everything": "Alles was ich höre",
+    "playlist_everything_desc": "Meine persönliche Auswahl an Lieblingsliedern aus allen Genres und Epochen",
+    "album_renaissance": "Mein Album \"la renaissance\"",
+    "album_renaissance_desc": "Eine originelle Sammlung meiner Kompositionen und musikalischen Experimente",
+    "playlist_work": "Zum Arbeiten",
+    "playlist_work_desc": "Instrumentale und Ambient-Musik, perfekt zum Konzentrieren und Schaffen",
+    "follow_spotify": "Auf Spotify folgen"
+  },
+    "common": {
     "loading": "Wird geladen...",
     "error": "Fehler",
     "read_more": "Mehr lesen",

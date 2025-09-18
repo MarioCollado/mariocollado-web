@@ -20,6 +20,17 @@
     "projects": "Projects",
     "about": "About me"
   },
+  "music": {
+    "title": "MUSIC",
+    "subtitle": "Discover my playlists and musical publications that accompany me in the creative process",
+    "playlist_everything": "Everything I listen to",
+    "playlist_everything_desc": "My personal selection of favorite songs from all genres and eras",
+    "album_renaissance": "My album \"la renaissance\"",
+    "album_renaissance_desc": "An original collection of my compositions and musical experiments",
+    "playlist_work": "For working",
+    "playlist_work_desc": "Instrumental and ambient music perfect for focusing and creating",
+    "follow_spotify": "Follow on Spotify"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Error",
