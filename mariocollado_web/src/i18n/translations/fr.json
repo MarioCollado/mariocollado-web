@@ -1,59 +1,68 @@
 {
+  "meta": {
+    "title": "mariocollado. — Portfolio",
+    "description": "Portfolio personnel de Mario Collado : développement, photographie, vidéo et musique."
+  },
   "nav": {
-    "home": "Accueil",
-    "about": "À propos",
-    "projects": "Projets",
-    "contact": "Contact"
-  },
-  "home": {
-    "title": "Bienvenue",
-    "subtitle": "Développeur Full Stack",
-    "description": "Créer des expériences numériques incroyables"
-  },
-  "profile": {
-    "social_label": "Ouvrir le profil sur {platform}",
-    "contact_link": "Contact"
-  },
-  "cards": {
-    "tech": "Technologie",
-    "film": "Cinéma",
-    "projects": "Projets",
-    "about": "À propos"
-  },
-  "common": {
-    "loading": "Chargement...",
-    "error": "Erreur",
-    "read_more": "Lire plus",
-    "back": "Retour"
-  },
-  "contact": {
-    "title": "CONTACTEZ-MOI",
-    "subtitle": "Écrivez-moi et je répondrai dès que possible",
-    "name": "Nom",
-    "email": "Email",
-    "message": "Message",
-    "name_placeholder": "Votre nom",
-    "email_placeholder": "votre@email.com",
-    "message_placeholder": "Comment puis-je vous aider?",
-    "send": "ENVOYER",
-    "sending": "ENVOI...",
-    "success": "Message envoyé avec succès! Je répondrai bientôt.",
-    "error": "Erreur lors de l'envoi du message",
-    "error_empty_fields": "Veuillez remplir tous les champs",
-    "error_invalid_email": "Veuillez entrer un email valide",
-    "error_connection": "Erreur de connexion. Vérifiez votre internet et réessayez.",
-    "error_unknown": "Erreur inconnue"
+    "work": "WORK",
+    "about": "ABOUT",
+    "contact": "CONTACT",
+    "theme": "Thème",
+    "languages": "Langue"
   },
   "hero": {
+    "location": "Asturies, Espagne",
     "title": "Idées, images et son.",
     "text": "Je développe des expériences numériques, je photographie, je filme et je fais de la musique. Je m'intéresse aux liens entre technologie et création.",
-    "location": "Asturias, Spain",
-    "explore": "Explorer"
+    "scroll": "Explorer",
+    "image_alt": "Photographie de Caldoveiro"
+  },
+  "work": {
+    "title": "Travaux sélectionnés",
+    "ableset": {
+      "title": "ABLESET",
+      "desc": "Logiciel pour organiser et piloter des sets musicaux en direct.",
+      "status": "En développement"
+    },
+    "photography": {
+      "title": "Photographie",
+      "desc": "Une sélection de photographies et de projets visuels.",
+      "link": "Voir la galerie"
+    },
+    "renaissance": {
+      "title": "La Renaissance",
+      "desc": "Un projet musical et une publication indépendante.",
+      "link": "Écouter sur Spotify"
+    }
+  },
+  "gallery": {
+    "title": "Galerie"
   },
   "disciplines": {
     "title": "Disciplines",
-    "technology": "Développement logiciel, expériences web et outils numériques.",
-    "visuals": "Photographie, vidéo, composition et exploration visuelle.",
-    "music": "Batterie, composition, production et projets musicaux."
+    "technology": {
+      "title": "Technology",
+      "desc": "Développement logiciel, expériences web et outils numériques."
+    },
+    "visuals": {
+      "title": "Visuals",
+      "desc": "Photographie, vidéo, composition et exploration visuelle."
+    },
+    "music": {
+      "title": "Music",
+      "desc": "Batterie, composition, production et projets musicaux."
+    }
+  },
+  "about": {
+    "title": "À propos",
+    "text": "J'aime construire des choses, explorer des idées et relier les disciplines. Mon travail oscille entre logiciel, récit visuel et musique."
+  },
+  "contact": {
+    "title": "Vous avez une idée en tête ?",
+    "location": "Asturies, Espagne",
+    "social": "Réseaux"
+  },
+  "footer": {
+    "rights": "© {year} mariocollado."
   }
 }
