@@ -14,4 +14,23 @@ const m = messages[lang] ?? messages.es;
 <main class="flex min-h-[100svh] flex-col items-center justify-center px-6 text-center">
   <p class="font-mono text-xs uppercase tracking-widest text-muted">mariocollado.</p>
   <h1 class="mt-6 font-display text-[clamp(2.5rem,7vw,5rem)] font-semibold leading-none tracking-tight">{m.title}</h1>
+  <p class="loader mt-6 font-display text-3xl" aria-hidden="true"><span>.</span><span>.</span><span>.</span></p>
 </main>
+
+<style>
+  .loader span {
+    display: inline-block;
+    opacity: 0.15;
+    animation: dot 1.4s infinite;
+  }
+  .loader span:nth-child(2) { animation-delay: 0.2s; }
+  .loader span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dot {
+    0%, 20% { opacity: 0.15; }
+    40% { opacity: 1; }
+    100% { opacity: 0.15; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .loader span { animation: none; opacity: 1; }
+  }
+</style>
