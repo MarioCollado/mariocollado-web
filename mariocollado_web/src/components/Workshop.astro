@@ -1,0 +1,125 @@
+---
+import { formatRepoDate, getGitHubRepos } from "@/lib/github";
+
+const repos = await getGitHubRepos("MarioCollado", 6);
+const featuredRepo = repos[0];
+const archiveRepos = repos.slice(1);
+const archiveLoop = [...archiveRepos, ...archiveRepos];
+const archiveCount = Math.max(archiveRepos.length, 1);
+---
+
+<section id="workshop" class="workshop section grain" aria-labelledby="workshop-title">
+  <div class="shell asym-grid">
+    <h2 id="workshop-title" class="section-title">Desarrollo</h2>
+    <p class="section-intro">
+      Proyectos personales, experimentos y repositorios  relacionados con la tecnología o el arte. En progreso.
+    </p>
+  </div>
+
+  <div class="shell workshop-layout">
+    {featuredRepo ? (
+      <article class="workshop-feature">
+        <div class="workshop-feature__copy">
+          <p class="workshop-kicker font-mono">Featured repository</p>
+          <h3>
+            <a href={featuredRepo.html_url} target="_blank" rel="noreferrer">
+              {featuredRepo.name}
+            </a>
+          </h3>
+          <p class="workshop-summary">
+            {featuredRepo.description || "Repositorio activo sin descripcion publica, todavia en silencio."}
+          </p>
+        </div>
+
+        <div class="workshop-feature__meta">
+          <dl class="repo-stats repo-stats--compact">
+            <div>
+              <dt class="font-mono">Language</dt>
+              <dd>{featuredRepo.language || "-"}</dd>
+            </div>
+            <div>
+              <dt class="font-mono">Stars</dt>
+              <dd>{featuredRepo.stargazers_count}</dd>
+            </div>
+            <div>
+              <dt class="font-mono">Forks</dt>
+              <dd>{featuredRepo.forks_count}</dd>
+            </div>
+            <div>
+              <dt class="font-mono">Updated</dt>
+              <dd>{formatRepoDate(featuredRepo.updated_at)}</dd>
+            </div>
+          </dl>
+
+          <p class="workshop-note">Ultima actualizacion {formatRepoDate(featuredRepo.updated_at)}.</p>
+          <a class="workshop-link font-mono" href={featuredRepo.html_url} target="_blank" rel="noreferrer">
+            Abrir repositorio ->
+          </a>
+        </div>
+      </article>
+    ) : (
+      <article class="workshop-feature workshop-feature--empty">
+        <p class="workshop-kicker font-mono">Featured repository</p>
+        <h3>No hay repositorios visibles todavia.</h3>
+      </article>
+    )}
+
+    <div class="workshop-secondary">
+      <div class="workshop-carousel" aria-label="Repositorios archivados en carrusel infinito">
+        <p class="workshop-carousel__label font-mono">Archivo en movimiento / scroll continuo</p>
+        <div class="workshop-archive-track">
+          <div class="workshop-archive">
+            {archiveLoop.map((repo, index) => (
+              <article class={`workshop-module workshop-module--${(index % archiveCount) + 1}`}>
+                <div class="workshop-module__head">
+                  <p class="workshop-kicker font-mono">
+                    {index < archiveRepos.length ? `Archivo ${String(index + 2).padStart(2, "0")}` : "Archivo"}
+                  </p>
+                  <a href={repo.html_url} target="_blank" rel="noreferrer" class="workshop-module__title">
+                    {repo.name}
+                  </a>
+                </div>
+
+                <p class="workshop-module__desc">
+                  {repo.description || "Sin descripcion publica; queda como nota tecnica o fragmento de taller."}
+                </p>
+
+                <footer class="workshop-module__meta">
+                  <span class="font-mono">{repo.language || "NO LANG"}</span>
+                  <span class="font-mono">Stars {repo.stargazers_count}</span>
+                  <span class="font-mono">Forks {repo.forks_count}</span>
+                  <span class="font-mono">{formatRepoDate(repo.updated_at)}</span>
+                </footer>
+              </article>
+            ))}
+          </div>
+          <div class="workshop-archive" aria-hidden="true">
+            {archiveLoop.map((repo, index) => (
+              <article class={`workshop-module workshop-module--${(index % archiveCount) + 1}`}>
+                <div class="workshop-module__head">
+                  <p class="workshop-kicker font-mono">
+                    {index < archiveRepos.length ? `Archivo ${String(index + 2).padStart(2, "0")}` : "Archivo"}
+                  </p>
+                  <a href={repo.html_url} target="_blank" rel="noreferrer" class="workshop-module__title">
+                    {repo.name}
+                  </a>
+                </div>
+
+                <p class="workshop-module__desc">
+                  {repo.description || "Sin descripcion publica; queda como nota tecnica o fragmento de taller."}
+                </p>
+
+                <footer class="workshop-module__meta">
+                  <span class="font-mono">{repo.language || "NO LANG"}</span>
+                  <span class="font-mono">Stars {repo.stargazers_count}</span>
+                  <span class="font-mono">Forks {repo.forks_count}</span>
+                  <span class="font-mono">{formatRepoDate(repo.updated_at)}</span>
+                </footer>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

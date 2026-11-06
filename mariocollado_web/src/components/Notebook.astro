@@ -1,0 +1,42 @@
+﻿---
+import NoteCard from "@/components/NoteCard.astro";
+
+const notes = [
+  {
+    text: "Hoy escuché una toma vieja y encontré un silencio mejor que cualquier compresor.",
+    rot: "rot-a",
+  },
+  {
+    text: "Quiero que cada proyecto suene como una habitación real: aire, madera y tiempo.",
+    rot: "rot-b",
+  },
+  {
+    text: "Programar también es editar: quitar ruido hasta que quede intención.",
+    rot: "rot-c",
+  },
+  {
+    text: "Sigo coleccionando imágenes torcidas de Madrid para una pieza nueva.",
+    rot: "rot-d",
+  },
+];
+---
+
+<section
+  id="notebook"
+  class="notebook section grain"
+  aria-labelledby="notebook-title"
+>
+  <div class="shell asym-grid">
+    <h2 id="notebook-title" class="section-title">Cuaderno</h2>
+    <p class="section-intro">
+      Apuntes breves, sin filtro, para no olvidar por qué hago esto.
+    </p>
+  </div>
+  <div class="shell notes-grid">
+    {
+      notes.map((note) => (
+        <NoteCard text={note.text} rotationClass={note.rot} />
+      ))
+    }
+  </div>
+</section>

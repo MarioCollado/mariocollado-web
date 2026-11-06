@@ -1,0 +1,111 @@
+---
+const soundPieces = [
+  {
+    kind: "Playlist",
+    title: "En esta playlist recopilo todo lo que escucho.",
+    note: "",
+    embed:
+      "https://open.spotify.com/embed/playlist/5ccbwKAM3fMNbG82oq89dX?utm_source=generator&theme=0",
+    meta: "01:17 · Madrid",
+  },
+  {
+    kind: "Álbum / CD",
+    title: "Mi primera publicación. Formada de 3 piezas al piano.",
+    note: "Inspirada por artistas como Yann Tiersen, Fabrizio Paterlini o Mario Viñuela.",
+    embed:
+      "https://open.spotify.com/embed/album/7bqMbjBDH5YXqErJmON5nd?utm_source=generator&theme=0",
+    meta: "Edición 2025",
+  },
+  {
+    kind: "Playlist / noche",
+    title: "Algo más oscuro.",
+    note: "En esta playlist encontrarás temas algo más introspectivos y personales.",
+    embed:
+      "https://open.spotify.com/embed/playlist/6nFATDq2kBuOpKh6mKABVz?utm_source=generator&theme=0",
+    meta: "03:42 · Archivada",
+  },
+];
+---
+
+<section
+  id="sounds"
+  class="sounds section grain"
+  aria-labelledby="sounds-title"
+>
+  <div class="shell asym-grid">
+    <h2 id="sounds-title" class="section-title">Música</h2>
+    <p class="section-intro">Recuerdos y .</p>
+  </div>
+
+  <div class="shell sounds-stage">
+    <article class="sound-feature sound-feature--primary">
+      <div class="sound-copy">
+        <p class="sound-kicker font-mono">{soundPieces[0].kind}</p>
+        <h3>{soundPieces[0].title}</h3>
+        <p>{soundPieces[0].note}</p>
+        <p class="sound-meta font-mono">{soundPieces[0].meta}</p>
+      </div>
+      <div class="sound-frame sound-frame--large">
+        <iframe
+          src={soundPieces[0].embed}
+          width="100%"
+          height="380"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          title="Playlist de noche de Mario Collado"></iframe>
+      </div>
+    </article>
+
+    <div class="sounds-split">
+      <article class="sound-feature sound-feature--artifact">
+        <div class="sound-copy">
+          <p class="sound-kicker font-mono">{soundPieces[1].kind}</p>
+          <h3>{soundPieces[1].title}</h3>
+          <p>{soundPieces[1].note}</p>
+          <p class="sound-meta font-mono">{soundPieces[1].meta}</p>
+        </div>
+        <div class="sound-artifact-wrap">
+          <div class="sound-spine font-mono">LADO A / LADO B</div>
+          <div class="sound-frame sound-frame--artifact">
+            <iframe
+              src={soundPieces[1].embed}
+              width="100%"
+              height="380"
+              frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+              title="Album de Mario Collado"></iframe>
+          </div>
+        </div>
+      </article>
+
+      <aside class="sound-note-box">
+        <p class="sound-kicker font-mono">Nota:</p>
+        <p>Existen copias físicas.</p>
+      </aside>
+    </div>
+
+    <article class="sound-feature sound-feature--secondary">
+      <div class="sound-copy">
+        <p class="sound-kicker font-mono">{soundPieces[2].kind}</p>
+        <h3>{soundPieces[2].title}</h3>
+        <p>{soundPieces[2].note}</p>
+        <p class="sound-meta font-mono">{soundPieces[2].meta}</p>
+      </div>
+      <div class="sound-frame sound-frame--small">
+        <iframe
+          src={soundPieces[2].embed}
+          width="100%"
+          height="352"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          title="Playlist de madrugada de Mario Collado"></iframe>
+      </div>
+    </article>
+  </div>
+</section>

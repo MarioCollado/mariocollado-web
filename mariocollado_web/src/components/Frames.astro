@@ -1,0 +1,676 @@
+---
+/**
+ * Frames.astro
+ * – Rejilla uniforme para fotos y vídeos (igual aspect-ratio, igual clase de celda).
+ * – Carrusel horizontal con scroll-snap cuando hay más de 6 items.
+ * – Lightbox accesible al hacer click: zoom out → panel modal con imagen/vídeo completo.
+ * – Zoom suave en hover.
+ * – Sin dependencias externas. Todo en este componente.
+ */
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+
+function stemFromPath(path: string): string {
+  return path.split("/").pop()!.replace(/\.[^.]+$/, "");
+}
+
+function slugToLabel(stem: string): string {
+  return stem
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function stemPrefix(stem: string): string {
+  return stem.replace(/_\d+$/, "");
+}
+
+// ── Importación de assets ──────────────────────────────────────────────────────
+
+const photoModules = import.meta.glob<{ default: { src: string } }>(
+  "../assets/photos/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
+
+const videoModules = import.meta.glob<{ default: string }>(
+  "../assets/videos/*.{mp4,webm}",
+  { eager: true, query: "url" }
+);
+
+// ── Construcción de items ──────────────────────────────────────────────────────
+
+interface FrameItem {
+  kind: "photo" | "video";
+  src: string;
+  stem: string;
+  label: string;
+  index: number;
+  isLoop?: boolean;
+  poster?: string;
+  mime?: string;
+}
+
+const photosSorted = Object.entries(photoModules).sort(([a], [b]) => a.localeCompare(b));
+const videosSorted = Object.entries(videoModules).sort(([a], [b]) => a.localeCompare(b));
+
+// Índice de fotos por stem y por prefijo (para poster)
+const photosByStem = new Map<string, string>();
+const photosByPrefix = new Map<string, string>();
+
+const photoItems: FrameItem[] = photosSorted.map(([path, mod], i) => {
+  const stem = stemFromPath(path);
+  const src: string = (mod.default as any)?.src ?? (mod.default as unknown as string);
+  photosByStem.set(stem, src);
+  const prefix = stemPrefix(stem);
+  if (!photosByPrefix.has(prefix)) photosByPrefix.set(prefix, src);
+  return { kind: "photo", src, stem, label: slugToLabel(stem), index: i + 1 };
+});
+
+const videoItems: FrameItem[] = videosSorted.map(([path, mod], i) => {
+  const stem = stemFromPath(path);
+  const src = mod.default as string;
+  const isLoop = stem.toLowerCase().includes("loop");
+  const poster = photosByStem.get(stem) ?? photosByPrefix.get(stemPrefix(stem));
+  const mime = src.endsWith(".webm") ? "video/webm" : "video/mp4";
+  return {
+    kind: "video",
+    src,
+    stem,
+    label: slugToLabel(stem),
+    index: photoItems.length + i + 1,
+    isLoop,
+    poster,
+    mime,
+  };
+});
+
+// Todos los items mezclados: fotos primero, vídeos al final
+const items: FrameItem[] = [...photoItems, ...videoItems];
+
+// Usar carrusel si hay más de 6 items
+const useCarousel = items.length > 6;
+const hasContent = items.length > 0;
+
+// Asignar aspect-ratio rotatorio entre los items
+const ratios = ["ratio-3-4", "ratio-1", "ratio-4-5", "ratio-3-4", "ratio-16-9", "ratio-1"];
+---
+
+<section
+  id="frames"
+  class="frames section grain"
+  aria-labelledby="frames-title"
+>
+  <div class="shell asym-grid">
+    <h2 id="frames-title" class="section-title">Visuales</h2>
+    <p class="section-intro">
+      Hoja de contactos con escenas cálidas, ruido leve y bordes vivos.
+    </p>
+  </div>
+
+  <div class="shell">
+    {!hasContent && (
+      <p class="frames-empty font-mono" role="status" aria-live="polite">
+        No hay fotos o vídeos disponibles.
+      </p>
+    )}
+
+    {hasContent && (
+      <div
+        class={useCarousel ? "frames-carousel" : "frames-grid"}
+        role="list"
+        aria-label="Galería de visuales"
+      >
+        {items.map((item) => {
+          const ratio = ratios[(item.index - 1) % ratios.length];
+          return (
+            <figure
+              class={`frames-item ${ratio}`}
+              role="listitem"
+              aria-label={`${item.kind === "photo" ? "Foto" : "Vídeo"}: ${item.label}`}
+            >
+              <button
+                class="frames-trigger"
+                data-kind={item.kind}
+                data-src={item.src}
+                data-label={item.label}
+                data-poster={item.poster ?? ""}
+                data-mime={item.mime ?? ""}
+                aria-label={`Ver ${item.label} a pantalla completa`}
+                type="button"
+              >
+                {item.kind === "photo" ? (
+                  <img
+                    src={item.src}
+                    alt={item.label}
+                    loading="lazy"
+                    decoding="async"
+                    class="frames-media"
+                  />
+                ) : (
+                  <>
+                    {/* Inline muted video → browser shows first frame as thumbnail */}
+                    <video
+                      class="frames-media frames-media--video-thumb"
+                      muted
+                      playsinline
+                      preload="metadata"
+                      poster={item.poster ?? undefined}
+                      aria-hidden="true"
+                      tabindex="-1"
+                    >
+                      <source src={item.src} type={item.mime} />
+                    </video>
+                    <span class="frames-video-badge" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <polygon points="6 3 20 12 6 21 6 3"/>
+                      </svg>
+                    </span>
+                  </>
+                )}
+              </button>
+              <figcaption class="font-mono frames-caption">
+                #{String(item.index).padStart(3, "0")} — {item.label.toUpperCase()}
+              </figcaption>
+            </figure>
+          );
+        })}
+      </div>
+    )}
+
+    {useCarousel && hasContent && (
+      <div class="frames-carousel-controls" aria-label="Controles del carrusel">
+        <button class="frames-carousel-btn" id="frames-prev" aria-label="Anterior" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button class="frames-carousel-btn" id="frames-next" aria-label="Siguiente" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    )}
+  </div>
+</section>
+
+{/* ── Lightbox backdrop ── fuera del section para evitar stacking context ──── */}
+<div
+  id="frames-lightbox"
+  class="frames-lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Visor de imagen"
+  aria-hidden="true"
+  tabindex="-1"
+>
+  {/* Backdrop click area */}
+  <div class="frames-lightbox-backdrop" id="frames-lb-backdrop"></div>
+
+  {/* Centred card */}
+  <div class="frames-lightbox-card">
+    <header class="frames-lightbox-header">
+      <p class="frames-lightbox-caption font-mono" id="frames-lb-caption"></p>
+      <button class="frames-lightbox-close" id="frames-lb-close" aria-label="Cerrar visor" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </header>
+    <div class="frames-lightbox-media" id="frames-lb-media" aria-live="polite"></div>
+  </div>
+</div>
+
+<style>
+/* ── Shared ────────────────────────────────────────────────────────────────── */
+.frames-empty {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: var(--muted-fg);
+}
+
+/* ── Grid mode (≤6 items) ──────────────────────────────────────────────────── */
+.frames-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-items: start;
+}
+
+/* ── Carousel mode (>6 items) ──────────────────────────────────────────────── */
+.frames-carousel {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.9rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  padding-bottom: 0.6rem;
+}
+
+.frames-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+.frames-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.frames-carousel::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.frames-carousel .frames-item {
+  flex: 0 0 auto;
+  width: clamp(180px, 26vw, 280px);
+  scroll-snap-align: start;
+}
+
+/* ratio columns apply only in grid mode */
+.frames-grid .ratio-1    { grid-column: span 3; }
+.frames-grid .ratio-3-4  { grid-column: span 2; }
+.frames-grid .ratio-16-9 { grid-column: span 5; }
+.frames-grid .ratio-4-5  { grid-column: span 3; }
+
+/* ── Item ─────────────────────────────────────────────────────────────────── */
+.frames-item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Aspect-ratio wrappers */
+.frames-item.ratio-1    .frames-trigger { aspect-ratio: 1 / 1; }
+.frames-item.ratio-3-4  .frames-trigger { aspect-ratio: 3 / 4; }
+.frames-item.ratio-16-9 .frames-trigger { aspect-ratio: 16 / 9; }
+.frames-item.ratio-4-5  .frames-trigger { aspect-ratio: 4 / 5; }
+
+/* In carousel every item gets a fixed portrait ratio */
+.frames-carousel .frames-item .frames-trigger { aspect-ratio: 3 / 4; }
+
+/* ── Trigger button ──────────────────────────────────────────────────────── */
+.frames-trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--ink);
+  background: transparent;
+  cursor: zoom-in;
+  overflow: hidden;
+  outline-offset: 3px;
+  transition: box-shadow 220ms ease, transform 220ms ease, border-color 220ms ease;
+}
+
+.frames-trigger:hover {
+  border-color: var(--accent);
+  box-shadow: 6px 6px 0 var(--ink);
+  transform: translateY(-3px) scale(1.015);
+  z-index: 1;
+}
+
+.frames-trigger:focus-visible {
+  outline: 2px dashed var(--rust);
+}
+
+/* ── Media inside trigger ──────────────────────────────────────────────────── */
+.frames-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 380ms ease;
+  pointer-events: none; /* pass clicks through to button */
+}
+
+.frames-trigger:hover .frames-media {
+  transform: scale(1.03);
+}
+
+/* Video thumbnail: fills cell same as img, shows first frame */
+.frames-media--video-thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transition: transform 380ms ease;
+}
+
+.frames-trigger:hover .frames-media--video-thumb {
+  transform: scale(1.03);
+}
+
+/* Video badge overlay */
+.frames-video-badge {
+  position: absolute;
+  bottom: 0.55rem;
+  right: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--ink) 80%, transparent);
+  color: var(--background);
+  pointer-events: none;
+  transition: transform 220ms ease, background 220ms ease;
+}
+.frames-trigger:hover .frames-video-badge {
+  transform: scale(1.12);
+  background: var(--accent);
+}
+.frames-video-badge svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+/* ── Caption ──────────────────────────────────────────────────────────────── */
+.frames-caption {
+  margin-top: 0.38rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.09em;
+  color: var(--muted-fg);
+}
+
+/* ── Carousel controls ────────────────────────────────────────────────────── */
+.frames-carousel-controls {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.7rem;
+}
+
+.frames-carousel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 180ms, background 180ms, transform 180ms;
+}
+.frames-carousel-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+.frames-carousel-btn:hover {
+  border-color: var(--ink);
+  background: color-mix(in oklch, var(--ink) 6%, transparent);
+  transform: scale(1.06);
+}
+.frames-carousel-btn:focus-visible {
+  outline: 2px dashed var(--rust);
+  outline-offset: 3px;
+}
+
+/* ── Lightbox ─────────────────────────────────────────────────────────────── */
+
+/* Full-screen backdrop */
+.frames-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 280ms ease;
+}
+
+.frames-lightbox[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Semi-transparent backdrop layer */
+.frames-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklch, var(--ink) 76%, transparent);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  cursor: pointer;
+}
+
+/* Centred card – shrinks to content, capped for comfort */
+.frames-lightbox-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  max-width: min(80vw, 700px);
+  max-height: 85vh;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 10px 10px 0 var(--ink);
+  overflow: hidden;
+  animation: lb-card-in 300ms ease forwards;
+}
+
+.frames-lightbox[aria-hidden="true"] .frames-lightbox-card {
+  animation: none;
+}
+
+@keyframes lb-card-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Card header: caption + close button */
+.frames-lightbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px dashed var(--border);
+  flex-shrink: 0;
+}
+
+.frames-lightbox-caption {
+  margin: 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-fg);
+  text-transform: uppercase;
+}
+
+.frames-lightbox-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: background 160ms, border-color 160ms, transform 160ms;
+}
+.frames-lightbox-close:hover {
+  background: color-mix(in oklch, var(--accent) 14%, transparent);
+  border-color: var(--accent);
+  transform: rotate(90deg);
+}
+.frames-lightbox-close:focus-visible {
+  outline: 2px dashed var(--rust);
+  outline-offset: 3px;
+}
+.frames-lightbox-close svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Media area inside card – sizes itself to the asset */
+.frames-lightbox-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: color-mix(in oklch, var(--ink) 6%, var(--paper));
+}
+
+.frames-lightbox-media img {
+  display: block;
+  /* never wider than the card cap, never taller than ~65 vh → feels compact */
+  max-width:  min(80vw, 700px);
+  max-height: min(50vh, 500px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: lb-in 260ms ease forwards;
+}
+
+.frames-lightbox-media video {
+  display: block;
+  /* videos get a bit more height since they have their own controls bar */
+  max-width:  min(80vw, 700px);
+  max-height: min(50vh, 500px);
+  width: auto;
+  height: auto;
+  animation: lb-in 260ms ease forwards;
+}
+
+@keyframes lb-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 980px) {
+  .frames-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .frames-grid .ratio-1,
+  .frames-grid .ratio-3-4,
+  .frames-grid .ratio-16-9,
+  .frames-grid .ratio-4-5 {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .frames-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .frames-carousel .frames-item {
+    width: clamp(150px, 70vw, 240px);
+  }
+}
+</style>
+
+<script>
+// ── Lightbox ──────────────────────────────────────────────────────────────────
+(function () {
+  const lb       = document.getElementById("frames-lightbox") as HTMLElement;
+  const lbMedia  = document.getElementById("frames-lb-media") as HTMLElement;
+  const lbCap    = document.getElementById("frames-lb-caption") as HTMLElement;
+  const lbClose  = document.getElementById("frames-lb-close") as HTMLButtonElement;
+
+  let lastTrigger: HTMLElement | null = null;
+
+  function openLightbox(trigger: HTMLElement) {
+    const kind   = trigger.dataset.kind as "photo" | "video";
+    const src    = trigger.dataset.src!;
+    const label  = trigger.dataset.label!;
+    const poster = trigger.dataset.poster ?? "";
+    const mime   = trigger.dataset.mime ?? "";
+
+    // Clear previous content
+    lbMedia.innerHTML = "";
+
+    if (kind === "photo") {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = label;
+      img.decoding = "async";
+      lbMedia.appendChild(img);
+    } else {
+      const vid = document.createElement("video");
+      vid.controls = true;
+      vid.autoplay = true;
+      vid.muted = false;        // unmute in lightbox
+      (vid as any).playsinline = true;
+      vid.preload = "auto";
+      if (poster) vid.poster = poster;
+      const src_ = document.createElement("source");
+      src_.src = src;
+      src_.type = mime || "video/webm";
+      vid.appendChild(src_);
+      const fallback = document.createElement("p");
+      fallback.textContent = "Tu navegador no soporta vídeo HTML5.";
+      vid.appendChild(fallback);
+      lbMedia.appendChild(vid);
+    }
+
+    lbCap.textContent = label.toUpperCase();
+    lb.setAttribute("aria-hidden", "false");
+    lb.setAttribute("aria-label", `Visor: ${label}`);
+    document.body.style.overflow = "hidden";
+    lastTrigger = trigger;
+    // Focus close button for keyboard users
+    lbClose.focus();
+  }
+
+  function closeLightbox() {
+    lb.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    // Stop video if playing
+    const vid = lbMedia.querySelector("video");
+    if (vid) { vid.pause(); vid.src = ""; }
+    lbMedia.innerHTML = "";
+    if (lastTrigger) {
+      lastTrigger.focus();
+      lastTrigger = null;
+    }
+  }
+
+  // Open on trigger click
+  document.querySelectorAll<HTMLElement>(".frames-trigger").forEach((btn) => {
+    btn.addEventListener("click", () => openLightbox(btn));
+  });
+
+  // Close on button
+  lbClose.addEventListener("click", closeLightbox);
+
+  // Close on backdrop click
+  const backdrop = document.getElementById("frames-lb-backdrop");
+  if (backdrop) backdrop.addEventListener("click", closeLightbox);
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lb.getAttribute("aria-hidden") === "false") {
+      closeLightbox();
+    }
+  });
+
+  // ── Carousel controls ──────────────────────────────────────────────────────
+  const carousel = document.querySelector<HTMLElement>(".frames-carousel");
+  const btnPrev  = document.getElementById("frames-prev") as HTMLButtonElement | null;
+  const btnNext  = document.getElementById("frames-next") as HTMLButtonElement | null;
+
+  if (carousel && btnPrev && btnNext) {
+    const step = () => {
+      const item = carousel.querySelector<HTMLElement>(".frames-item");
+      return item ? item.getBoundingClientRect().width + 15 : 280;
+    };
+
+    btnPrev.addEventListener("click", () => {
+      carousel.scrollBy({ left: -step(), behavior: "smooth" });
+    });
+    btnNext.addEventListener("click", () => {
+      carousel.scrollBy({ left: step(), behavior: "smooth" });
+    });
+  }
+})();
+</script>
