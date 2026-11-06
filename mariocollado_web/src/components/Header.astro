@@ -80,6 +80,10 @@ const navItems = [
     padding-inline: 1.25rem;
     justify-content: center;
   }
+  /* La capa superior solo muestra su texto en la parte ya rellena */
+  .layer--top .col--nav {
+    clip-path: inset(0 calc((1 - var(--fill, 0)) * 100%) 0 0);
+  }
   .col--nav::before {
     content: "";
     position: absolute;
