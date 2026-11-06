@@ -11,16 +11,16 @@ const navItems = [
 ];
 ---
 
-<header id="site-header" class="fixed inset-x-0 top-0 z-40 h-12 bg-bg">
+<header id="site-header" class="fixed inset-x-0 top-0 z-40 h-14 bg-bg">
   <!-- Capa base: texto en tinta sobre el fondo fijo -->
   <div class="layer layer--base">
-    <a href={translatePath("/", lang)} class="col col--brand font-display text-base font-semibold tracking-tight">mariocollado.</a>
+    <a href={translatePath("/", lang)} class="col col--brand font-display text-lg font-semibold tracking-tight">mariocollado.</a>
     <nav aria-label="Principal" class="contents max-md:hidden">
       {navItems.map((item) => (
-        <a href={item.href} class="col col--nav font-mono text-xs tracking-wide">{item.label}</a>
+        <a href={item.href} class="col col--nav font-mono text-sm tracking-wide">{item.label}</a>
       ))}
     </nav>
-    <div class="col col--tools font-mono text-[11px] uppercase">
+    <div class="col col--tools font-mono text-xs uppercase">
       <nav aria-label={t("nav.languages")} class="flex gap-3">
         {Object.keys(languages).map((code) => (
           <a
@@ -37,13 +37,13 @@ const navItems = [
 
   <!-- Capa superior: solo los elementos de navegación se rellenan con la tinta al bajar -->
   <div class="layer layer--top" aria-hidden="true" inert>
-    <span class="col col--brand font-display text-base font-semibold tracking-tight">mariocollado.</span>
+    <span class="col col--brand font-display text-lg font-semibold tracking-tight">mariocollado.</span>
     <span class="contents max-md:hidden">
       {navItems.map((item) => (
-        <span class="col col--nav font-mono text-xs tracking-wide">{item.label}</span>
+        <span class="col col--nav font-mono text-sm tracking-wide">{item.label}</span>
       ))}
     </span>
-    <span class="col col--tools font-mono text-[11px] uppercase">
+    <span class="col col--tools font-mono text-xs uppercase">
       <span class="flex gap-3">{Object.keys(languages).map((code) => <span>{code}</span>)}</span>
       <span class="rounded-full border px-3 py-1.5">{t("nav.theme")}</span>
     </span>
