@@ -15,9 +15,13 @@ import HeaderBar from "@/components/HeaderBar.astro";
     color: var(--bar-fg, var(--bg));
     border-bottom: 1px solid color-mix(in srgb, currentColor 25%, transparent);
   }
+  /* La capa que se barre se extiende un 25% a cada lado; el padding mantiene el texto alineado */
   .bar--top {
+    left: -25%;
+    right: -25%;
+    padding-inline: 25%;
     pointer-events: none;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
   }
 </style>
 
@@ -58,12 +62,13 @@ import HeaderBar from "@/components/HeaderBar.astro";
     }
     colors(tone, top);
     // Barrido diagonal desde la esquina superior izquierda
+    // Barrido de izquierda a derecha con bordes inclinados (no paralelos a la ventana)
     top.animate(
       [
-        { clipPath: "polygon(0 0, 0 0, 0 0, 0 0)" },
-        { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" },
+        { clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)" },
+        { clipPath: "polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%)" },
       ],
-      { duration: 800, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+      { duration: 900, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
     ).onfinish = () => colors(tone, base!);
   };
 
