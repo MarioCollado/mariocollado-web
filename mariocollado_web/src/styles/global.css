@@ -8,17 +8,29 @@
   --lime: #c5ff4a;
   --night: #111210;
 
-  --bg: var(--paper);
-  --fg: var(--ink);
+  --base-bg: var(--paper);
+  --base-fg: var(--ink);
+  --bg: var(--base-bg);
+  --fg: var(--base-fg);
   --muted: #5e5f59;
   --line: var(--stone);
   --accent: var(--digital);
   color-scheme: light;
 }
 
+/* Sección invertida: intercambia fondo y texto sin duplicar componentes */
+[data-tone="inverse"] {
+  --bg: var(--base-fg);
+  --fg: var(--base-bg);
+  --muted: color-mix(in srgb, currentColor 65%, transparent);
+  --line: color-mix(in srgb, currentColor 25%, transparent);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
 :root[data-theme="dark"] {
-  --bg: var(--night);
-  --fg: var(--paper);
+  --base-bg: var(--night);
+  --base-fg: var(--paper);
   --muted: #a7a69d;
   --line: #2e302c;
   --accent: var(--digital);

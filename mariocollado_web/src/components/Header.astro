@@ -1,51 +1,82 @@
 ---
-import { getLangFromUrl, useTranslations, languages, translatePath } from "@/i18n/utils";
-import type { SupportedLanguage } from "@/i18n/types";
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import HeaderBar from "@/components/HeaderBar.astro";
 ---
 
-<header class="sticky top-0 z-40 border-b border-line bg-bg">
-  <div class="mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-6 px-4 md:px-10">
-    <a href={translatePath("/", lang)} class="font-display text-xl font-semibold tracking-tight">mariocollado.</a>
-
-    <nav aria-label="Principal" class="hidden gap-8 font-mono text-sm tracking-wide md:flex">
-      <a href="#work" class="hover:underline underline-offset-4">{t("nav.work")}</a>
-      <a href="#about" class="hover:underline underline-offset-4">{t("nav.about")}</a>
-      <a href="#contact" class="hover:underline underline-offset-4">{t("nav.contact")}</a>
-    </nav>
-
-    <div class="flex items-center gap-4">
-      <nav aria-label={t("nav.languages")} class="flex gap-3 font-mono text-xs uppercase">
-        {
-          Object.keys(languages).map((code) => (
-            <a
-              href={translatePath("/", code as SupportedLanguage)}
-              hreflang={code}
-              aria-current={code === lang ? "page" : undefined}
-              class={code === lang ? "underline underline-offset-4" : "text-muted hover:text-fg"}
-            >
-              {code}
-            </a>
-          ))
-        }
-      </nav>
-      <button
-        type="button"
-        id="theme-toggle"
-        class="rounded-full border border-line px-3 py-1.5 font-mono text-xs uppercase hover:border-fg"
-        aria-label={t("nav.theme")}
-      >
-        {t("nav.theme")}
-      </button>
-    </div>
-  </div>
+<header id="site-header" class="fixed inset-x-0 top-0 z-40 h-20">
+  <HeaderBar layer="base" />
+  <HeaderBar layer="top" />
 </header>
 
+<style>
+  .bar {
+    position: absolute;
+    inset: 0;
+    background-color: var(--bar-bg, var(--fg));
+    color: var(--bar-fg, var(--bg));
+    border-bottom: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  }
+  .bar--top {
+    pointer-events: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+</style>
+
 <script>
-  const toggle = document.getElementById("theme-toggle");
-  toggle?.addEventListener("click", () => {
+  const header = document.getElementById("site-header");
+  const base = header?.querySelector<HTMLElement>('[data-layer="base"]');
+  const top = header?.querySelector<HTMLElement>('[data-layer="top"]');
+  const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-tone]"));
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let current: string | null = null;
+
+  const colors = (tone: string, el: HTMLElement) => {
+    // La cabecera toma el color contrario de la sección que tiene debajo
+    el.style.setProperty("--bar-bg", tone === "inverse" ? "var(--bg)" : "var(--fg)");
+    el.style.setProperty("--bar-fg", tone === "inverse" ? "var(--fg)" : "var(--bg)");
+  };
+
+  const toneUnderHeader = () => {
+    const y = (header?.offsetHeight ?? 80) / 2;
+    let tone = "base";
+    for (const s of sections) {
+      const r = s.getBoundingClientRect();
+      if (r.top <= y && r.bottom > y) tone = s.dataset.tone ?? "base";
+    }
+    return tone;
+  };
+
+  const update = () => {
+    if (!base || !top) return;
+    const tone = toneUnderHeader();
+    if (tone === current) return;
+    const first = current === null;
+    current = tone;
+    if (first || reduce) {
+      colors(tone, base);
+      colors(tone, top);
+      return;
+    }
+    colors(tone, top);
+    // Barrido diagonal desde la esquina superior izquierda
+    top.animate(
+      [
+        { clipPath: "polygon(0 0, 0 0, 0 0, 0 0)" },
+        { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" },
+      ],
+      { duration: 800, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+    ).onfinish = () => colors(tone, base!);
+  };
+
+  let frame = 0;
+  const schedule = () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(update);
+  };
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule);
+  update();
+
+  document.getElementById("theme-toggle")?.addEventListener("click", () => {
     const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try {
