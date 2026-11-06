@@ -36,7 +36,10 @@
     }
   },
   "gallery": {
-    "title": "Galerie"
+    "title": "Galerie",
+    "label": "Fotogalerie",
+    "prev": "Zurück",
+    "next": "Weiter"
   },
   "disciplines": {
     "title": "Disziplinen",

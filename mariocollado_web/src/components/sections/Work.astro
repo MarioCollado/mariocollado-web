@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
-import CarouselComponent from "../../lib/carousel";
+import PhotoGallery from "../ui/PhotoGallery";
 import { photos } from "../../data/photos";
 
 const t = useTranslations(getLangFromUrl(Astro.url));
@@ -36,6 +36,12 @@ const renaissanceUrl = "https://open.spotify.com/album/7bqMbjBDH5YXqErJmON5nd";
 
   <div id="gallery" class="mt-20 scroll-mt-24">
     <h3 class="mb-8 font-mono text-xs uppercase tracking-widest text-muted">{t("gallery.title")}</h3>
-    <CarouselComponent photos={photos} client:visible />
+    <PhotoGallery
+      client:visible
+      items={photos}
+      label={t("gallery.label")}
+      prevLabel={t("gallery.prev")}
+      nextLabel={t("gallery.next")}
+    />
   </div>
 </section>

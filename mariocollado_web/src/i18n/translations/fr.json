@@ -36,7 +36,10 @@
     }
   },
   "gallery": {
-    "title": "Galerie"
+    "title": "Galerie",
+    "label": "Galerie de photographies",
+    "prev": "Précédent",
+    "next": "Suivant"
   },
   "disciplines": {
     "title": "Disciplines",
