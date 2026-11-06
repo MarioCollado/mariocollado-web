@@ -2,7 +2,7 @@
 export interface Props {
   card: {
     id: string;
-    image: string;
+    image: string | null;
     title: string;
     colStart?: number | string;
     rowStart?: number | string;
@@ -25,12 +25,18 @@ const { card } = Astro.props;
     onclick="handleClick(event)"
   >
     <div class="h-full w-full relative">
-      <img
-        src={card.image}
-        alt={card.title}
-        class="w-full h-full object-cover lazyload"
-        loading="lazy"
-      />
+      {
+        card.image ? (
+          <img
+            src={card.image}
+            alt={card.title}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <div class="w-full h-full bg-gray-200" aria-hidden="true"></div>
+        )
+      }
 
       <!-- Overlay para el texto -->
       <div

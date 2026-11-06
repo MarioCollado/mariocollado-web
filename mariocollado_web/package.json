@@ -9,43 +9,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/alpinejs": "^0.4.9",
     "@fontsource-variable/montserrat": "^5.2.5",
     "@fontsource/abril-fatface": "^5.2.5",
     "@fontsource/alfa-slab-one": "^5.2.5",
     "@fontsource/monoton": "^5.2.5",
     "@fontsource/poiret-one": "^5.2.5",
     "@fontsource/press-start-2p": "^5.2.5",
-    "@octokit/rest": "^21.1.1",
-    "@supabase/supabase-js": "^2.57.4",
-    "@types/react-dom": "^19.1.1",
-    "alpinejs": "^3.14.9",
     "astro": "^5.13.6",
-    "free-astro-components": "^1.2.0",
-    "imagesloaded": "^5.0.0",
-    "jquery": "^3.7.1",
     "keen-slider": "^6.8.6",
-    "masonry-layout": "^4.2.2",
-    "micromodal": "^0.4.10",
-    "packery": "^3.0.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-hook-form": "^7.55.0",
-    "resend": "^6.0.3",
-    "svelte": "^5.25.6",
-    "svelte-carousel": "^1.0.25",
-    "sweetalert2": "^11.17.2"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp"
-    ]
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@astrojs/react": "^4.2.3",
-    "@astrojs/ts-plugin": "^1.10.4",
-    "@astrojs/vercel": "^8.2.7",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/vite": "^4.1.13",
     "@types/react": "^19.1.0",

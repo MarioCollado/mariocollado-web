@@ -1,9 +1,7 @@
 ---
 import Card from "@/components/ui/CardHome.astro";
 import Profile from "@/components/ui/Profile.astro";
-import { getHomeCards } from "@/lib/assets";
-
-const cards = await getHomeCards();
+import { homeCards as cards } from "@/data/home-cards";
 ---
 
 <section

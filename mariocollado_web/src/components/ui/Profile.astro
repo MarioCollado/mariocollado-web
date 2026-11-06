@@ -1,21 +1,11 @@
 ---
 import socialLinks from "@/json/social.json";
-import { supabase } from "@/lib/supabase";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Obtener URL (firmada si el bucket es privado; pública si es público)
-const SECTIONS_PATH = "sections/iconBW.png";
-let bgUrl = supabase.storage.from("media").getPublicUrl(SECTIONS_PATH)
-  .data.publicUrl;
-try {
-  const { data, error } = await supabase.storage
-    .from("media")
-    .createSignedUrl(SECTIONS_PATH, 60 * 60);
-  if (!error && data?.signedUrl) bgUrl = data.signedUrl;
-} catch {}
+const bgUrl = "/icon-profile/fondo_perfil.jpg";
 ---
 
 <div
