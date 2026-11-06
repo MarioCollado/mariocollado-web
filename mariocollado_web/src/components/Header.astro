@@ -9,51 +9,42 @@ const navItems = [
   { href: "#contact", label: "CONTACT" },
   { href: "#about", label: "ABOUT" },
 ];
-const layers = ["base", "top"] as const;
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-40 h-20">
-  {
-    layers.map((layer) => {
-      const isTop = layer === "top";
-      return (
-        <div class={`layer layer--${layer}`} data-layer={layer} aria-hidden={isTop ? "true" : undefined} inert={isTop}>
-          <a href={translatePath("/", lang)} class="col col--brand font-display text-xl font-semibold tracking-tight">
-            mariocollado.
-          </a>
-          <nav aria-label="Principal" class="contents max-md:hidden">
-            {navItems.map((item) => (
-              <a href={item.href} class="col font-mono text-sm tracking-wide">
-                {item.label}
-              </a>
-            ))}
-          </nav>
-          <div class="col col--tools font-mono text-xs uppercase">
-            <nav aria-label={t("nav.languages")} class="flex gap-3">
-              {Object.keys(languages).map((code) => (
-                <a
-                  href={translatePath("/", code as SupportedLanguage)}
-                  hreflang={code}
-                  aria-current={code === lang ? "page" : undefined}
-                  class={code === lang ? "underline underline-offset-4" : "opacity-60 hover:opacity-100"}
-                >
-                  {code}
-                </a>
-              ))}
-            </nav>
-            <button
-              type="button"
-              id={isTop ? undefined : "theme-toggle"}
-              class="rounded-full border border-current px-3 py-1.5"
-              aria-label={t("nav.theme")}
-            >
-              {t("nav.theme")}
-            </button>
-          </div>
-        </div>
-      );
-    })
-  }
+  <!-- Capa base: texto en tinta sobre el papel -->
+  <div class="layer layer--base">
+    <a href={translatePath("/", lang)} class="col col--brand font-display text-xl font-semibold tracking-tight">mariocollado.</a>
+    <nav aria-label="Principal" class="contents max-md:hidden">
+      {navItems.map((item) => (
+        <a href={item.href} class="col font-mono text-sm tracking-wide">{item.label}</a>
+      ))}
+    </nav>
+    <div class="col col--tools font-mono text-xs uppercase">
+      <nav aria-label={t("nav.languages")} class="flex gap-3">
+        {Object.keys(languages).map((code) => (
+          <a
+            href={translatePath("/", code as SupportedLanguage)}
+            hreflang={code}
+            aria-current={code === lang ? "page" : undefined}
+            class={code === lang ? "underline underline-offset-4" : "opacity-60 hover:opacity-100"}
+          >{code}</a>
+        ))}
+      </nav>
+      <button type="button" id="theme-toggle" class="rounded-full border border-current px-3 py-1.5" aria-label={t("nav.theme")}>{t("nav.theme")}</button>
+    </div>
+  </div>
+
+  <!-- Capa superior: relleno en tinta que avanza con el scroll -->
+  <div class="layer layer--top" aria-hidden="true" inert>
+    <span class="col col--brand font-display text-xl font-semibold tracking-tight">mariocollado.</span>
+    <span class="contents max-md:hidden">
+      {navItems.map((item) => (
+        <span class="col font-mono text-sm tracking-wide">{item.label}</span>
+      ))}
+    </span>
+    <span class="col col--tools font-mono text-xs uppercase">&nbsp;</span>
+  </div>
 </header>
 
 <style>
@@ -62,14 +53,19 @@ const layers = ["base", "top"] as const;
     inset: 0;
     display: flex;
     gap: 6px;
-    --bar-bg: var(--fg);
-    --bar-fg: var(--bg);
+  }
+  .layer--base {
+    --bar-fg: var(--fg);
   }
   .layer--top {
+    --bar-bg: var(--fg);
+    --bar-fg: var(--bg);
     pointer-events: none;
   }
-  /* Cada columna es un paralelogramo: los bordes van inclinados, no paralelos a la ventana */
+  /* Cada columna es un paralelogramo con bordes diagonales */
   .col {
+    position: relative;
+    isolation: isolate;
     flex: 1 1 0;
     min-width: 0;
     display: flex;
@@ -77,10 +73,20 @@ const layers = ["base", "top"] as const;
     justify-content: center;
     gap: 1rem;
     padding-inline: 1.25rem;
-    background-color: var(--bar-bg);
     color: var(--bar-fg);
+  }
+  .col::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--bar-bg, transparent);
     clip-path: polygon(16px 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
     transform-origin: left center;
+    transform: scaleX(var(--fill, 0));
+  }
+  .layer--base .col::before {
+    display: none;
   }
   .col--brand {
     flex: 0 0 auto;
@@ -95,51 +101,16 @@ const layers = ["base", "top"] as const;
 
 <script>
   const header = document.getElementById("site-header");
-  const base = header?.querySelector<HTMLElement>('[data-layer="base"]');
-  const top = header?.querySelector<HTMLElement>('[data-layer="top"]');
-  const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-tone]"));
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let current: string | null = null;
-  let seq = 0;
+  const cols = Array.from(header?.querySelectorAll<HTMLElement>(".layer--top .col") ?? []);
 
-  const colors = (tone: string, el: HTMLElement) => {
-    // La cabecera toma el color contrario de la sección que tiene debajo
-    el.style.setProperty("--bar-bg", tone === "inverse" ? "var(--bg)" : "var(--fg)");
-    el.style.setProperty("--bar-fg", tone === "inverse" ? "var(--fg)" : "var(--bg)");
-  };
-
-  const toneUnderHeader = () => {
-    const y = (header?.offsetHeight ?? 80) / 2;
-    let tone = "base";
-    for (const s of sections) {
-      const r = s.getBoundingClientRect();
-      if (r.top <= y && r.bottom > y) tone = s.dataset.tone ?? "base";
-    }
-    return tone;
-  };
-
+  // Progreso de la página (0 arriba, 1 al final). Cada columna se llena en orden.
   const update = () => {
-    if (!base || !top) return;
-    const tone = toneUnderHeader();
-    if (tone === current) return;
-    const first = current === null;
-    current = tone;
-    if (first || reduce) {
-      colors(tone, base);
-      colors(tone, top);
-      return;
-    }
-    const token = ++seq;
-    colors(tone, top);
-    // Cada columna se despliega de izquierda a derecha, con un pequeño desfase
-    const anims = Array.from(top.querySelectorAll<HTMLElement>(".col")).map((col, i) =>
-      col.animate(
-        [{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }],
-        { duration: 700, delay: i * 90, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "backwards" }
-      )
-    );
-    Promise.all(anims.map((a) => a.finished)).then(() => {
-      if (token === seq) colors(tone, base);
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    const n = cols.length;
+    cols.forEach((col, i) => {
+      const fill = Math.min(1, Math.max(0, p * n - i));
+      col.style.setProperty("--fill", fill.toFixed(3));
     });
   };
 
