@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "title": "mariocollado. — Portfolio",
+    "description": "Portfolio personnel de Mario Collado : développement, photographie, vidéo et musique."
+  },
+  "nav": {
+    "work": "WORK",
+    "about": "ABOUT",
+    "contact": "CONTACT",
+    "theme": "Thème",
+    "languages": "Langue"
+  },
+  "hero": {
+    "location": "Asturies, Espagne",
+    "title": "Idées, images et son.",
+    "text": "Je développe des expériences numériques, je photographie, je filme et je fais de la musique. Je m'intéresse aux liens entre technologie et création.",
+    "scroll": "Explorer",
+    "image_alt": "Photographie de Caldoveiro"
+  },
+  "work": {
+    "title": "Travaux sélectionnés",
+    "ableset": {
+      "title": "ABLESET",
+      "desc": "Logiciel pour organiser et piloter des sets musicaux en direct.",
+      "status": "En développement"
+    },
+    "photography": {
+      "title": "Photographie",
+      "desc": "Une sélection de photographies et de projets visuels.",
+      "link": "Voir la galerie"
+    },
+    "renaissance": {
+      "title": "La Renaissance",
+      "desc": "Un projet musical et une publication indépendante.",
+      "link": "Écouter sur Spotify"
+    }
+  },
+  "gallery": {
+    "title": "Galerie",
+    "label": "Galerie de photographies",
+    "prev": "Précédent",
+    "next": "Suivant"
+  },
+  "disciplines": {
+    "title": "Disciplines",
+    "technology": {
+      "title": "Technology",
+      "desc": "Développement logiciel, expériences web et outils numériques."
+    },
+    "visuals": {
+      "title": "Visuals",
+      "desc": "Photographie, vidéo, composition et exploration visuelle."
+    },
+    "music": {
+      "title": "Music",
+      "desc": "Batterie, composition, production et projets musicaux."
+    }
+  },
+  "about": {
+    "title": "À propos",
+    "text": "J'aime construire des choses, explorer des idées et relier les disciplines. Mon travail oscille entre logiciel, récit visuel et musique."
+  },
+  "contact": {
+    "title": "Vous avez une idée en tête ?",
+    "location": "Asturies, Espagne",
+    "social": "Réseaux"
+  },
+  "footer": {
+    "rights": "© {year} mariocollado."
+  }
+}

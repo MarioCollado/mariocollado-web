@@ -1,15 +1,93 @@
 @import "tailwindcss";
-@import "./src/typography.css";
-@import "./src/components.css";
-@import "./src/utilities.css";
 
-@layer utilities {
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+:root {
+  --paper: #f1efe8;
+  --ink: #191a18;
+  --stone: #c9c7be;
+  --digital: #b7c9f5;
+  --lime: #c5ff4a;
+  --night: #111210;
+
+  --base-bg: var(--paper);
+  --base-fg: var(--ink);
+  --bg: var(--base-bg);
+  --fg: var(--base-fg);
+  --muted: #5e5f59;
+  --line: var(--stone);
+  --accent: var(--digital);
+  color-scheme: light;
+}
+
+/* Sección invertida: intercambia fondo y texto sin duplicar componentes */
+[data-tone="inverse"] {
+  --bg: var(--base-fg);
+  --fg: var(--base-bg);
+  --muted: color-mix(in srgb, currentColor 65%, transparent);
+  --line: color-mix(in srgb, currentColor 25%, transparent);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+:root[data-theme="dark"] {
+  --base-bg: var(--night);
+  --base-fg: var(--paper);
+  --muted: #a7a69d;
+  --line: #2e302c;
+  --accent: var(--digital);
+  color-scheme: dark;
+}
+
+@theme {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-stone: var(--stone);
+  --color-digital: var(--digital);
+  --color-lime: var(--lime);
+
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 3px;
   }
-  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal {
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

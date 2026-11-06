@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "title": "mariocollado. — Portfolio",
+    "description": "Portfolio personal de Mario Collado: desarrollo, fotografía, vídeo y música."
+  },
+  "nav": {
+    "work": "WORK",
+    "about": "ABOUT",
+    "contact": "CONTACT",
+    "theme": "Tema",
+    "languages": "Idioma"
+  },
+  "hero": {
+    "location": "Asturias, España",
+    "title": "Ideas, imágenes y sonido.",
+    "text": "Desarrollo experiencias digitales, fotografío, grabo vídeo y hago música. Me interesa explorar las conexiones entre tecnología y creación.",
+    "scroll": "Explorar",
+    "image_alt": "Fotografía de Caldoveiro"
+  },
+  "work": {
+    "title": "Trabajo seleccionado",
+    "ableset": {
+      "title": "ABLESET",
+      "desc": "Herramienta de software para organizar y controlar sets musicales en directo.",
+      "status": "En desarrollo"
+    },
+    "photography": {
+      "title": "Fotografía",
+      "desc": "Selección de fotografía y proyectos visuales.",
+      "link": "Ver galería"
+    },
+    "renaissance": {
+      "title": "La Renaissance",
+      "desc": "Proyecto musical y publicación propia.",
+      "link": "Escuchar en Spotify"
+    }
+  },
+  "gallery": {
+    "title": "Galería",
+    "label": "Galería de fotografías",
+    "prev": "Anterior",
+    "next": "Siguiente"
+  },
+  "disciplines": {
+    "title": "Disciplinas",
+    "technology": {
+      "title": "Technology",
+      "desc": "Desarrollo de software, experiencias web y herramientas digitales."
+    },
+    "visuals": {
+      "title": "Visuals",
+      "desc": "Fotografía, vídeo, composición y exploración visual."
+    },
+    "music": {
+      "title": "Music",
+      "desc": "Batería, composición, producción y proyectos musicales."
+    }
+  },
+  "about": {
+    "title": "Sobre mí",
+    "text": "Me gusta construir cosas, explorar ideas y conectar disciplinas. Mi trabajo se mueve entre el software, el relato visual y la música."
+  },
+  "contact": {
+    "title": "¿Tienes algo en mente?",
+    "location": "Asturias, España",
+    "social": "Redes"
+  },
+  "footer": {
+    "rights": "© {year} mariocollado."
+  }
+}

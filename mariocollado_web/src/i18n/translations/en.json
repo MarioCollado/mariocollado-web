@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "title": "mariocollado. — Portfolio",
+    "description": "Personal portfolio of Mario Collado: development, photography, video and music."
+  },
+  "nav": {
+    "work": "WORK",
+    "about": "ABOUT",
+    "contact": "CONTACT",
+    "theme": "Theme",
+    "languages": "Language"
+  },
+  "hero": {
+    "location": "Asturias, Spain",
+    "title": "Ideas, images and sound.",
+    "text": "I build digital experiences, take photographs, shoot video and make music. I am interested in exploring the connections between technology and creation.",
+    "scroll": "Explore",
+    "image_alt": "Photograph from Caldoveiro"
+  },
+  "work": {
+    "title": "Selected work",
+    "ableset": {
+      "title": "ABLESET",
+      "desc": "Software to organise and control live music sets.",
+      "status": "In development"
+    },
+    "photography": {
+      "title": "Photography",
+      "desc": "A selection of photography and visual projects.",
+      "link": "View gallery"
+    },
+    "renaissance": {
+      "title": "La Renaissance",
+      "desc": "A musical project and self-published release.",
+      "link": "Listen on Spotify"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "label": "Photo gallery",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "disciplines": {
+    "title": "Disciplines",
+    "technology": {
+      "title": "Technology",
+      "desc": "Software development, web experiences and digital tools."
+    },
+    "visuals": {
+      "title": "Visuals",
+      "desc": "Photography, video, composition and visual exploration."
+    },
+    "music": {
+      "title": "Music",
+      "desc": "Drums, composition, production and musical projects."
+    }
+  },
+  "about": {
+    "title": "About",
+    "text": "I like building things, exploring ideas and connecting disciplines. My work moves between software, visual storytelling and music."
+  },
+  "contact": {
+    "title": "Have something in mind?",
+    "location": "Asturias, Spain",
+    "social": "Social"
+  },
+  "footer": {
+    "rights": "© {year} mariocollado."
+  }
+}

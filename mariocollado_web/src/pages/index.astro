@@ -1,36 +1,8 @@
 ---
-import Breadcrumbs from "@/components/ui/Breadcrumbs.astro";
 import Layout from "@/layouts/Layout.astro";
-import Music from "@/components/sections/Music.astro";
-import Visuals from "@/components/sections/Visuals.astro";
-import Tech from "@/components/sections/Tech.astro";
-import Home from "@/components/sections/Home.astro";
-import Contacto from "@/components/sections/Contacto.astro";
-import Footer from "@/components/sections/Footer.astro";
+import HomePage from "@/components/HomePage.astro";
 ---
 
 <Layout>
-  <main
-    class="h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory m-0 p-0 no-scrollbar"
-  >
-    <!-- Migas de pan (Componente React) -->
-    <Breadcrumbs />
-    <!-- Marca de agua fija -->
-    <div
-      class="fixed inset-0 flex items-center justify-center pointer-events-none z-1 w-full px-4"
-    >
-      <h1
-        class="w-full max-w-full text-[min(20vw,180px)] font-bold font-druk text-transparent bg-clip-text bg-gradient-to-r from-secondary-pink/10 to-secondary-cyan/10 text-center"
-      >
-        mariocollado.
-      </h1>
-    </div>
-
-    <Home class="snap-start" />
-    <Music class="snap-start" />
-    <Visuals class="snap-start" />
-    <Tech class="snap-start" />
-    <Contacto class="snap-start" />
-    <Footer class="snap-start" />
-  </main>
+  <HomePage />
 </Layout>

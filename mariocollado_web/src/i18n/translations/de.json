@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "title": "mariocollado. — Portfolio",
+    "description": "Persönliches Portfolio von Mario Collado: Entwicklung, Fotografie, Video und Musik."
+  },
+  "nav": {
+    "work": "WORK",
+    "about": "ABOUT",
+    "contact": "CONTACT",
+    "theme": "Design",
+    "languages": "Sprache"
+  },
+  "hero": {
+    "location": "Asturien, Spanien",
+    "title": "Ideen, Bilder und Klang.",
+    "text": "Ich entwickle digitale Erlebnisse, fotografiere, filme und mache Musik. Mich interessiert, wie Technik und Gestaltung zusammenhängen.",
+    "scroll": "Entdecken",
+    "image_alt": "Fotografie aus Caldoveiro"
+  },
+  "work": {
+    "title": "Ausgewählte Arbeiten",
+    "ableset": {
+      "title": "ABLESET",
+      "desc": "Software zum Organisieren und Steuern von Live-Musiksets.",
+      "status": "In Entwicklung"
+    },
+    "photography": {
+      "title": "Fotografie",
+      "desc": "Eine Auswahl aus Fotografie und visuellen Projekten.",
+      "link": "Zur Galerie"
+    },
+    "renaissance": {
+      "title": "La Renaissance",
+      "desc": "Ein musikalisches Projekt und eine Eigenveröffentlichung.",
+      "link": "Auf Spotify anhören"
+    }
+  },
+  "gallery": {
+    "title": "Galerie",
+    "label": "Fotogalerie",
+    "prev": "Zurück",
+    "next": "Weiter"
+  },
+  "disciplines": {
+    "title": "Disziplinen",
+    "technology": {
+      "title": "Technology",
+      "desc": "Softwareentwicklung, Weberlebnisse und digitale Werkzeuge."
+    },
+    "visuals": {
+      "title": "Visuals",
+      "desc": "Fotografie, Video, Komposition und visuelle Erkundung."
+    },
+    "music": {
+      "title": "Music",
+      "desc": "Schlagzeug, Komposition, Produktion und musikalische Projekte."
+    }
+  },
+  "about": {
+    "title": "Über mich",
+    "text": "Ich baue gern Dinge, erkunde Ideen und verbinde Disziplinen. Meine Arbeit bewegt sich zwischen Software, visuellem Erzählen und Musik."
+  },
+  "contact": {
+    "title": "Haben Sie etwas im Sinn?",
+    "location": "Asturien, Spanien",
+    "social": "Netzwerke"
+  },
+  "footer": {
+    "rights": "© {year} mariocollado."
+  }
+}

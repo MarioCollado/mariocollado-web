@@ -1,0 +1,23 @@
+---
+import socialLinks from "@/json/social.json";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<section id="contact" class="mx-auto max-w-[1440px] scroll-mt-24 border-t border-line px-4 py-24 md:px-10">
+  <h2 class="font-display text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-none tracking-tight">{t("contact.title")}</h2>
+  <p class="mt-6 font-mono text-sm uppercase text-muted">{t("contact.location")}</p>
+  <h3 class="mb-4 mt-12 font-mono text-xs uppercase tracking-widest text-muted">{t("contact.social")}</h3>
+  <ul class="flex flex-wrap gap-x-8 gap-y-4 text-lg">
+    {
+      socialLinks.map((link) => (
+        <li>
+          <a href={`https://${link.url}`} target="_blank" rel="noopener noreferrer" class="underline underline-offset-4">
+            {link.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

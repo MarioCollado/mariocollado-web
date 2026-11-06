@@ -1,0 +1,144 @@
+---
+import { getLangFromUrl, useTranslations, languages, translatePath } from "@/i18n/utils";
+import type { SupportedLanguage } from "@/i18n/types";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const navItems = [
+  { href: "#work", label: "WORK" },
+  { href: "#contact", label: "CONTACT" },
+  { href: "#about", label: "ABOUT" },
+];
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-40 h-12 bg-bg">
+  <!-- Capa base: texto en tinta sobre el fondo fijo -->
+  <div class="layer layer--base">
+    <a href={translatePath("/", lang)} class="col col--brand font-display text-base font-semibold tracking-tight">mariocollado.</a>
+    <nav aria-label="Principal" class="contents max-md:hidden">
+      {navItems.map((item) => (
+        <a href={item.href} class="col col--nav font-mono text-xs tracking-wide">{item.label}</a>
+      ))}
+    </nav>
+    <div class="col col--tools font-mono text-[11px] uppercase">
+      <nav aria-label={t("nav.languages")} class="flex gap-3">
+        {Object.keys(languages).map((code) => (
+          <a
+            href={translatePath("/", code as SupportedLanguage)}
+            hreflang={code}
+            aria-current={code === lang ? "page" : undefined}
+            class={code === lang ? "underline underline-offset-4" : "opacity-60 hover:opacity-100"}
+          >{code}</a>
+        ))}
+      </nav>
+      <button type="button" id="theme-toggle" class="rounded-full border border-current px-3 py-1.5" aria-label={t("nav.theme")}>{t("nav.theme")}</button>
+    </div>
+  </div>
+
+  <!-- Capa superior: solo los elementos de navegación se rellenan con la tinta al bajar -->
+  <div class="layer layer--top" aria-hidden="true" inert>
+    <span class="col col--brand font-display text-base font-semibold tracking-tight">mariocollado.</span>
+    <span class="contents max-md:hidden">
+      {navItems.map((item) => (
+        <span class="col col--nav font-mono text-xs tracking-wide">{item.label}</span>
+      ))}
+    </span>
+    <span class="col col--tools font-mono text-[11px] uppercase">
+      <span class="flex gap-3">{Object.keys(languages).map((code) => <span>{code}</span>)}</span>
+      <span class="rounded-full border px-3 py-1.5">{t("nav.theme")}</span>
+    </span>
+  </div>
+</header>
+
+<style>
+  .layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+  }
+  .layer--base {
+    --bar-fg: var(--fg);
+  }
+  .layer--top {
+    --bar-bg: var(--fg);
+    --bar-fg: var(--bg);
+    pointer-events: none;
+  }
+  .col {
+    position: relative;
+    isolation: isolate;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--bar-fg);
+  }
+  /* Solo los elementos de navegación llevan el relleno diagonal */
+  .col--nav {
+    padding-inline: 1.25rem;
+    justify-content: center;
+  }
+  .col--nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--bar-bg, transparent);
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    transform-origin: left center;
+    transform: scaleX(var(--fill, 0));
+  }
+  .layer--base .col--nav::before {
+    display: none;
+  }
+  .col--brand {
+    padding-inline: 1rem 1.5rem;
+  }
+  .col--tools {
+    margin-left: auto;
+    padding-inline: 1rem;
+  }
+  /* En la capa superior, título e idiomas solo ocupan espacio y no se ven */
+  .layer--top .col--brand,
+  .layer--top .col--tools {
+    color: transparent;
+  }
+  .layer--top .col--tools span {
+    visibility: hidden;
+  }
+</style>
+
+<script>
+  const header = document.getElementById("site-header");
+  const navCols = Array.from(header?.querySelectorAll<HTMLElement>(".layer--top .col--nav") ?? []);
+
+  // Progreso de la página (0 arriba, 1 al final). Cada elemento de navegación se llena en orden.
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    const n = navCols.length;
+    navCols.forEach((col, i) => {
+      const fill = Math.min(1, Math.max(0, p * n - i));
+      col.style.setProperty("--fill", fill.toFixed(3));
+    });
+  };
+
+  let frame = 0;
+  const schedule = () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(update);
+  };
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule);
+  update();
+
+  document.getElementById("theme-toggle")?.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch (e) {}
+  });
+</script>
