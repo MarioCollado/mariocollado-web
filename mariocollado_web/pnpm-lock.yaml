@@ -17,6 +17,12 @@ importers:
       '@fontsource/alfa-slab-one':
         specifier: ^5.2.5
         version: 5.2.5
+      '@fontsource/ibm-plex-mono':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/inter':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@fontsource/monoton':
         specifier: ^5.2.5
         version: 5.2.5
@@ -26,6 +32,9 @@ importers:
       '@fontsource/press-start-2p':
         specifier: ^5.2.5
         version: 5.2.5
+      '@fontsource/space-grotesk':
+        specifier: ^5.3.0
+        version: 5.3.0
       astro:
         specifier: ^5.13.6
         version: 5.13.6(@types/node@24.3.1)(@vercel/functions@2.2.13)(jiti@2.5.1)(lightningcss@1.30.1)(rollup@4.39.0)(typescript@5.8.2)(yaml@2.7.1)
@@ -350,6 +359,12 @@ packages:
   '@fontsource/alfa-slab-one@5.2.5':
     resolution: {integrity: sha512-v29GGfuDKFZNQaKAaFjYjrQhutGJ0CeyOQSXbwoNLhnaqv/WTSToSX0XjOtwUhgRH8xqdYjLaJOysYLy6ejAQA==}
 
+  '@fontsource/ibm-plex-mono@5.3.0':
+    resolution: {integrity: sha512-eTgnZjZEGk1QtD3ZstF+Vclo2HLAni8YMy34/DxllwZvyz1lR/1RF/xTiAquOBO7MvqBx8D2Ig2WCPMVfdZu7Q==}
+
+  '@fontsource/inter@5.3.0':
+    resolution: {integrity: sha512-RofMylZmjlJEfELXeNHFWBRcSs75rGU/6bV2S2jfnvv/3rPXPGe0LgUJTklcHZ9lM4OZmAVFhcJPnACfb91A3g==}
+
   '@fontsource/monoton@5.2.5':
     resolution: {integrity: sha512-Q0Ripm7gK7ssLep35EQSBsswsuGbAZUkPuyMSawJOUNnFHyEchbfvT5qRHlcDXWtBariQXsMGxj37RpCEw6BJw==}
 
@@ -358,6 +373,9 @@ packages:
 
   '@fontsource/press-start-2p@5.2.5':
     resolution: {integrity: sha512-MmGLqhkv0kuoyeGgGkquEMRxJP6auc6918bKd8uTWP2beXMWLZZwCfXCqmskFLf0XYbtbzxuRXLjTnQBeTwsMQ==}
+
+  '@fontsource/space-grotesk@5.3.0':
+    resolution: {integrity: sha512-ksnGizDPXIDuvqcTYTSrmZ+evx9sDlS8rp7+42BQ7wU+spt3twEoXfbJz672C+5CLg6VeUQwRy5RXshWb67LcQ==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -2397,11 +2415,17 @@ snapshots:
 
   '@fontsource/alfa-slab-one@5.2.5': {}
 
+  '@fontsource/ibm-plex-mono@5.3.0': {}
+
+  '@fontsource/inter@5.3.0': {}
+
   '@fontsource/monoton@5.2.5': {}
 
   '@fontsource/poiret-one@5.2.5': {}
 
   '@fontsource/press-start-2p@5.2.5': {}
+
+  '@fontsource/space-grotesk@5.3.0': {}
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:

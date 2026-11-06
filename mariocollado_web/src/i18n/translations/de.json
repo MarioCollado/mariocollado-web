@@ -31,7 +31,7 @@
     "playlist_work_desc": "Instrumentale und Ambient-Musik, perfekt zum Konzentrieren und Schaffen",
     "follow_spotify": "Auf Spotify folgen"
   },
-    "common": {
+  "common": {
     "loading": "Wird geladen...",
     "error": "Fehler",
     "read_more": "Mehr lesen",
@@ -54,5 +54,17 @@
     "error_invalid_email": "Bitte geben Sie eine gültige E-Mail ein",
     "error_connection": "Verbindungsfehler. Überprüfen Sie Ihr Internet und versuchen Sie es erneut.",
     "error_unknown": "Unbekannter Fehler"
+  },
+  "hero": {
+    "title": "Ideen, Bilder und Klang.",
+    "text": "Ich entwickle digitale Erlebnisse, fotografiere, filme und mache Musik. Mich interessieren die Verbindungen zwischen Technik und Kreation.",
+    "location": "Asturias, Spain",
+    "explore": "Erkunden"
+  },
+  "disciplines": {
+    "title": "Disziplinen",
+    "technology": "Softwareentwicklung, Web-Erlebnisse und digitale Werkzeuge.",
+    "visuals": "Fotografie, Video, Komposition und visuelle Erkundung.",
+    "music": "Schlagzeug, Komposition, Produktion und musikalische Projekte."
   }
 }

@@ -7,9 +7,6 @@ import react from "@astrojs/react";
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
-    optimizeDeps: {
-      include: ["packery"], // Incluir Packery en la optimización de dependencias de Vite
-    },
   },
   i18n: {
     defaultLocale: "es",
