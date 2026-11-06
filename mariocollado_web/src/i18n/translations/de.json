@@ -1,70 +1,68 @@
 {
+  "meta": {
+    "title": "mariocollado. — Portfolio",
+    "description": "Persönliches Portfolio von Mario Collado: Entwicklung, Fotografie, Video und Musik."
+  },
   "nav": {
-    "home": "Startseite",
-    "about": "Über uns",
-    "projects": "Projekte",
-    "contact": "Kontakt"
-  },
-  "home": {
-    "title": "Willkommen",
-    "subtitle": "Full Stack Entwickler",
-    "description": "Erstaunliche digitale Erfahrungen schaffen"
-  },
-  "profile": {
-    "social_label": "Profil auf {platform} öffnen",
-    "contact_link": "Kontakt"
-  },
-  "cards": {
-    "tech": "Technologie",
-    "film": "Film",
-    "projects": "Projekte",
-    "about": "Über mich"
-  },
-  "music": {
-    "title": "MUSIK",
-    "subtitle": "Entdecken Sie meine Playlists und Musikveröffentlichungen, die mich im kreativen Prozess begleiten",
-    "playlist_everything": "Alles was ich höre",
-    "playlist_everything_desc": "Meine persönliche Auswahl an Lieblingsliedern aus allen Genres und Epochen",
-    "album_renaissance": "Mein Album \"la renaissance\"",
-    "album_renaissance_desc": "Eine originelle Sammlung meiner Kompositionen und musikalischen Experimente",
-    "playlist_work": "Zum Arbeiten",
-    "playlist_work_desc": "Instrumentale und Ambient-Musik, perfekt zum Konzentrieren und Schaffen",
-    "follow_spotify": "Auf Spotify folgen"
-  },
-  "common": {
-    "loading": "Wird geladen...",
-    "error": "Fehler",
-    "read_more": "Mehr lesen",
-    "back": "Zurück"
-  },
-  "contact": {
-    "title": "KONTAKTIERE MICH",
-    "subtitle": "Schreib mir und ich antworte so schnell wie möglich",
-    "name": "Name",
-    "email": "E-Mail",
-    "message": "Nachricht",
-    "name_placeholder": "Ihr Name",
-    "email_placeholder": "ihre@email.com",
-    "message_placeholder": "Wie kann ich Ihnen helfen?",
-    "send": "SENDEN",
-    "sending": "SENDE...",
-    "success": "Nachricht erfolgreich gesendet! Ich werde bald antworten.",
-    "error": "Fehler beim Senden der Nachricht",
-    "error_empty_fields": "Bitte füllen Sie alle Felder aus",
-    "error_invalid_email": "Bitte geben Sie eine gültige E-Mail ein",
-    "error_connection": "Verbindungsfehler. Überprüfen Sie Ihr Internet und versuchen Sie es erneut.",
-    "error_unknown": "Unbekannter Fehler"
+    "work": "WORK",
+    "about": "ABOUT",
+    "contact": "CONTACT",
+    "theme": "Design",
+    "languages": "Sprache"
   },
   "hero": {
+    "location": "Asturien, Spanien",
     "title": "Ideen, Bilder und Klang.",
-    "text": "Ich entwickle digitale Erlebnisse, fotografiere, filme und mache Musik. Mich interessieren die Verbindungen zwischen Technik und Kreation.",
-    "location": "Asturias, Spain",
-    "explore": "Erkunden"
+    "text": "Ich entwickle digitale Erlebnisse, fotografiere, filme und mache Musik. Mich interessiert, wie Technik und Gestaltung zusammenhängen.",
+    "scroll": "Entdecken",
+    "image_alt": "Fotografie aus Caldoveiro"
+  },
+  "work": {
+    "title": "Ausgewählte Arbeiten",
+    "ableset": {
+      "title": "ABLESET",
+      "desc": "Software zum Organisieren und Steuern von Live-Musiksets.",
+      "status": "In Entwicklung"
+    },
+    "photography": {
+      "title": "Fotografie",
+      "desc": "Eine Auswahl aus Fotografie und visuellen Projekten.",
+      "link": "Zur Galerie"
+    },
+    "renaissance": {
+      "title": "La Renaissance",
+      "desc": "Ein musikalisches Projekt und eine Eigenveröffentlichung.",
+      "link": "Auf Spotify anhören"
+    }
+  },
+  "gallery": {
+    "title": "Galerie"
   },
   "disciplines": {
     "title": "Disziplinen",
-    "technology": "Softwareentwicklung, Web-Erlebnisse und digitale Werkzeuge.",
-    "visuals": "Fotografie, Video, Komposition und visuelle Erkundung.",
-    "music": "Schlagzeug, Komposition, Produktion und musikalische Projekte."
+    "technology": {
+      "title": "Technology",
+      "desc": "Softwareentwicklung, Weberlebnisse und digitale Werkzeuge."
+    },
+    "visuals": {
+      "title": "Visuals",
+      "desc": "Fotografie, Video, Komposition und visuelle Erkundung."
+    },
+    "music": {
+      "title": "Music",
+      "desc": "Schlagzeug, Komposition, Produktion und musikalische Projekte."
+    }
+  },
+  "about": {
+    "title": "Über mich",
+    "text": "Ich baue gern Dinge, erkunde Ideen und verbinde Disziplinen. Meine Arbeit bewegt sich zwischen Software, visuellem Erzählen und Musik."
+  },
+  "contact": {
+    "title": "Haben Sie etwas im Sinn?",
+    "location": "Asturien, Spanien",
+    "social": "Netzwerke"
+  },
+  "footer": {
+    "rights": "© {year} mariocollado."
   }
 }

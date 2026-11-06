@@ -1,12 +1,11 @@
-<!-- <footer>
-<div class="footer">
-  <div class="footer__container">
-    <div class="footer__container--logo">
-      <img src="#" alt="Logo" />
-    </div>
-    <div class="footer__container--social">
-      <a href="https:"></a>
-    </div>
-  </div>
-</div>
--->
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const year = String(new Date().getFullYear());
+---
+
+<footer class="mx-auto flex max-w-[1440px] justify-between border-t border-line px-4 py-8 font-mono text-xs uppercase text-muted md:px-10">
+  <span>{t("footer.rights", { year })}</span>
+  <span>Asturias</span>
+</footer>

@@ -27,7 +27,7 @@ export default function Carousel({ photos }: { photos: Photo[] }) {
         <div ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden">
           {photos.map((photo, idx) => (
             <div key={idx} className="keen-slider__slide">
-              <div className="relative w-full h-[300px] md:h-[400px] flex items-center justify-center bg-primary-light">
+              <div className="relative w-full h-[300px] md:h-[400px] flex items-center justify-center bg-stone/20">
                 <img
                   src={photo.src}
                   alt={photo.alt}
@@ -43,14 +43,14 @@ export default function Carousel({ photos }: { photos: Photo[] }) {
           <>
             <button
               onClick={() => instanceRef.current?.prev()}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow z-10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-bg p-3 rounded-full shadow z-10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
               aria-label="Foto anterior"
             >
               ‹
             </button>
             <button
               onClick={() => instanceRef.current?.next()}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow z-10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-bg p-3 rounded-full shadow z-10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
               aria-label="Foto siguiente"
             >
               ›
@@ -60,7 +60,7 @@ export default function Carousel({ photos }: { photos: Photo[] }) {
       </div>
 
       {loaded && photos.length > 1 && (
-        <p className="text-center mt-4 text-sm text-gray-600" aria-live="polite">
+        <p className="text-center mt-4 text-sm text-muted" aria-live="polite">
           {currentSlide + 1} / {photos.length}
         </p>
       )}

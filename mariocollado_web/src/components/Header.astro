@@ -1,0 +1,55 @@
+---
+import { getLangFromUrl, useTranslations, languages, translatePath } from "@/i18n/utils";
+import type { SupportedLanguage } from "@/i18n/types";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<header class="sticky top-0 z-40 border-b border-line bg-bg">
+  <div class="mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-6 px-4 md:px-10">
+    <a href={translatePath("/", lang)} class="font-display text-xl font-semibold tracking-tight">mariocollado.</a>
+
+    <nav aria-label="Principal" class="hidden gap-8 font-mono text-sm tracking-wide md:flex">
+      <a href="#work" class="hover:underline underline-offset-4">{t("nav.work")}</a>
+      <a href="#about" class="hover:underline underline-offset-4">{t("nav.about")}</a>
+      <a href="#contact" class="hover:underline underline-offset-4">{t("nav.contact")}</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <nav aria-label={t("nav.languages")} class="flex gap-3 font-mono text-xs uppercase">
+        {
+          Object.keys(languages).map((code) => (
+            <a
+              href={translatePath("/", code as SupportedLanguage)}
+              hreflang={code}
+              aria-current={code === lang ? "page" : undefined}
+              class={code === lang ? "underline underline-offset-4" : "text-muted hover:text-fg"}
+            >
+              {code}
+            </a>
+          ))
+        }
+      </nav>
+      <button
+        type="button"
+        id="theme-toggle"
+        class="rounded-full border border-line px-3 py-1.5 font-mono text-xs uppercase hover:border-fg"
+        aria-label={t("nav.theme")}
+      >
+        {t("nav.theme")}
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById("theme-toggle");
+  toggle?.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch (e) {}
+  });
+</script>

@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import HomePage from "@/components/HomePage.astro";
+
+export function getStaticPaths() {
+  return ["en", "fr", "de"].map((lang) => ({ params: { lang } }));
+}
+---
+
+<Layout>
+  <HomePage />
+</Layout>

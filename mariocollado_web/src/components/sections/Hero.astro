@@ -1,35 +1,27 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
-<section id="top" class="mx-auto max-w-[1440px] px-4 md:px-8 pt-8 md:pt-16 pb-12 md:pb-20">
-  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-end">
-    <div class="md:col-span-5 order-2 md:order-1">
-      <p class="font-mono text-xs uppercase tracking-widest text-ink/70 dark:text-paper/70 mb-6">{t("hero.location")}</p>
-      <h1 class="font-display font-bold text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-tight">
-        {t("hero.title")}
-      </h1>
-      <p class="mt-6 max-w-md text-base md:text-lg leading-relaxed text-ink/80 dark:text-paper/80">
-        {t("hero.text")}
-      </p>
-      <a href="#disciplines" class="mt-8 inline-flex items-center gap-2 font-mono text-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-digital">
-        {t("hero.explore")} ↓
-      </a>
-    </div>
-
-    <div class="md:col-span-7 order-1 md:order-2">
-      <figure class="overflow-hidden">
-        <img
-          src="/images/photography/caldoveiro_3.webp"
-          alt="Caldoveiro"
-          class="w-full aspect-[4/5] md:aspect-[5/4] object-cover"
-          fetchpriority="high"
-          loading="eager"
-        />
-      </figure>
-    </div>
+<section class="mx-auto grid max-w-[1440px] grid-cols-4 items-end gap-x-6 gap-y-10 px-4 pb-16 pt-10 md:grid-cols-12 md:px-10 md:pt-16">
+  <div class="reveal col-span-4 md:col-span-5">
+    <p class="font-mono text-xs uppercase tracking-widest text-muted">{t("hero.location")}</p>
+    <h1 class="mt-4 font-display text-[clamp(2.75rem,7vw,6.5rem)] font-semibold leading-[0.95] tracking-tight">
+      {t("hero.title")}
+    </h1>
+    <p class="mt-8 max-w-md text-base leading-relaxed md:text-lg">{t("hero.text")}</p>
+    <a href="#work" class="mt-10 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
+      <span class="h-px w-10 bg-fg" aria-hidden="true"></span>
+      {t("hero.scroll")}
+    </a>
   </div>
+  <figure class="reveal col-span-4 md:col-span-7">
+    <img
+      src="/images/photography/caldoveiro_3.webp"
+      alt={t("hero.image_alt")}
+      fetchpriority="high"
+      class="aspect-[4/5] w-full object-cover md:aspect-[4/3]"
+    />
+  </figure>
 </section>

@@ -1,0 +1,41 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import CarouselComponent from "../../lib/carousel";
+import { photos } from "../../data/photos";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const renaissanceUrl = "https://open.spotify.com/album/7bqMbjBDH5YXqErJmON5nd";
+---
+
+<section id="work" class="mx-auto max-w-[1440px] scroll-mt-24 border-t border-line px-4 py-16 md:px-10">
+  <h2 class="mb-10 font-mono text-xs uppercase tracking-widest text-muted">{t("work.title")}</h2>
+
+  <article class="grid gap-6 border-t border-line pb-16 pt-6 md:grid-cols-12">
+    <h3 class="font-display text-4xl font-semibold tracking-tight md:col-span-5 md:text-6xl">{t("work.ableset.title")}</h3>
+    <div class="md:col-span-5 md:col-start-8">
+      <p class="font-mono text-xs uppercase text-muted">{t("work.ableset.status")}</p>
+      <p class="mt-4 text-lg leading-relaxed">{t("work.ableset.desc")}</p>
+    </div>
+  </article>
+
+  <div class="grid gap-10 md:grid-cols-2">
+    <article class="border-t border-line pt-6">
+      <h3 class="font-display text-3xl font-semibold tracking-tight md:text-4xl">{t("work.photography.title")}</h3>
+      <p class="mt-4 text-lg leading-relaxed">{t("work.photography.desc")}</p>
+      <a href="#gallery" class="mt-6 inline-block font-mono text-sm underline underline-offset-4">{t("work.photography.link")}</a>
+    </article>
+
+    <article class="border-t border-line pt-6">
+      <h3 class="font-display text-3xl font-semibold tracking-tight md:text-4xl">{t("work.renaissance.title")}</h3>
+      <p class="mt-4 text-lg leading-relaxed">{t("work.renaissance.desc")}</p>
+      <a href={renaissanceUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-block font-mono text-sm underline underline-offset-4">
+        {t("work.renaissance.link")} ↗
+      </a>
+    </article>
+  </div>
+
+  <div id="gallery" class="mt-20 scroll-mt-24">
+    <h3 class="mb-8 font-mono text-xs uppercase tracking-widest text-muted">{t("gallery.title")}</h3>
+    <CarouselComponent photos={photos} client:visible />
+  </div>
+</section>

@@ -1,25 +1,27 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-
+const t = useTranslations(getLangFromUrl(Astro.url));
 const items = [
-  { n: "01", name: "Technology", text: t("disciplines.technology") },
-  { n: "02", name: "Visuals", text: t("disciplines.visuals") },
-  { n: "03", name: "Music", text: t("disciplines.music") },
+  { key: "technology" },
+  { key: "visuals" },
+  { key: "music" },
 ];
 ---
 
-<section id="disciplines" class="mx-auto max-w-[1440px] px-4 md:px-8 py-12 md:py-20 border-t border-stone dark:border-ink">
-  <h2 class="font-mono text-xs uppercase tracking-widest mb-8">{t("disciplines.title")}</h2>
-  <ol class="divide-y divide-stone dark:divide-ink">
-    {items.map((item) => (
-      <li class="grid grid-cols-12 gap-4 py-6 md:py-8">
-        <span class="col-span-2 md:col-span-1 font-mono text-sm text-ink/60 dark:text-paper/60">{item.n}</span>
-        <h3 class="col-span-10 md:col-span-4 font-display font-bold text-2xl md:text-4xl">{item.name}</h3>
-        <p class="col-span-12 md:col-span-7 text-base md:text-lg leading-relaxed text-ink/80 dark:text-paper/80">{item.text}</p>
-      </li>
-    ))}
+<section class="mx-auto max-w-[1440px] px-4 py-16 md:px-10">
+  <h2 class="mb-10 font-mono text-xs uppercase tracking-widest text-muted">{t("disciplines.title")}</h2>
+  <ol class="divide-y divide-line border-y border-line">
+    {
+      items.map((item, index) => (
+        <li class="grid gap-4 py-8 md:grid-cols-12">
+          <span class="font-mono text-sm text-muted md:col-span-1">{String(index + 1).padStart(2, "0")}</span>
+          <h3 class="font-display text-3xl font-semibold tracking-tight md:col-span-4">
+            {t(`disciplines.${item.key}.title`)}
+          </h3>
+          <p class="text-lg leading-relaxed md:col-span-6">{t(`disciplines.${item.key}.desc`)}</p>
+        </li>
+      ))
+    }
   </ol>
 </section>

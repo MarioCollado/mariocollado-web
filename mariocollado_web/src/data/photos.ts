@@ -10,7 +10,7 @@ const base = "/images/photography";
 
 export const photos: Photo[] = [
   { src: `${base}/bisabuelos.webp`, alt: "Bisabuelos" },
-  { src: `${base}/burgos.jpeg`, alt: "Burgos" },
+  { src: `${base}/burgos.webp`, alt: "Burgos" },
   { src: `${base}/caldoveiro_1.webp`, alt: "Caldoveiro 1" },
   { src: `${base}/caldoveiro_2.webp`, alt: "Caldoveiro 2" },
   { src: `${base}/caldoveiro_3.webp`, alt: "Caldoveiro 3" },
