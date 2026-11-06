@@ -3,10 +3,10 @@ import { getLangFromUrl } from "@/i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const messages = {
-  es: { title: "En construcción", text: "Estoy preparando una nueva versión de este sitio. Vuelve pronto." },
-  en: { title: "Under construction", text: "I'm working on a new version of this site. Please check back soon." },
-  fr: { title: "En construction", text: "Je prépare une nouvelle version de ce site. Revenez bientôt." },
-  de: { title: "Im Aufbau", text: "Ich arbeite an einer neuen Version dieser Seite. Schau bald wieder vorbei." },
+  es: { title: "En construcción" },
+  en: { title: "Under construction" },
+  fr: { title: "En construction" },
+  de: { title: "Im Aufbau" },
 } as const;
 const m = messages[lang] ?? messages.es;
 ---
