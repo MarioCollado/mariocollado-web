@@ -14,10 +14,6 @@ interface Props {
   nextLabel: string;
 }
 
-const reduceMotion = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
 export default function PhotoGallery({ items, label, prevLabel, nextLabel }: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
@@ -95,10 +91,7 @@ export default function PhotoGallery({ items, label, prevLabel, nextLabel }: Pro
   const page = (direction: 1 | -1) => {
     const el = trackRef.current;
     if (!el) return;
-    el.scrollBy({
-      left: direction * el.clientWidth * 0.8,
-      behavior: reduceMotion() ? "auto" : "smooth",
-    });
+    el.scrollBy({ left: direction * el.clientWidth * 0.8, behavior: "auto" });
   };
 
   return (
