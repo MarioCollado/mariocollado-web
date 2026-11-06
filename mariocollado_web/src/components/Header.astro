@@ -11,16 +11,16 @@ const navItems = [
 ];
 ---
 
-<header id="site-header" class="fixed inset-x-0 top-0 z-40 h-20">
+<header id="site-header" class="fixed inset-x-0 top-0 z-40 h-12 bg-bg">
   <!-- Capa base: texto en tinta sobre el papel -->
   <div class="layer layer--base">
-    <a href={translatePath("/", lang)} class="col col--brand font-display text-xl font-semibold tracking-tight">mariocollado.</a>
+    <a href={translatePath("/", lang)} class="col col--brand font-display text-base font-semibold tracking-tight">mariocollado.</a>
     <nav aria-label="Principal" class="contents max-md:hidden">
       {navItems.map((item) => (
-        <a href={item.href} class="col font-mono text-sm tracking-wide">{item.label}</a>
+        <a href={item.href} class="col font-mono text-xs tracking-wide">{item.label}</a>
       ))}
     </nav>
-    <div class="col col--tools font-mono text-xs uppercase">
+    <div class="col col--tools font-mono text-[11px] uppercase">
       <nav aria-label={t("nav.languages")} class="flex gap-3">
         {Object.keys(languages).map((code) => (
           <a
@@ -37,10 +37,10 @@ const navItems = [
 
   <!-- Capa superior: relleno en tinta que avanza con el scroll -->
   <div class="layer layer--top" aria-hidden="true" inert>
-    <span class="col col--brand font-display text-xl font-semibold tracking-tight">mariocollado.</span>
+    <span class="col col--brand font-display text-base font-semibold tracking-tight">mariocollado.</span>
     <span class="contents max-md:hidden">
       {navItems.map((item) => (
-        <span class="col font-mono text-sm tracking-wide">{item.label}</span>
+        <span class="col font-mono text-xs tracking-wide">{item.label}</span>
       ))}
     </span>
     <span class="col col--tools font-mono text-xs uppercase">&nbsp;</span>
@@ -72,7 +72,7 @@ const navItems = [
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding-inline: 1.25rem;
+    padding-inline: 1rem;
     color: var(--bar-fg);
   }
   .col::before {
@@ -91,11 +91,11 @@ const navItems = [
   .col--brand {
     flex: 0 0 auto;
     justify-content: flex-start;
-    padding-inline: 1.5rem 2.5rem;
+    padding-inline: 1rem 2rem;
   }
   .col--tools {
     flex: 0 0 auto;
-    padding-inline: 2rem 1.5rem;
+    padding-inline: 1.5rem 1rem;
   }
 </style>
 
