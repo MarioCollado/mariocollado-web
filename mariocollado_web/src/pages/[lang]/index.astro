@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import HomePage from "@/components/HomePage.astro";
+import MaintenancePage from "@/components/MaintenancePage.astro";
 
 export function getStaticPaths() {
   return ["en", "fr", "de"].map((lang) => ({ params: { lang } }));
@@ -8,5 +8,5 @@ export function getStaticPaths() {
 ---
 
 <Layout>
-  <HomePage />
+  <MaintenancePage />
 </Layout>

@@ -1,0 +1,18 @@
+---
+import { getLangFromUrl } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const messages = {
+  es: { title: "En construcción", text: "Estoy preparando una nueva versión de este sitio. Vuelve pronto." },
+  en: { title: "Under construction", text: "I'm working on a new version of this site. Please check back soon." },
+  fr: { title: "En construction", text: "Je prépare une nouvelle version de ce site. Revenez bientôt." },
+  de: { title: "Im Aufbau", text: "Ich arbeite an einer neuen Version dieser Seite. Schau bald wieder vorbei." },
+} as const;
+const m = messages[lang] ?? messages.es;
+---
+
+<main class="flex min-h-[100svh] flex-col items-center justify-center px-6 text-center">
+  <p class="font-mono text-xs uppercase tracking-widest text-muted">mariocollado.</p>
+  <h1 class="mt-6 font-display text-[clamp(2.5rem,7vw,5rem)] font-semibold leading-none tracking-tight">{m.title}</h1>
+  <p class="mt-6 max-w-md text-base leading-relaxed text-muted md:text-lg">{m.text}</p>
+</main>
