@@ -43,5 +43,17 @@
     "error_invalid_email": "Veuillez entrer un email valide",
     "error_connection": "Erreur de connexion. Vérifiez votre internet et réessayez.",
     "error_unknown": "Erreur inconnue"
+  },
+  "hero": {
+    "title": "Idées, images et son.",
+    "text": "Je développe des expériences numériques, je photographie, je filme et je fais de la musique. Je m'intéresse aux liens entre technologie et création.",
+    "location": "Asturias, Spain",
+    "explore": "Explorer"
+  },
+  "disciplines": {
+    "title": "Disciplines",
+    "technology": "Développement logiciel, expériences web et outils numériques.",
+    "visuals": "Photographie, vidéo, composition et exploration visuelle.",
+    "music": "Batterie, composition, production et projets musicaux."
   }
 }

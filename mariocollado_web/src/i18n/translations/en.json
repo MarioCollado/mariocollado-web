@@ -54,5 +54,17 @@
     "error_invalid_email": "Please enter a valid email",
     "error_connection": "Connection error. Check your internet and try again.",
     "error_unknown": "Unknown error"
+  },
+  "hero": {
+    "title": "Ideas, images and sound.",
+    "text": "I build digital experiences, take photographs, shoot video and make music. I'm interested in exploring the connections between technology and creation.",
+    "location": "Asturias, Spain",
+    "explore": "Explore"
+  },
+  "disciplines": {
+    "title": "Disciplines",
+    "technology": "Software development, web experiences and digital tools.",
+    "visuals": "Photography, video, composition and visual exploration.",
+    "music": "Drums, composition, production and musical projects."
   }
 }

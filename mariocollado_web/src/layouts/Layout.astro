@@ -1,11 +1,10 @@
 ---
 // Supports weights 100-900
-import "@fontsource-variable/montserrat";
-import "@fontsource/press-start-2p";
-import "@fontsource/alfa-slab-one";
-import "@fontsource/poiret-one";
-import "@fontsource/monoton";
-import "@fontsource/abril-fatface";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/700.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/ibm-plex-mono/400.css";
 
 import "/src/styles/global.css";
 import Preloader from "@/components/ui/Preloader.astro";
@@ -26,14 +25,6 @@ const title = "mariocollado";
     />
     <title>{title}</title>
 
-    <!-- Preload de la fuente principal -->
-    <link
-      rel="preload"
-      href="/node_modules/@fontsource/abril-fatface/files/abril-fatface-latin-400-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -57,7 +48,7 @@ const title = "mariocollado";
       });
     </script>
   </head>
-  <body class="bg-primary-light">
+  <body class="bg-paper text-ink dark:bg-night dark:text-paper">
     <Preloader />
     <LanguageSelector />
     <slot />

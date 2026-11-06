@@ -1,4 +1,18 @@
 @import "tailwindcss";
+
+@theme {
+  --color-paper: #f1efe8;
+  --color-ink: #191a18;
+  --color-stone: #c9c7be;
+  --color-digital: #b7c9f5;
+  --color-lime: #c5ff4a;
+  --color-night: #111210;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
 @import "./src/typography.css";
 @import "./src/components.css";
 @import "./src/utilities.css";
@@ -20,6 +34,11 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
 }
 
 /* Optimización de imágenes */
