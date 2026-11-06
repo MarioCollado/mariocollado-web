@@ -1,27 +1,95 @@
 ---
-import HeaderBar from "@/components/HeaderBar.astro";
+import { getLangFromUrl, useTranslations, languages, translatePath } from "@/i18n/utils";
+import type { SupportedLanguage } from "@/i18n/types";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const navItems = [
+  { href: "#work", label: "WORK" },
+  { href: "#contact", label: "CONTACT" },
+  { href: "#about", label: "ABOUT" },
+];
+const layers = ["base", "top"] as const;
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-40 h-20">
-  <HeaderBar layer="base" />
-  <HeaderBar layer="top" />
+  {
+    layers.map((layer) => {
+      const isTop = layer === "top";
+      return (
+        <div class={`layer layer--${layer}`} data-layer={layer} aria-hidden={isTop ? "true" : undefined} inert={isTop}>
+          <a href={translatePath("/", lang)} class="col col--brand font-display text-xl font-semibold tracking-tight">
+            mariocollado.
+          </a>
+          <nav aria-label="Principal" class="contents max-md:hidden">
+            {navItems.map((item) => (
+              <a href={item.href} class="col font-mono text-sm tracking-wide">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <div class="col col--tools font-mono text-xs uppercase">
+            <nav aria-label={t("nav.languages")} class="flex gap-3">
+              {Object.keys(languages).map((code) => (
+                <a
+                  href={translatePath("/", code as SupportedLanguage)}
+                  hreflang={code}
+                  aria-current={code === lang ? "page" : undefined}
+                  class={code === lang ? "underline underline-offset-4" : "opacity-60 hover:opacity-100"}
+                >
+                  {code}
+                </a>
+              ))}
+            </nav>
+            <button
+              type="button"
+              id={isTop ? undefined : "theme-toggle"}
+              class="rounded-full border border-current px-3 py-1.5"
+              aria-label={t("nav.theme")}
+            >
+              {t("nav.theme")}
+            </button>
+          </div>
+        </div>
+      );
+    })
+  }
 </header>
 
 <style>
-  .bar {
+  .layer {
     position: absolute;
     inset: 0;
-    background-color: var(--bar-bg, var(--fg));
-    color: var(--bar-fg, var(--bg));
-    border-bottom: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+    display: flex;
+    gap: 6px;
+    --bar-bg: var(--fg);
+    --bar-fg: var(--bg);
   }
-  /* La capa que se barre se extiende un 25% a cada lado; el padding mantiene el texto alineado */
-  .bar--top {
-    left: -25%;
-    right: -25%;
-    padding-inline: 25%;
+  .layer--top {
     pointer-events: none;
-    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+  }
+  /* Cada columna es un paralelogramo: los bordes van inclinados, no paralelos a la ventana */
+  .col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding-inline: 1.25rem;
+    background-color: var(--bar-bg);
+    color: var(--bar-fg);
+    clip-path: polygon(16px 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
+    transform-origin: left center;
+  }
+  .col--brand {
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    padding-inline: 1.5rem 2.5rem;
+  }
+  .col--tools {
+    flex: 0 0 auto;
+    padding-inline: 2rem 1.5rem;
   }
 </style>
 
@@ -32,6 +100,7 @@ import HeaderBar from "@/components/HeaderBar.astro";
   const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-tone]"));
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let current: string | null = null;
+  let seq = 0;
 
   const colors = (tone: string, el: HTMLElement) => {
     // La cabecera toma el color contrario de la sección que tiene debajo
@@ -60,16 +129,18 @@ import HeaderBar from "@/components/HeaderBar.astro";
       colors(tone, top);
       return;
     }
+    const token = ++seq;
     colors(tone, top);
-    // Barrido diagonal desde la esquina superior izquierda
-    // Barrido de izquierda a derecha con bordes inclinados (no paralelos a la ventana)
-    top.animate(
-      [
-        { clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)" },
-        { clipPath: "polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%)" },
-      ],
-      { duration: 900, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
-    ).onfinish = () => colors(tone, base!);
+    // Cada columna se despliega de izquierda a derecha, con un pequeño desfase
+    const anims = Array.from(top.querySelectorAll<HTMLElement>(".col")).map((col, i) =>
+      col.animate(
+        [{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }],
+        { duration: 700, delay: i * 90, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "backwards" }
+      )
+    );
+    Promise.all(anims.map((a) => a.finished)).then(() => {
+      if (token === seq) colors(tone, base);
+    });
   };
 
   let frame = 0;
