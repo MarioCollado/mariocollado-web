@@ -19,24 +19,53 @@
   },
   "work": {
     "title": "Trabajo seleccionado",
-    "ableset": {
-      "title": "ABLESET",
-      "desc": "Herramienta de software para organizar y controlar sets musicales en directo.",
-      "status": "En desarrollo"
+    "carousel": {
+      "region": "Proyectos seleccionados",
+      "previous": "Proyecto anterior",
+      "next": "Proyecto siguiente"
+    },
+    "film": {
+      "type": "Idea cinematográfica",
+      "title": "Película contemplativa",
+      "desc": "Una idea de película guiada por la observación y un ritmo contemplativo."
+    },
+    "livecue": {
+      "type": "Software musical",
+      "desc": "Aplicación de escritorio en Python para organizar setlists y controlar Ableton Live durante el directo.",
+      "link": "Ver código en GitHub",
+      "features": {
+        "setlists": {
+          "title": "Gestión de setlists",
+          "desc": "Agrupa pistas y secciones, cambia el orden sobre la marcha y guarda o carga setlists en JSON."
+        },
+        "osc": {
+          "title": "Control por OSC",
+          "desc": "Envía controles de reproducción y recibe el estado de Ableton Live en tiempo real."
+        },
+        "remote": {
+          "title": "Control remoto",
+          "desc": "Controla play, stop y metrónomo desde un móvil o tablet conectados a la misma red."
+        }
+      }
     },
     "photography": {
+      "kind": "Visual",
       "title": "Fotografía",
       "desc": "Selección de fotografía y proyectos visuales.",
       "link": "Ver galería"
     },
     "renaissance": {
+      "kind": "Música",
       "title": "La Renaissance",
       "desc": "Proyecto musical y publicación propia.",
       "link": "Escuchar en Spotify"
     }
   },
   "gallery": {
-    "title": "Galería"
+    "title": "Galería",
+    "pause": "Pausar movimiento",
+    "play": "Reanudar movimiento",
+    "empty": "No hay imágenes disponibles."
   },
   "disciplines": {
     "title": "Disciplinas",

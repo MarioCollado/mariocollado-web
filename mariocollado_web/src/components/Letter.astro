@@ -1,0 +1,140 @@
+<section
+  id="letter"
+  class="letter section grain"
+  aria-labelledby="letter-title"
+>
+  <div class="shell asym-grid">
+    <h2 id="letter-title" class="section-title">Contacto</h2>
+    <p class="section-intro">Si tienes alguna duda, adelante.</p>
+  </div>
+
+  <div class="shell letter-wrap">
+    <p class="letter-line">
+      Me llamo
+      <input
+        id="nombre"
+        name="nombre"
+        type="text"
+        required
+        aria-label="Nombre"
+      />
+      y quiero hablarte sobre
+      <input
+        id="asunto"
+        name="asunto"
+        type="text"
+        required
+        aria-label="Asunto"
+      />
+      .
+    </p>
+
+    <form id="letter-form" class="letter-form">
+      <label class="font-mono" for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+      />
+
+      <label class="font-mono" for="mensaje">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+
+      <button id="send-btn" type="submit" class="font-mono">Enviar</button>
+      <span
+        id="send-tooltip"
+        aria-hidden="true"
+        style="display:none; margin-left:8px; color: white; background: #10b981; padding:6px 10px; border-radius:6px; font-size:0.9rem;"
+        >Enviado</span
+      >
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById(
+        "letter-form",
+      ) as HTMLFormElement | null;
+
+      if (!form) return;
+
+      const nombre = document.getElementById(
+        "nombre",
+      ) as HTMLInputElement | null;
+      const asunto = document.getElementById(
+        "asunto",
+      ) as HTMLInputElement | null;
+      const email = document.getElementById("email") as HTMLInputElement | null;
+      const mensaje = document.getElementById(
+        "mensaje",
+      ) as HTMLTextAreaElement | null;
+      const tooltip = document.getElementById(
+        "send-tooltip",
+      ) as HTMLElement | null;
+      const sendBtn = document.getElementById(
+        "send-btn",
+      ) as HTMLButtonElement | null;
+
+      function showTooltip() {
+        if (!tooltip) return;
+        tooltip.style.display = "inline-block";
+        tooltip.style.opacity = "0";
+        tooltip.style.transition = "opacity 150ms ease-in-out";
+        requestAnimationFrame(() => {
+          tooltip.style.opacity = "1";
+        });
+        setTimeout(() => {
+          tooltip.style.opacity = "0";
+          setTimeout(() => {
+            tooltip.style.display = "none";
+          }, 200);
+        }, 2500);
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!sendBtn || sendBtn.disabled) return;
+
+        const originalText = sendBtn.textContent;
+        sendBtn.disabled = true;
+        sendBtn.setAttribute("aria-busy", "true");
+        sendBtn.textContent = "Enviando...";
+
+        const payload = {
+          userName: nombre?.value ?? "",
+          subject: asunto?.value ?? "",
+          userEmail: email?.value ?? "",
+          message: mensaje?.value ?? "",
+        };
+
+        try {
+          const res = await fetch("/api/save-message", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const json = await res.json();
+
+          if (res.ok && json?.success) {
+            if (nombre) nombre.value = "";
+            if (asunto) asunto.value = "";
+            if (email) email.value = "";
+            if (mensaje) mensaje.value = "";
+            showTooltip();
+          } else {
+            alert(json?.error || "Error enviando el mensaje");
+          }
+        } catch (err) {
+          console.error("Network error:", err);
+          alert("Error de red al enviar el mensaje");
+        } finally {
+          sendBtn.disabled = false;
+          sendBtn.removeAttribute("aria-busy");
+          sendBtn.textContent = originalText;
+        }
+      });
+    });
+  </script>
+</section>

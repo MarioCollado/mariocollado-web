@@ -16,6 +16,7 @@ export const photos: Photo[] = [
   { src: `${base}/caldoveiro_3.webp`, alt: "Caldoveiro 3" },
   { src: `${base}/caldoveiro_4.webp`, alt: "Caldoveiro 4" },
   { src: `${base}/dedal.webp`, alt: "Dedal" },
+  { src: `${base}/dragon.webp`, alt: "Nubes nocturnas iluminadas en tonos verdes" },
   { src: `${base}/flor-y.webp`, alt: "Flor y" },
   { src: `${base}/nalon.webp`, alt: "Nalón" },
 ];

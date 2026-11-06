@@ -10,10 +10,10 @@ const t = useTranslations(lang);
   <div class="mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-6 px-4 md:px-10">
     <a href={translatePath("/", lang)} class="font-display text-xl font-semibold tracking-tight">mariocollado.</a>
 
-    <nav aria-label="Principal" class="hidden gap-8 font-mono text-sm tracking-wide md:flex">
-      <a href="#work" class="hover:underline underline-offset-4">{t("nav.work")}</a>
-      <a href="#about" class="hover:underline underline-offset-4">{t("nav.about")}</a>
-      <a href="#contact" class="hover:underline underline-offset-4">{t("nav.contact")}</a>
+    <nav aria-label="Principal" class="section-nav hidden gap-8 font-mono text-sm tracking-wide md:flex">
+      <a href="#work" class="section-nav__link" data-section-link="work" data-label={t("nav.work")}>{t("nav.work")}</a>
+      <a href="#about" class="section-nav__link" data-section-link="about" data-label={t("nav.about")}>{t("nav.about")}</a>
+      <a href="#contact" class="section-nav__link" data-section-link="contact" data-label={t("nav.contact")}>{t("nav.contact")}</a>
     </nav>
 
     <div class="flex items-center gap-4">
@@ -52,4 +52,42 @@ const t = useTranslations(lang);
       localStorage.setItem("theme", next);
     } catch (e) {}
   });
+</script>
+
+<script>
+  const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-section-link]"));
+  const trackedSections = sectionLinks
+    .map((link) => document.getElementById(link.dataset.sectionLink ?? ""))
+    .filter((section): section is HTMLElement => section instanceof HTMLElement);
+
+  let sectionFrame = 0;
+  const updateActiveSection = () => {
+    sectionFrame = 0;
+    const header = document.querySelector("header");
+    if (!header) return;
+    const marker = header.getBoundingClientRect().bottom + window.innerHeight * 0.32;
+    const nextActiveIndex = trackedSections.reduce((currentIndex, section, index) =>
+      section.getBoundingClientRect().top <= marker ? index : currentIndex, -1);
+
+    sectionLinks.forEach((link, index) => {
+      const wasCovered = link.classList.contains("is-covered") || link.classList.contains("is-filling");
+      const isCovered = index <= nextActiveIndex;
+      const isCurrent = index === nextActiveIndex;
+
+      link.classList.toggle("is-covered", isCovered && (!isCurrent || wasCovered));
+      link.classList.toggle("is-filling", isCovered && isCurrent && !wasCovered);
+      if (isCurrent) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  };
+
+  const scheduleSectionUpdate = () => {
+    if (sectionFrame) return;
+    sectionFrame = window.requestAnimationFrame(updateActiveSection);
+  };
+
+  window.addEventListener("scroll", scheduleSectionUpdate, { passive: true });
+  window.addEventListener("resize", scheduleSectionUpdate);
+  window.addEventListener("hashchange", scheduleSectionUpdate);
+  scheduleSectionUpdate();
 </script>

@@ -2,26 +2,223 @@
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
 const t = useTranslations(getLangFromUrl(Astro.url));
+
+// Ajustes de encuadre: cambia el zoom y la posición para cada fotografía.
+// 1 = tamaño normal; 50% / 50% centra la imagen.
+const imageSrc = "/images/photography/flor-y.webp";
+const imageZoom = 1.12;
+const imagePositionX = "50%";
+const imagePositionY = "50%";
 ---
 
-<section class="mx-auto grid max-w-[1440px] grid-cols-4 items-end gap-x-6 gap-y-10 px-4 pb-16 pt-10 md:grid-cols-12 md:px-10 md:pt-16">
-  <div class="reveal col-span-4 md:col-span-5">
-    <p class="font-mono text-xs uppercase tracking-widest text-muted">{t("hero.location")}</p>
-    <h1 class="mt-4 font-display text-[clamp(2.75rem,7vw,6.5rem)] font-semibold leading-[0.95] tracking-tight">
+<section
+  class="mx-auto grid max-w-[1440px] grid-cols-4 gap-x-6 gap-y-10 px-4 pb-16 pt-10 md:min-h-[calc(100svh-5rem)] md:grid-cols-12 md:items-stretch md:px-10 md:py-0"
+>
+  <div
+    class="reveal col-span-4 flex flex-col justify-center md:col-span-5 md:py-16"
+  >
+    <p class="font-mono text-xs uppercase tracking-widest text-muted">
+      {t("hero.location")}
+    </p>
+    <h1
+      class="mt-4 font-display text-[clamp(2.75rem,7vw,6.5rem)] font-semibold leading-[0.95] tracking-tight"
+    >
       {t("hero.title")}
     </h1>
-    <p class="mt-8 max-w-md text-base leading-relaxed md:text-lg">{t("hero.text")}</p>
-    <a href="#work" class="mt-10 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
+    <p class="mt-8 max-w-md text-base leading-relaxed md:text-lg">
+      {t("hero.text")}
+    </p>
+    <a
+      href="#work"
+      class="mt-10 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-widest"
+    >
       <span class="h-px w-10 bg-fg" aria-hidden="true"></span>
       {t("hero.scroll")}
     </a>
   </div>
-  <figure class="reveal col-span-4 md:col-span-7">
+  <figure
+    class="hero-image hero-image-bleed reveal col-span-4 m-0 aspect-[4/5] overflow-hidden md:col-span-7 md:aspect-auto md:h-full"
+    data-liquid-lens
+    style={`--hero-image-zoom: ${imageZoom}; --hero-image-position: ${imagePositionX} ${imagePositionY};`}
+  >
     <img
-      src="/images/photography/caldoveiro_3.webp"
+      src={imageSrc}
       alt={t("hero.image_alt")}
       fetchpriority="high"
-      class="aspect-[4/5] w-full object-cover md:aspect-[4/3]"
+      class="hero-image__photo h-full w-full object-cover"
     />
+    <span class="hero-image__lens" aria-hidden="true">
+      <span class="hero-image__lens-magnifier">
+        <img
+          src={imageSrc}
+          alt=""
+          class="hero-image__lens-photo"
+          loading="eager"
+          decoding="async"
+          style={`--hero-image-zoom: ${imageZoom}; filter: url(#hero-liquid-lens);`}
+        />
+      </span>
+    </span>
+    <svg class="hero-image__filter-defs" aria-hidden="true">
+      <defs>
+        <filter id="hero-liquid-lens" x="-12%" y="-12%" width="124%" height="124%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.01 0.016"
+            numOctaves="3"
+            seed="5"
+            result="liquid-noise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="liquid-noise"
+            scale="18"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </defs>
+    </svg>
   </figure>
 </section>
+
+<style>
+  :global(html) {
+    overflow-x: clip;
+  }
+
+  @media (min-width: 768px) {
+    .hero-image-bleed {
+      margin-right: min(-2.5rem, calc(680px - 50vw));
+    }
+  }
+
+  img {
+    object-position: var(--hero-image-position, 50% 50%);
+    transform: scale(var(--hero-image-zoom, 1));
+    transform-origin: center;
+  }
+
+  .hero-image {
+    position: relative;
+  }
+
+  .hero-image__lens,
+  .hero-image__filter-defs {
+    position: absolute;
+  }
+
+  .hero-image__lens {
+    z-index: 1;
+    top: var(--lens-y, 50%);
+    left: var(--lens-x, 50%);
+    display: none;
+    width: clamp(132px, 15vw, 190px);
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--bg) 88%, transparent);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition:
+      opacity 420ms cubic-bezier(0.2, 0.75, 0.25, 1),
+      transform 760ms cubic-bezier(0.2, 0.75, 0.25, 1);
+    will-change: transform, opacity;
+  }
+
+  .hero-image[data-lens-active="true"] .hero-image__lens {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .hero-image__lens-magnifier {
+    position: absolute;
+    inset: 0;
+    transform: scale(1);
+    transform-origin: center;
+    transition: transform 760ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  .hero-image[data-lens-active="true"] .hero-image__lens-magnifier {
+    transform: scale(1.28);
+  }
+
+  .hero-image__lens-photo {
+    position: absolute;
+    top: calc(50% - var(--lens-y, 0px));
+    left: calc(50% - var(--lens-x, 0px));
+    width: var(--frame-width, 100%);
+    max-width: none;
+    height: var(--frame-height, 100%);
+    object-fit: cover;
+  }
+
+  .hero-image__lens::after {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 32% 26%, color-mix(in srgb, var(--bg) 18%, transparent), transparent 58%);
+    content: "";
+  }
+
+  .hero-image__filter-defs {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .hero-image__lens {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-image__lens {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const frames = document.querySelectorAll<HTMLElement>("[data-liquid-lens]");
+  const finePointer = window.matchMedia(
+    "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)"
+  );
+
+  frames.forEach((frame) => {
+    let animationFrame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    const moveLens = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse" || !finePointer.matches) return;
+
+      const bounds = frame.getBoundingClientRect();
+      pointerX = event.clientX - bounds.left;
+      pointerY = event.clientY - bounds.top;
+
+      if (animationFrame) return;
+      animationFrame = requestAnimationFrame(() => {
+        frame.style.setProperty("--lens-x", `${pointerX}px`);
+        frame.style.setProperty("--lens-y", `${pointerY}px`);
+        frame.style.setProperty("--frame-width", `${bounds.width}px`);
+        frame.style.setProperty("--frame-height", `${bounds.height}px`);
+        animationFrame = 0;
+      });
+    };
+
+    frame.addEventListener("pointerenter", (event) => {
+      if (event.pointerType !== "mouse" || !finePointer.matches) return;
+      frame.dataset.lensActive = "true";
+      moveLens(event);
+    });
+    frame.addEventListener("pointermove", moveLens);
+    frame.addEventListener("pointerleave", () => {
+      delete frame.dataset.lensActive;
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+      animationFrame = 0;
+    });
+  });
+</script>
