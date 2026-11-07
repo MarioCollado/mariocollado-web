@@ -4,253 +4,218 @@ import CarouselComponent from "../../lib/carousel";
 import { photos } from "../../data/photos";
 
 const t = useTranslations(getLangFromUrl(Astro.url));
+
+// Coloca los archivos en public/assets con estos nombres y se enganchan solos.
+// Logos: public/assets/logos/<slug>.svg   Portadas: public/assets/covers/<slug>.jpg
+// Vídeo de filmografía: pon aquí el ID de YouTube (lo que va después de ?v=).
+const FILM_YOUTUBE_ID = "";
 const renaissanceUrl = "https://open.spotify.com/album/7bqMbjBDH5YXqErJmON5nd";
+const gymlogUrl = "https://github.com/MarioCollado/personal_daily_app_v0/tree/main/gymlog";
 const liveCueFeatures = ["setlists", "osc", "remote"] as const;
+
+const cells = [
+  { slug: "livecue", title: "LIVECUE", kind: t("work.livecue.type") },
+  { slug: "la-renaissance", title: t("work.renaissance.title"), kind: t("work.renaissance.kind") },
+  { slug: "filmografia", title: t("work.film.title"), kind: t("work.film.type") },
+  { slug: "gymlog", title: "Gymlog", kind: "" },
+];
 ---
 
-<section
-  id="work"
-  class="mx-auto flex min-h-[100svh] max-w-[1440px] scroll-mt-24 flex-col justify-center border-t border-line px-4 py-12 md:px-10"
->
-  <h2 class="mb-8 font-mono text-xs uppercase tracking-widest text-muted">
-    {t("work.title")}
-  </h2>
+<section id="work" class="mx-auto flex min-h-[100svh] max-w-[1440px] scroll-mt-24 flex-col justify-center border-t border-line px-4 py-12 md:px-10">
+  <h2 class="mb-8 font-mono text-xs uppercase tracking-widest text-muted">{t("work.title")}</h2>
 
-  <div class="work-carousel" data-work-carousel>
-    <div class="work-carousel__toolbar">
-      <p
-        class="work-carousel__count font-mono"
-        data-work-count
-        aria-live="polite"
-      >
-        01 / 04
-      </p>
-      <div class="work-carousel__controls">
-        <button
-          class="work-carousel__arrow"
-          type="button"
-          data-work-previous
-          aria-label={t("work.carousel.previous")}
-          disabled
-        >
-          <span aria-hidden="true">←</span>
+  <div class="work-grid">
+    {cells.map((cell, i) => (
+      <article data-cell data-open="false" class={`cell ${i % 2 === 0 ? "cell--ink" : "cell--accent"}`}>
+        <button type="button" class="cell__head" aria-expanded="false">
+          <img src={`/assets/logos/${cell.slug}.svg`} alt="" class="cell__logo" onerror="this.remove()" />
+          <span class="cell__title">{cell.title}</span>
+          {cell.kind && <span class="cell__kind font-mono text-xs uppercase tracking-widest">{cell.kind}</span>}
         </button>
-        <button
-          class="work-carousel__arrow"
-          type="button"
-          data-work-next
-          aria-label={t("work.carousel.next")}
-        >
-          <span aria-hidden="true">→</span>
-        </button>
-      </div>
-    </div>
 
-    <div
-      class="work-carousel__viewport"
-      data-work-viewport
-      role="region"
-      aria-label={t("work.carousel.region")}
-      tabindex="0"
-    >
-      <div class="work-carousel__track">
-        <article class="work-carousel__slide livecue-project" data-work-slide>
-          <div class="livecue-project__eyebrow font-mono">
-            <span></span>
-            <!-- <span>01 / {t("work.livecue.type")}</span> -->
-            <span>PYTHON · FLET · OSC</span>
-          </div>
-
-          <div class="livecue-project__body">
-            <div class="livecue-project__intro">
-              <h3 class="livecue-project__title font-display">LiveCue</h3>
-              <p class="livecue-project__description">
-                {t("work.livecue.desc")}
-              </p>
-              <a
-                class="livecue-project__link font-mono"
-                href="https://github.com/MarioCollado/livecue"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t("work.livecue.link")}
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-
-            <ol class="livecue-capabilities">
-              {
-                liveCueFeatures.map((feature, index) => (
-                  <li class="livecue-capability">
-                    <span class="livecue-capability__index font-mono">
-                      0{index + 1}
-                    </span>
-                    <div>
-                      <h4>{t(`work.livecue.features.${feature}.title`)}</h4>
-                      <p>{t(`work.livecue.features.${feature}.desc`)}</p>
-                    </div>
+        <div class="cell__body">
+          {cell.slug === "livecue" && (
+            <>
+              <p class="mb-4 text-base leading-relaxed">{t("work.livecue.desc")}</p>
+              <ul class="mb-4 grid gap-3 text-sm">
+                {liveCueFeatures.map((f) => (
+                  <li>
+                    <strong class="font-medium">{t(`work.livecue.features.${f}.title`)}</strong>
+                    <span class="block opacity-80">{t(`work.livecue.features.${f}.desc`)}</span>
                   </li>
-                ))
-              }
-            </ol>
-          </div>
-        </article>
+                ))}
+              </ul>
+            </>
+          )}
 
-        <article
-          class="work-carousel__slide work-editorial-slide"
-          data-work-slide
-        >
-          <p class="work-editorial-slide__eyebrow font-mono">
-            <!-- 02 / {t("work.renaissance.kind")} -->
-          </p>
-          <div class="work-editorial-slide__body">
-            <h3 class="work-editorial-slide__title font-display">
-              {t("work.renaissance.title")}
-            </h3>
-            <div class="work-editorial-slide__copy">
-              <p>{t("work.renaissance.desc")}</p>
-              <a
-                href={renaissanceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="work-editorial-slide__link font-mono"
-              >
-                {t("work.renaissance.link")}
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-        </article>
+          {cell.slug === "la-renaissance" && (
+            <>
+              <img src={`/assets/covers/${cell.slug}.jpg`} alt={t("work.renaissance.title")} class="cell__cover mb-4" onerror="this.remove()" />
+              <p class="mb-4 text-base leading-relaxed">{t("work.renaissance.desc")}</p>
+              <a href={renaissanceUrl} target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.renaissance.link")}</a>
+            </>
+          )}
 
-        <article
-          class="work-carousel__slide work-editorial-slide"
-          data-work-slide
-        >
-          <p class="work-editorial-slide__eyebrow font-mono">
-            <!-- 03 / {t("work.film.type")} -->
-          </p>
-          <div class="work-editorial-slide__body">
-            <h3 class="work-editorial-slide__title font-display">
-              {t("work.film.title")}
-            </h3>
-            <div class="work-editorial-slide__copy">
-              <p>{t("work.film.desc")}</p>
-            </div>
-          </div>
-        </article>
+          {cell.slug === "filmografia" && (
+            <>
+              <p class="mb-4 text-base leading-relaxed">{t("work.film.desc")}</p>
+              {FILM_YOUTUBE_ID && (
+                <iframe
+                  class="aspect-video w-full"
+                  src={`https://www.youtube-nocookie.com/embed/${FILM_YOUTUBE_ID}`}
+                  title={t("work.film.title")}
+                  loading="lazy"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              )}
+            </>
+          )}
 
-        <article
-          class="work-carousel__slide work-editorial-slide"
-          data-work-slide
-        >
-          <p class="work-editorial-slide__eyebrow font-mono">
-            <!-- 04 / {t("work.photography.kind")} -->
-          </p>
-          <div class="work-editorial-slide__body">
-            <h3 class="work-editorial-slide__title font-display">
-              {t("work.photography.title")}
-            </h3>
-            <div class="work-editorial-slide__copy">
-              <p>{t("work.photography.desc")}</p>
-              <a href="#gallery" class="work-editorial-slide__link font-mono">
-                {t("work.photography.link")}
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
+          {cell.slug === "gymlog" && (
+            <a href={gymlogUrl} target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.livecue.link")}</a>
+          )}
+        </div>
+      </article>
+    ))}
   </div>
-
 </section>
 
 <section id="gallery" class="mx-auto flex min-h-[100svh] max-w-[1440px] scroll-mt-24 flex-col justify-center border-t border-line px-4 py-12 md:px-10">
   <CarouselComponent
-      photos={photos}
-      galleryLabel={t("gallery.title")}
-      pauseLabel={t("gallery.pause")}
-      playLabel={t("gallery.play")}
-      emptyLabel={t("gallery.empty")}
-      client:visible
-    />
-  </section>
+    photos={photos}
+    galleryLabel={t("gallery.title")}
+    pauseLabel={t("gallery.pause")}
+    playLabel={t("gallery.play")}
+    emptyLabel={t("gallery.empty")}
+    client:visible
+  />
+</section>
+
+<style>
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .cell {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+  .cell[data-open="true"] {
+    grid-column: span 2;
+    aspect-ratio: auto;
+  }
+  .cell--ink {
+    background-color: var(--fg);
+    color: var(--bg);
+  }
+  .cell--accent {
+    background-color: var(--accent);
+    color: #191a18;
+  }
+  .cell__head {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.25rem;
+    text-align: left;
+    color: inherit;
+  }
+  .cell__logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+  }
+  .cell__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .cell__body {
+    display: none;
+    padding: 0 1.25rem 1.5rem;
+  }
+  .cell[data-open="true"] .cell__body {
+    display: block;
+  }
+  .cell__cover {
+    width: 9rem;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  /* Escritorio: fila de bloques inclinados que se expanden al pasar el ratón */
+  @media (min-width: 768px) {
+    .work-grid {
+      display: flex;
+      height: 70svh;
+      min-height: 420px;
+      gap: 0;
+    }
+    .cell {
+      flex: 1 1 0;
+      aspect-ratio: auto;
+      margin-left: -24px;
+      clip-path: polygon(24px 0, 100% 0, calc(100% - 24px) 100%, 0 100%);
+      transition: flex-grow 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .cell:first-child {
+      margin-left: 0;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 24px) 100%, 0 100%);
+    }
+    .cell:last-child {
+      clip-path: polygon(24px 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .cell[data-open="true"] {
+      flex-grow: 3;
+      grid-column: auto;
+    }
+    .cell__head {
+      padding: 2rem;
+    }
+    .cell__body {
+      padding: 0 2rem 2rem;
+      max-width: 28rem;
+    }
+  }
+</style>
 
 <script>
-  const projectCarousels = document.querySelectorAll<HTMLElement>(
-    "[data-work-carousel]",
-  );
+  const cells = Array.from(document.querySelectorAll<HTMLElement>("[data-cell]"));
+  const desktop = window.matchMedia("(min-width: 768px) and (hover: hover)");
 
-  projectCarousels.forEach((carousel) => {
-    const viewport = carousel.querySelector<HTMLElement>(
-      "[data-work-viewport]",
-    );
-    const slides = Array.from(
-      carousel.querySelectorAll<HTMLElement>("[data-work-slide]"),
-    );
-    const count = carousel.querySelector<HTMLElement>("[data-work-count]");
-    const previous = carousel.querySelector<HTMLButtonElement>(
-      "[data-work-previous]",
-    );
-    const next = carousel.querySelector<HTMLButtonElement>("[data-work-next]");
-    if (!viewport || slides.length === 0 || !count || !previous || !next)
-      return;
+  const setOpen = (cell: HTMLElement, open: boolean) => {
+    cell.dataset.open = String(open);
+    cell.querySelector(".cell__head")?.setAttribute("aria-expanded", String(open));
+  };
 
-    let activeIndex = 0;
-    let updateFrame = 0;
+  // Solo un bloque abierto a la vez
+  const openOnly = (target: HTMLElement) => {
+    cells.forEach((c) => setOpen(c, c === target));
+  };
 
-    const updateControls = () => {
-      const viewportLeft = viewport.getBoundingClientRect().left;
-      activeIndex = slides.reduce((closestIndex, slide, index) => {
-        const currentDistance = Math.abs(
-          slide.getBoundingClientRect().left - viewportLeft,
-        );
-        const closestDistance = Math.abs(
-          slides[closestIndex].getBoundingClientRect().left - viewportLeft,
-        );
-        return currentDistance < closestDistance ? index : closestIndex;
-      }, 0);
+  cells.forEach((cell) => {
+    const head = cell.querySelector<HTMLButtonElement>(".cell__head");
 
-      count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
-      previous.disabled = activeIndex === 0;
-      next.disabled = activeIndex === slides.length - 1;
-    };
-
-    const goTo = (index: number) => {
-      const targetIndex = Math.max(0, Math.min(index, slides.length - 1));
-      viewport.scrollTo({
-        left: slides[targetIndex].offsetLeft,
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth",
-      });
-    };
-
-    previous.addEventListener("click", () => goTo(activeIndex - 1));
-    next.addEventListener("click", () => goTo(activeIndex + 1));
-
-    viewport.addEventListener(
-      "scroll",
-      () => {
-        if (updateFrame) return;
-        updateFrame = window.requestAnimationFrame(() => {
-          updateControls();
-          updateFrame = 0;
-        });
-      },
-      { passive: true },
-    );
-
-    viewport.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        goTo(activeIndex - 1);
-      } else if (event.key === "ArrowRight") {
-        event.preventDefault();
-        goTo(activeIndex + 1);
-      }
+    cell.addEventListener("pointerenter", (e) => {
+      if (desktop.matches && e.pointerType === "mouse") openOnly(cell);
     });
-
-    updateControls();
+    cell.addEventListener("pointerleave", (e) => {
+      if (desktop.matches && e.pointerType === "mouse") setOpen(cell, false);
+    });
+    head?.addEventListener("click", () => {
+      const willOpen = cell.dataset.open !== "true";
+      if (willOpen) openOnly(cell);
+      else setOpen(cell, false);
+    });
   });
 </script>
