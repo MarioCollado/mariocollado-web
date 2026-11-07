@@ -9,6 +9,8 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 // Logos: public/assets/logos/<slug>.svg   Portadas: public/assets/covers/<slug>.jpg
 // Vídeo de filmografía: pon aquí el ID de YouTube (lo que va después de ?v=).
 const FILM_YOUTUBE_ID = "";
+// Enlace al canal de YouTube (pon la URL completa cuando la tengas).
+const FILM_CHANNEL_URL = "";
 const renaissanceUrl = "https://open.spotify.com/album/7bqMbjBDH5YXqErJmON5nd";
 const gymlogUrl = "https://github.com/MarioCollado/personal_daily_app_v0/tree/main/gymlog";
 const liveCueFeatures = ["setlists", "osc", "remote"] as const;
@@ -59,6 +61,9 @@ const cells = [
           {cell.slug === "filmografia" && (
             <>
               <p class="mb-4 text-base leading-relaxed">{t("work.film.desc")}</p>
+              {FILM_CHANNEL_URL && (
+                <a href={FILM_CHANNEL_URL} target="_blank" rel="noopener noreferrer" class="mb-4 inline-block font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.film.link")}</a>
+              )}
               {FILM_YOUTUBE_ID && (
                 <iframe
                   class="aspect-video w-full"
@@ -73,7 +78,11 @@ const cells = [
           )}
 
           {cell.slug === "gymlog" && (
-            <a href={gymlogUrl} target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.livecue.link")}</a>
+            <>
+              <p class="mb-2 text-base leading-relaxed">{t("work.gymlog.desc")}</p>
+              <p class="mb-4 font-mono text-xs uppercase tracking-widest opacity-80">{t("work.gymlog.stack")}</p>
+              <a href={gymlogUrl} target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.livecue.link")}</a>
+            </>
           )}
         </div>
       </article>

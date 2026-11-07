@@ -25,9 +25,10 @@
       "next": "Nächstes Projekt"
     },
     "film": {
-      "type": "Filmidee",
-      "title": "Kontemplativer Film",
-      "desc": "Eine Filmidee, getragen von Beobachtung und einem kontemplativen Tempo."
+      "type": "Audiovisuelles Archiv",
+      "title": "Filmografie",
+      "desc": "Audiovisuelles Archiv mit Stücken, die auf meinem YouTube-Kanal veröffentlicht sind.",
+      "link": "Kanal auf YouTube ansehen"
     },
     "livecue": {
       "type": "Musiksoftware",
@@ -64,6 +65,10 @@
       "title": "ABLESET",
       "desc": "Software zum Organisieren und Steuern von Live-Musiksets.",
       "status": "In Entwicklung"
+    },
+    "gymlog": {
+      "desc": "Minimalistisches Trainingstagebuch. Installierbare PWA zum Erfassen von Sessions, Sätzen und Fortschritt.",
+      "stack": "Next.js · Supabase · TailwindCSS"
     }
   },
   "gallery": {

@@ -25,9 +25,10 @@
       "next": "Next project"
     },
     "film": {
-      "type": "Film idea",
-      "title": "Contemplative film",
-      "desc": "A film idea guided by observation and a contemplative pace."
+      "type": "Audiovisual repository",
+      "title": "Filmography",
+      "desc": "Audiovisual repository with pieces published on my YouTube channel.",
+      "link": "Watch the channel on YouTube"
     },
     "livecue": {
       "type": "Music software",
@@ -64,6 +65,10 @@
       "title": "ABLESET",
       "desc": "Software to organise and control live music sets.",
       "status": "In development"
+    },
+    "gymlog": {
+      "desc": "Minimalist training journal. Installable PWA to log sessions, sets and progress.",
+      "stack": "Next.js · Supabase · TailwindCSS"
     }
   },
   "gallery": {
