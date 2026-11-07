@@ -13,6 +13,7 @@
   --muted: #5e5f59;
   --line: var(--stone);
   --accent: var(--digital);
+  --accent-fg: #191a18;
   color-scheme: light;
 }
 
@@ -21,7 +22,8 @@
   --fg: var(--paper);
   --muted: #a7a69d;
   --line: #2e302c;
-  --accent: var(--digital);
+  --accent: #34509a;
+  --accent-fg: #f1efe8;
   color-scheme: dark;
 }
 
