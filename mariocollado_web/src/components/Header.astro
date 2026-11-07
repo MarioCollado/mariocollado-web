@@ -16,7 +16,7 @@ const navItems = [
 ];
 ---
 
-<header id="site-header" class="fixed inset-x-0 top-0 z-40 h-12 bg-bg">
+<header id="site-header" class="fixed inset-x-0 top-0 z-40 h-14 bg-bg">
   <!-- Capa base: texto en tinta sobre el fondo fijo -->
   <div class="layer layer--base">
     <a
@@ -36,7 +36,7 @@ const navItems = [
         ))
       }
     </nav>
-    <div class="col col--tools font-mono text-[11px] uppercase">
+    <div class="col col--tools font-mono text-xs uppercase">
       <nav aria-label={t("nav.languages")} class="flex gap-3">
         {
           Object.keys(languages).map((code) => (
@@ -71,13 +71,9 @@ const navItems = [
       >mariocollado.</span
     >
     <span class="contents max-md:hidden">
-      {
-        navItems.map((item) => (
-          <span class="col col--nav font-mono text-xs tracking-wide">
-            {item.label}
-          </span>
-        ))
-      }
+      {navItems.map((item) => (
+        <span class="col col--nav font-mono text-xs tracking-wide">{item.label}</span>
+      ))}
     </span>
     <span class="col col--tools font-mono text-[11px] uppercase">
       <span class="flex gap-3"
