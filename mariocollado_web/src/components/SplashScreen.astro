@@ -1,0 +1,45 @@
+<div id="splash" aria-hidden="true" class="fixed inset-0 z-50 flex items-center justify-center bg-bg transition-opacity duration-700">
+  <span class="splash-tile bg-fg px-10 py-4 font-display text-3xl font-semibold tracking-tight text-bg md:text-4xl">mariocollado.</span>
+</div>
+
+<style>
+  .splash-tile {
+    clip-path: polygon(16px 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
+    transform-origin: left center;
+    animation: sweep 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes sweep {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  #splash[data-done="true"] {
+    opacity: 0;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .splash-tile { animation: none; }
+  }
+</style>
+
+<script>
+  const splash = document.getElementById("splash");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const MIN_MS = reduce ? 300 : 1000; // tiempo mínimo visible
+  const MAX_MS = 5000; // tope por si algo tarda demasiado
+  const start = performance.now();
+  let hidden = false;
+
+  const hide = () => {
+    if (!splash || hidden) return;
+    hidden = true;
+    const wait = Math.max(0, MIN_MS - (performance.now() - start));
+    window.setTimeout(() => {
+      splash.dataset.done = "true";
+      window.setTimeout(() => splash.remove(), 700);
+    }, wait);
+  };
+
+  if (document.readyState === "complete") hide();
+  else window.addEventListener("load", hide, { once: true });
+  window.setTimeout(hide, MAX_MS);
+</script>
