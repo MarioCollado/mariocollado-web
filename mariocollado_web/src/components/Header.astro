@@ -1,5 +1,10 @@
 ---
-import { getLangFromUrl, useTranslations, languages, translatePath } from "@/i18n/utils";
+import {
+  getLangFromUrl,
+  useTranslations,
+  languages,
+  translatePath,
+} from "@/i18n/utils";
 import type { SupportedLanguage } from "@/i18n/types";
 
 const lang = getLangFromUrl(Astro.url);
@@ -14,37 +19,70 @@ const navItems = [
 <header id="site-header" class="fixed inset-x-0 top-0 z-40 h-12 bg-bg">
   <!-- Capa base: texto en tinta sobre el fondo fijo -->
   <div class="layer layer--base">
-    <a href={translatePath("/", lang)} class="col col--brand font-display text-base font-semibold tracking-tight">mariocollado.</a>
+    <a
+      href={translatePath("/", lang)}
+      class="col col--brand font-display text-base font-semibold tracking-tight"
+      >mariocollado.</a
+    >
     <nav aria-label="Principal" class="contents max-md:hidden">
-      {navItems.map((item) => (
-        <a href={item.href} class="col col--nav font-mono text-xs tracking-wide">{item.label}</a>
-      ))}
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="col col--nav font-mono text-xs tracking-wide"
+          >
+            {item.label}
+          </a>
+        ))
+      }
     </nav>
     <div class="col col--tools font-mono text-[11px] uppercase">
       <nav aria-label={t("nav.languages")} class="flex gap-3">
-        {Object.keys(languages).map((code) => (
-          <a
-            href={translatePath("/", code as SupportedLanguage)}
-            hreflang={code}
-            aria-current={code === lang ? "page" : undefined}
-            class={code === lang ? "underline underline-offset-4" : "opacity-60 hover:opacity-100"}
-          >{code}</a>
-        ))}
+        {
+          Object.keys(languages).map((code) => (
+            <a
+              href={translatePath("/", code as SupportedLanguage)}
+              hreflang={code}
+              aria-current={code === lang ? "page" : undefined}
+              class={
+                code === lang
+                  ? "underline underline-offset-4"
+                  : "opacity-60 hover:opacity-100"
+              }
+            >
+              {code}
+            </a>
+          ))
+        }
       </nav>
-      <button type="button" id="theme-toggle" class="rounded-full border border-current px-3 py-1.5" aria-label={t("nav.theme")}>{t("nav.theme")}</button>
+      <button
+        type="button"
+        id="theme-toggle"
+        class="rounded-full border border-current px-3 py-1.5"
+        aria-label={t("nav.theme")}>{t("nav.theme")}</button
+      >
     </div>
   </div>
 
   <!-- Capa superior: solo los elementos de navegación se rellenan con la tinta al bajar -->
   <div class="layer layer--top" aria-hidden="true" inert>
-    <span class="col col--brand font-display text-base font-semibold tracking-tight">mariocollado.</span>
+    <span
+      class="col col--brand font-display text-base font-semibold tracking-tight"
+      >mariocollado.</span
+    >
     <span class="contents max-md:hidden">
-      {navItems.map((item) => (
-        <span class="col col--nav font-mono text-xs tracking-wide">{item.label}</span>
-      ))}
+      {
+        navItems.map((item) => (
+          <span class="col col--nav font-mono text-xs tracking-wide">
+            {item.label}
+          </span>
+        ))
+      }
     </span>
     <span class="col col--tools font-mono text-[11px] uppercase">
-      <span class="flex gap-3">{Object.keys(languages).map((code) => <span>{code}</span>)}</span>
+      <span class="flex gap-3"
+        >{Object.keys(languages).map((code) => <span>{code}</span>)}</span
+      >
       <span class="rounded-full border px-3 py-1.5">{t("nav.theme")}</span>
     </span>
   </div>
@@ -116,7 +154,9 @@ const navItems = [
 
 <script>
   const header = document.getElementById("site-header");
-  const navCols = Array.from(header?.querySelectorAll<HTMLElement>(".layer--top .col--nav") ?? []);
+  const navCols = Array.from(
+    header?.querySelectorAll<HTMLElement>(".layer--top .col--nav") ?? [],
+  );
 
   // Progreso de la página (0 arriba, 1 al final). Cada elemento de navegación se llena en orden.
   const update = () => {
@@ -139,7 +179,8 @@ const navItems = [
   update();
 
   document.getElementById("theme-toggle")?.addEventListener("click", () => {
-    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    const next =
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try {
       localStorage.setItem("theme", next);
