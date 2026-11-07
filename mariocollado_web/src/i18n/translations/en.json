@@ -101,5 +101,14 @@
   },
   "footer": {
     "rights": "© {year} mariocollado."
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending…",
+    "success": "Thanks. I'll get back to you soon.",
+    "error": "Could not send. Please try again."
   }
 }

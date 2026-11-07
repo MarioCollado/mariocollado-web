@@ -3,21 +3,57 @@ import socialLinks from "@/json/social.json";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
 const t = useTranslations(getLangFromUrl(Astro.url));
+const field = "w-full border-b border-line bg-transparent py-2 text-lg outline-none transition-colors focus:border-fg";
+const label = "font-mono text-xs uppercase tracking-widest text-muted";
 ---
 
 <section id="contact" class="mx-auto max-w-[1440px] scroll-mt-24 border-t border-line px-4 py-24 md:px-10">
-  <h2 class="font-display text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-none tracking-tight">{t("contact.title")}</h2>
-  <p class="mt-6 font-mono text-sm uppercase text-muted">{t("contact.location")}</p>
-  <h3 class="mb-4 mt-12 font-mono text-xs uppercase tracking-widest text-muted">{t("contact.social")}</h3>
-  <ul class="flex flex-wrap gap-x-8 gap-y-4 text-lg">
-    {
-      socialLinks.map((link) => (
-        <li>
-          <a href={`https://${link.url}`} target="_blank" rel="noopener noreferrer" class="underline underline-offset-4">
-            {link.name}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <div class="grid gap-16 md:grid-cols-2 md:gap-24">
+    <div>
+      <h2 class="font-display text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-none tracking-tight">{t("contact.title")}</h2>
+      <p class="mt-6 font-mono text-sm uppercase text-muted">{t("contact.location")}</p>
+      <h3 class="mb-4 mt-12 font-mono text-xs uppercase tracking-widest text-muted">{t("contact.social")}</h3>
+      <ul class="flex flex-wrap gap-x-8 gap-y-4 text-lg">
+        {
+          socialLinks.map((link) => (
+            <li>
+              <a href={`https://${link.url}`} target="_blank" rel="noopener noreferrer" class="underline underline-offset-4">
+                {link.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <form id="contact-form" class="flex flex-col gap-8" novalidate>
+      <label class="flex flex-col gap-2">
+        <span class={label}>{t("form.name")}</span>
+        <input type="text" name="name" autocomplete="name" class={field} />
+      </label>
+      <label class="flex flex-col gap-2">
+        <span class={label}>{t("form.email")}</span>
+        <input type="email" name="email" autocomplete="email" required class={field} />
+        <span data-fs-error="email" class="font-mono text-xs text-muted"></span>
+      </label>
+      <label class="flex flex-col gap-2">
+        <span class={label}>{t("form.message")}</span>
+        <textarea name="message" rows="5" required class={`${field} resize-y`}></textarea>
+        <span data-fs-error="message" class="font-mono text-xs text-muted"></span>
+      </label>
+      <div>
+        <button type="submit" data-fs-submit-btn class="rounded-full border border-current px-6 py-3 font-mono text-sm uppercase tracking-widest transition-opacity disabled:opacity-40">
+          {t("form.send")}
+        </button>
+      </div>
+      <p data-fs-success class="font-mono text-sm"></p>
+      <p data-fs-error class="font-mono text-sm text-muted"></p>
+    </form>
+  </div>
 </section>
+
+<script>
+  import { initForm } from "@formspree/ajax";
+
+  initForm({ formElement: "#contact-form", formId: "moeezwzo" });
+</script>
