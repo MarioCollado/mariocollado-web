@@ -9,15 +9,15 @@ const sections = [
   { id: "disciplines", label: t("disciplines.title") },
   { id: "contact", label: t("nav.contact") },
 ];
+const TICKS = 14;
+const ticks = Array.from({ length: TICKS }, (_, i) => i);
 ---
 
-<nav aria-label="Secciones" class="fixed right-4 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-3 md:flex">
-  {sections.map((s) => (
-    <a href={`#${s.id}`} data-progress data-id={s.id} data-active="false" aria-label={s.label} class="flex h-4 items-center">
-      <span class="line h-px w-5 bg-line transition-all duration-300"></span>
-    </a>
+<div aria-hidden="true" class="fixed right-4 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-1.5 md:flex">
+  {ticks.map((i) => (
+    <span data-tick={i} data-on="false" class={`tick h-px bg-line transition-colors duration-300 ${i % 4 === 0 ? "w-5" : "w-3"}`}></span>
   ))}
-</nav>
+</div>
 
 <script>
   import Lenis from "lenis";
@@ -28,7 +28,6 @@ const sections = [
   const sections = ids
     .map((id) => document.getElementById(id))
     .filter((el): el is HTMLElement => el !== null);
-  const links = Array.from(document.querySelectorAll<HTMLElement>("[data-progress]"));
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   let lenis: Lenis | null = null;
@@ -67,16 +66,15 @@ const sections = [
     });
   }
 
-  // Indicador lateral: resalta la sección visible
+  // Indicador lateral: las marcas se encienden según el progreso del scroll
+  const ticks = Array.from(document.querySelectorAll<HTMLElement>("[data-tick]"));
   const update = () => {
-    const mid = window.innerHeight * 0.4;
-    let active = sections[0]?.id;
-    for (const el of sections) {
-      if (el.getBoundingClientRect().top <= mid) active = el.id;
-    }
-    for (const a of links) {
-      a.dataset.active = String(a.dataset.id === active);
-    }
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    const lit = Math.round(p * ticks.length);
+    ticks.forEach((tick, i) => {
+      tick.dataset.on = String(i < lit);
+    });
   };
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
@@ -84,8 +82,7 @@ const sections = [
 </script>
 
 <style>
-  [data-active="true"] .line {
-    width: 2.5rem;
+  [data-on="true"] {
     background-color: var(--fg);
   }
 </style>
