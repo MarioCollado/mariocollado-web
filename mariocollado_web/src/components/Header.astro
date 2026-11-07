@@ -150,6 +150,13 @@ const navItems = [
   .layer--top .col--tools span {
     visibility: hidden;
   }
+  /* Sombra suave cuando la página ha empezado a desplazarse */
+  #site-header {
+    transition: box-shadow 300ms ease;
+  }
+  #site-header[data-scrolled="true"] {
+    box-shadow: 0 8px 18px -10px rgb(0 0 0 / 0.35);
+  }
 </style>
 
 <script>
@@ -186,4 +193,9 @@ const navItems = [
       localStorage.setItem("theme", next);
     } catch (e) {}
   });
+  const syncShadow = () => {
+    header?.setAttribute("data-scrolled", String(window.scrollY > 4));
+  };
+  window.addEventListener("scroll", syncShadow, { passive: true });
+  syncShadow();
 </script>
