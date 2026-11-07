@@ -13,9 +13,9 @@ const TICKS = 14;
 const ticks = Array.from({ length: TICKS }, (_, i) => i);
 ---
 
-<div aria-hidden="true" class="fixed right-4 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-1.5 md:flex">
+<div aria-hidden="true" class="fixed right-4 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-2.5 md:flex">
   {ticks.map((i) => (
-    <span data-tick={i} data-on="false" class={`tick h-px bg-line transition-colors duration-300 ${i % 4 === 0 ? "w-5" : "w-3"}`}></span>
+    <span data-tick={i} data-on="false" class="tick h-0.5 w-4 bg-fg/30 transition-colors duration-300"></span>
   ))}
 </div>
 
