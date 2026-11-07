@@ -1,10 +1,14 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import Disciplines from "@/components/sections/Disciplines.astro";
 
 const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
-<section id="about" class="mx-auto grid max-w-[1440px] scroll-mt-24 gap-6 px-4 py-16 md:grid-cols-12 md:px-10">
-  <h2 class="font-display text-4xl font-semibold tracking-tight md:col-span-4 md:text-5xl">{t("about.title")}</h2>
-  <p class="text-xl leading-relaxed md:col-span-6 md:col-start-6 md:text-2xl">{t("about.text")}</p>
+<section id="about" class="mx-auto max-w-[1440px] scroll-mt-24 px-4 py-16 md:px-10">
+  <div class="grid gap-6 md:grid-cols-12">
+    <h2 class="font-display text-4xl font-semibold tracking-tight md:col-span-4 md:text-5xl">{t("about.title")}</h2>
+    <p class="text-xl leading-relaxed md:col-span-6 md:col-start-6 md:text-2xl">{t("about.text")}</p>
+  </div>
+  <Disciplines />
 </section>

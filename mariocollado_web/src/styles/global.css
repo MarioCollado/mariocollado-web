@@ -535,3 +535,20 @@
     transition: none;
   }
 }
+
+/* Scroll suave (Lenis) y sin barra de desplazamiento nativa */
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
