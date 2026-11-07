@@ -28,7 +28,7 @@ const cells = [
 
   <div class="work-grid">
     {cells.map((cell, i) => (
-      <article data-cell data-open="false" class={`cell ${i % 2 === 0 ? "cell--ink" : "cell--accent"}`}>
+      <article data-cell data-open="false" class={`cell ${i % 2 === 0 ? "cell--light" : "cell--dark"}`}>
         <button type="button" class="cell__head" aria-expanded="false">
           <img src={`/assets/logos/${cell.logo}.png`} alt={cell.title} class="cell__logo" onerror="this.remove()" />
           {cell.kind && <span class="cell__kind font-mono text-xs uppercase tracking-widest">{cell.kind}</span>}
@@ -118,13 +118,15 @@ const cells = [
     grid-column: span 2;
     aspect-ratio: auto;
   }
-  .cell--ink {
+  /* Solo colores del tema: 1 y 3 claros, 2 y 4 oscuros */
+  .cell--light {
+    background-color: var(--bg);
+    color: var(--fg);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .cell--dark {
     background-color: var(--fg);
     color: var(--bg);
-  }
-  .cell--accent {
-    background-color: var(--accent);
-    color: var(--accent-fg);
   }
   .cell__head {
     display: flex;
