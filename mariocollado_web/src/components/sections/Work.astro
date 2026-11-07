@@ -16,10 +16,10 @@ const gymlogUrl = "https://github.com/MarioCollado/personal_daily_app_v0/tree/ma
 const liveCueFeatures = ["setlists", "osc", "remote"] as const;
 
 const cells = [
-  { slug: "livecue", title: "LIVECUE", kind: t("work.livecue.type") },
-  { slug: "la-renaissance", title: t("work.renaissance.title"), kind: t("work.renaissance.kind") },
-  { slug: "filmografia", title: t("work.film.title"), kind: t("work.film.type") },
-  { slug: "gymlog", title: "Gymlog", kind: "" },
+  { logo: "work_1", title: "LIVECUE", kind: t("work.livecue.type") },
+  { logo: "work_2", title: t("work.renaissance.title"), kind: t("work.renaissance.kind") },
+  { logo: "work_3", title: t("work.film.title"), kind: t("work.film.type") },
+  { logo: "work_4", title: "Gymlog", kind: "" },
 ];
 ---
 
@@ -30,13 +30,13 @@ const cells = [
     {cells.map((cell, i) => (
       <article data-cell data-open="false" class={`cell ${i % 2 === 0 ? "cell--ink" : "cell--accent"}`}>
         <button type="button" class="cell__head" aria-expanded="false">
-          <img src={`/assets/logos/${cell.slug}.svg`} alt={cell.title} class="cell__logo" onerror="this.remove()" />
+          <img src={`/assets/logos/${cell.logo}.png`} alt={cell.title} class="cell__logo" onerror="this.remove()" />
           {cell.kind && <span class="cell__kind font-mono text-xs uppercase tracking-widest">{cell.kind}</span>}
         </button>
 
         <div class="cell__body">
           <h3 class="cell__title">{cell.title}</h3>
-          {cell.slug === "livecue" && (
+          {cell.logo === "work_1" && (
             <>
               <p class="mb-4 text-base leading-relaxed">{t("work.livecue.desc")}</p>
               <ul class="mb-4 grid gap-3 text-sm">
@@ -50,15 +50,15 @@ const cells = [
             </>
           )}
 
-          {cell.slug === "la-renaissance" && (
+          {cell.logo === "work_2" && (
             <>
-              <img src={`/assets/covers/${cell.slug}.png`} alt={t("work.renaissance.title")} class="cell__cover mb-4" onerror="this.remove()" />
+              <img src="/assets/covers/la-renaissance.png" alt={t("work.renaissance.title")} class="cell__cover mb-4" onerror="this.remove()" />
               <p class="mb-4 text-base leading-relaxed">{t("work.renaissance.desc")}</p>
               <a href={renaissanceUrl} target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.renaissance.link")}</a>
             </>
           )}
 
-          {cell.slug === "filmografia" && (
+          {cell.logo === "work_3" && (
             <>
               <p class="mb-4 text-base leading-relaxed">{t("work.film.desc")}</p>
               {FILM_CHANNEL_URL && (
@@ -77,7 +77,7 @@ const cells = [
             </>
           )}
 
-          {cell.slug === "gymlog" && (
+          {cell.logo === "work_4" && (
             <>
               <p class="mb-2 text-base leading-relaxed">{t("work.gymlog.desc")}</p>
               <p class="mb-4 font-mono text-xs uppercase tracking-widest opacity-80">{t("work.gymlog.stack")}</p>
