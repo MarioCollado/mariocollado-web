@@ -30,12 +30,12 @@ const cells = [
     {cells.map((cell, i) => (
       <article data-cell data-open="false" class={`cell ${i % 2 === 0 ? "cell--ink" : "cell--accent"}`}>
         <button type="button" class="cell__head" aria-expanded="false">
-          <img src={`/assets/logos/${cell.slug}.svg`} alt="" class="cell__logo" onerror="this.remove()" />
-          <span class="cell__title">{cell.title}</span>
+          <img src={`/assets/logos/${cell.slug}.svg`} alt={cell.title} class="cell__logo" onerror="this.remove()" />
           {cell.kind && <span class="cell__kind font-mono text-xs uppercase tracking-widest">{cell.kind}</span>}
         </button>
 
         <div class="cell__body">
+          <h3 class="cell__title">{cell.title}</h3>
           {cell.slug === "livecue" && (
             <>
               <p class="mb-4 text-base leading-relaxed">{t("work.livecue.desc")}</p>
@@ -138,13 +138,20 @@ const cells = [
     color: inherit;
   }
   .cell__logo {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     object-fit: contain;
   }
+  @media (min-width: 768px) {
+    .cell__logo {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+  }
   .cell__title {
+    margin-bottom: 1rem;
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
     font-weight: 600;
     line-height: 1;
     letter-spacing: -0.02em;
