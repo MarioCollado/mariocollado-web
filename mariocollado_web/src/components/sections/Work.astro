@@ -30,7 +30,8 @@ const cells = [
     {cells.map((cell, i) => (
       <article data-cell data-open="false" class={`cell ${i % 2 === 0 ? "cell--light" : "cell--dark"}`}>
         <button type="button" class="cell__head" aria-expanded="false">
-          <img src={`/assets/logos/${cell.logo}.png`} alt={cell.title} class="cell__logo" onerror="this.remove()" />
+          <img src={`/assets/logos/${cell.logo}_dark.png`} alt={cell.title} class="cell__logo cell__logo--dark" onerror="this.remove()" />
+          <img src={`/assets/logos/${cell.logo}_light.png`} alt="" aria-hidden="true" class="cell__logo cell__logo--light" onerror="this.remove()" />
           {cell.kind && <span class="cell__kind font-mono text-xs uppercase tracking-widest">{cell.kind}</span>}
         </button>
 
@@ -139,10 +140,26 @@ const cells = [
     text-align: left;
     color: inherit;
   }
+  /* Logo según el color del bloque y el tema:
+     bloque claro + tema claro -> _dark; bloque oscuro + tema claro -> _light;
+     se invierte en tema oscuro */
   .cell__logo {
+    display: none;
     width: 3rem;
     height: 3rem;
     object-fit: contain;
+  }
+  .cell--light .cell__logo--dark,
+  .cell--dark .cell__logo--light {
+    display: block;
+  }
+  :root[data-theme="dark"] .cell--light .cell__logo--dark,
+  :root[data-theme="dark"] .cell--dark .cell__logo--light {
+    display: none;
+  }
+  :root[data-theme="dark"] .cell--light .cell__logo--light,
+  :root[data-theme="dark"] .cell--dark .cell__logo--dark {
+    display: block;
   }
   @media (min-width: 768px) {
     .cell__logo {
