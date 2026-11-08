@@ -211,20 +211,43 @@ const navItems = [
   const soundBtn = document.getElementById("sound-toggle");
   const audio = new Audio("/audio/banda-sonora.mp3");
   audio.loop = true;
-  audio.volume = 0.5;
   audio.addEventListener("error", () => soundBtn?.remove(), { once: true });
+  const VOLUME = 0.5;
+  let busy = false;
+  // Fundido de volumen entre el valor actual y "to" durante "ms" milisegundos
+  const fade = (to: number, ms: number) =>
+    new Promise<void>((resolve) => {
+      const from = audio.volume;
+      const t0 = performance.now();
+      const step = (now: number) => {
+        const k = Math.min(1, (now - t0) / ms);
+        audio.volume = from + (to - from) * k;
+        if (k < 1) requestAnimationFrame(step);
+        else resolve();
+      };
+      requestAnimationFrame(step);
+    });
+
   soundBtn?.addEventListener("click", async () => {
+    if (busy) return;
+    busy = true;
     const on = soundBtn.getAttribute("aria-pressed") !== "true";
-    if (on) {
-      try {
+    try {
+      if (on) {
+        audio.volume = 0;
         await audio.play();
-      } catch (e) {
-        return;
+        soundBtn.setAttribute("aria-pressed", "true");
+        await fade(VOLUME, 1200);
+      } else {
+        soundBtn.setAttribute("aria-pressed", "false");
+        await fade(0, 1000);
+        audio.pause();
       }
-    } else {
-      audio.pause();
+    } catch (e) {
+      soundBtn.setAttribute("aria-pressed", "false");
+    } finally {
+      busy = false;
     }
-    soundBtn.setAttribute("aria-pressed", String(on));
   });
 
   document.getElementById("theme-toggle")?.addEventListener("click", () => {
