@@ -63,7 +63,7 @@ const navItems = [
         title={t("nav.sound")}
         class="sound-toggle rounded-full border border-current p-1.5"
       >
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="sound-wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        <img src="/assets/icons/altavoz_dark.png" alt="" aria-hidden="true" class="sound-icon sound-icon--dark" width="16" height="16" onerror="this.remove()" /><img src="/assets/icons/altavoz_light.png" alt="" aria-hidden="true" class="sound-icon sound-icon--light" width="16" height="16" onerror="this.remove()" />
       </button>
       <button
         type="button"
@@ -99,11 +99,17 @@ const navItems = [
 </header>
 
 <style>
-  .sound-toggle[aria-pressed="false"] .sound-wave {
-    opacity: 0;
-  }
-  .sound-wave {
+  .sound-icon {
+    width: 16px;
+    height: 16px;
     transition: opacity 200ms ease;
+  }
+  /* Tema claro: icono oscuro. Tema oscuro: icono claro. */
+  .sound-icon--light { display: none; }
+  :root[data-theme="dark"] .sound-icon--dark { display: none; }
+  :root[data-theme="dark"] .sound-icon--light { display: block; }
+  .sound-toggle[aria-pressed="false"] .sound-icon {
+    opacity: 0.4;
   }
   .layer {
     position: absolute;
