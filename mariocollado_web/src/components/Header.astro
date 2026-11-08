@@ -57,16 +57,6 @@ const navItems = [
       </nav>
       <button
         type="button"
-        id="sound-toggle"
-        aria-pressed="false"
-        aria-label={t("nav.sound")}
-        title={t("nav.sound")}
-        class="sound-toggle rounded-full border border-current p-1.5"
-      >
-        <img src="/assets/icons/altavoz_dark.png" alt="" aria-hidden="true" class="sound-icon sound-icon--dark" width="16" height="16" onerror="this.remove()" /><img src="/assets/icons/altavoz_light.png" alt="" aria-hidden="true" class="sound-icon sound-icon--light" width="16" height="16" onerror="this.remove()" />
-      </button>
-      <button
-        type="button"
         id="theme-toggle"
         class="rounded-full border border-current px-3 py-1.5"
         aria-label={t("nav.theme")}>{t("nav.theme")}</button
@@ -99,18 +89,6 @@ const navItems = [
 </header>
 
 <style>
-  .sound-icon {
-    width: 16px;
-    height: 16px;
-    transition: opacity 200ms ease;
-  }
-  /* Tema claro: icono oscuro. Tema oscuro: icono claro. */
-  .sound-icon--light { display: none; }
-  :root[data-theme="dark"] .sound-icon--dark { display: none; }
-  :root[data-theme="dark"] .sound-icon--light { display: block; }
-  .sound-toggle[aria-pressed="false"] .sound-icon {
-    opacity: 0.4;
-  }
   .layer {
     position: absolute;
     inset: 0;
@@ -206,49 +184,6 @@ const navItems = [
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", schedule);
   update();
-
-  // Banda sonora: se activa con un clic (los navegadores no permiten audio sin gesto)
-  const soundBtn = document.getElementById("sound-toggle");
-  const audio = new Audio("/audio/banda-sonora.mp3");
-  audio.loop = true;
-  audio.addEventListener("error", () => soundBtn?.remove(), { once: true });
-  const VOLUME = 0.5;
-  let busy = false;
-  // Fundido de volumen entre el valor actual y "to" durante "ms" milisegundos
-  const fade = (to: number, ms: number) =>
-    new Promise<void>((resolve) => {
-      const from = audio.volume;
-      const t0 = performance.now();
-      const step = (now: number) => {
-        const k = Math.min(1, (now - t0) / ms);
-        audio.volume = from + (to - from) * k;
-        if (k < 1) requestAnimationFrame(step);
-        else resolve();
-      };
-      requestAnimationFrame(step);
-    });
-
-  soundBtn?.addEventListener("click", async () => {
-    if (busy) return;
-    busy = true;
-    const on = soundBtn.getAttribute("aria-pressed") !== "true";
-    try {
-      if (on) {
-        audio.volume = 0;
-        await audio.play();
-        soundBtn.setAttribute("aria-pressed", "true");
-        await fade(VOLUME, 1200);
-      } else {
-        soundBtn.setAttribute("aria-pressed", "false");
-        await fade(0, 1000);
-        audio.pause();
-      }
-    } catch (e) {
-      soundBtn.setAttribute("aria-pressed", "false");
-    } finally {
-      busy = false;
-    }
-  });
 
   document.getElementById("theme-toggle")?.addEventListener("click", () => {
     const next =
