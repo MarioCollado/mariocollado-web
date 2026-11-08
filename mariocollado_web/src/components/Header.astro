@@ -57,6 +57,16 @@ const navItems = [
       </nav>
       <button
         type="button"
+        id="sound-toggle"
+        aria-pressed="false"
+        aria-label={t("nav.sound")}
+        title={t("nav.sound")}
+        class="sound-toggle rounded-full border border-current p-1.5"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="sound-wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+      </button>
+      <button
+        type="button"
         id="theme-toggle"
         class="rounded-full border border-current px-3 py-1.5"
         aria-label={t("nav.theme")}>{t("nav.theme")}</button
@@ -89,6 +99,12 @@ const navItems = [
 </header>
 
 <style>
+  .sound-toggle[aria-pressed="false"] .sound-wave {
+    opacity: 0;
+  }
+  .sound-wave {
+    transition: opacity 200ms ease;
+  }
   .layer {
     position: absolute;
     inset: 0;
@@ -184,6 +200,26 @@ const navItems = [
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", schedule);
   update();
+
+  // Banda sonora: se activa con un clic (los navegadores no permiten audio sin gesto)
+  const soundBtn = document.getElementById("sound-toggle");
+  const audio = new Audio("/audio/banda-sonora.mp3");
+  audio.loop = true;
+  audio.volume = 0.5;
+  audio.addEventListener("error", () => soundBtn?.remove(), { once: true });
+  soundBtn?.addEventListener("click", async () => {
+    const on = soundBtn.getAttribute("aria-pressed") !== "true";
+    if (on) {
+      try {
+        await audio.play();
+      } catch (e) {
+        return;
+      }
+    } else {
+      audio.pause();
+    }
+    soundBtn.setAttribute("aria-pressed", String(on));
+  });
 
   document.getElementById("theme-toggle")?.addEventListener("click", () => {
     const next =
