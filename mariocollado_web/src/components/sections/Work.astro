@@ -36,6 +36,7 @@ const cells = [
         </button>
 
         <div class="cell__body">
+          <div class="cell__inner">
           <h3 class="cell__title">{cell.title}</h3>
           {cell.logo === "work_1" && (
             <>
@@ -62,18 +63,18 @@ const cells = [
           {cell.logo === "work_3" && (
             <>
               <p class="mb-4 text-base leading-relaxed">{t("work.film.desc")}</p>
-              {FILM_CHANNEL_URL && (
-                <a href={FILM_CHANNEL_URL} target="_blank" rel="noopener noreferrer" class="mb-4 inline-block font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.film.link")}</a>
-              )}
               {FILM_YOUTUBE_ID && (
                 <iframe
-                  class="aspect-video w-full"
+                  class="mb-4 aspect-video w-full"
                   src={`https://www.youtube-nocookie.com/embed/${FILM_YOUTUBE_ID}`}
                   title={t("work.film.title")}
                   loading="lazy"
                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
                 ></iframe>
+              )}
+              {FILM_CHANNEL_URL && (
+                <a href={FILM_CHANNEL_URL} target="_blank" rel="noopener noreferrer" class="inline-block font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.film.link")}</a>
               )}
             </>
           )}
@@ -85,6 +86,7 @@ const cells = [
               <a href={gymlogUrl} target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-widest underline underline-offset-4">{t("work.livecue.link")}</a>
             </>
           )}
+          </div>
         </div>
       </article>
     ))}
@@ -176,11 +178,22 @@ const cells = [
     letter-spacing: -0.02em;
   }
   .cell__body {
-    display: none;
-    padding: 0 1.25rem 1.5rem;
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 650ms cubic-bezier(0.22, 1, 0.36, 1), opacity 450ms ease;
+  }
+  .cell__inner {
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 1.25rem;
   }
   .cell[data-open="true"] .cell__body {
-    display: block;
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  .cell[data-open="true"] .cell__inner {
+    padding-bottom: 1.5rem;
   }
   .cell__cover {
     width: 9rem;
@@ -215,11 +228,16 @@ const cells = [
       grid-column: auto;
     }
     .cell__head {
+      flex: 0 0 auto;
+      height: 10rem;
       padding: 2rem;
     }
-    .cell__body {
-      padding: 0 2rem 2rem;
+    .cell__inner {
       max-width: 28rem;
+      padding: 0 2rem;
+    }
+    .cell[data-open="true"] .cell__inner {
+      padding-bottom: 2rem;
     }
   }
 </style>
