@@ -9,7 +9,7 @@ dist/
 .astro/content-modules.mjs
 .astro/data-store.json
 .astro/settings.json
-.astro/types.d.ts
+.astro/types.d.ts 
 
 # Logs
 npm-debug.log*
