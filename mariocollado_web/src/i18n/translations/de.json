@@ -4,9 +4,9 @@
     "description": "Persönliches Portfolio von Mario Collado: Entwicklung, Fotografie, Video und Musik."
   },
   "nav": {
-    "work": "WORK",
-    "about": "ABOUT",
-    "contact": "CONTACT",
+    "work": "ARBEITEN",
+    "about": "ÜBER MICH",
+    "contact": "KONTAKT",
     "theme": "Design",
     "languages": "Sprache",
     "sound": "Soundtrack"
