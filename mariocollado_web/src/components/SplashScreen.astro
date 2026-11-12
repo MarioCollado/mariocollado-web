@@ -39,7 +39,13 @@
     }, wait);
   };
 
-  if (document.readyState === "complete") hide();
-  else window.addEventListener("load", hide, { once: true });
+  // Espera a la página completa y a que las fuentes estén listas
+  const whenReady = Promise.all([
+    document.readyState === "complete"
+      ? Promise.resolve()
+      : new Promise<void>((r) => window.addEventListener("load", () => r(), { once: true })),
+    document.fonts ? document.fonts.ready : Promise.resolve(),
+  ]);
+  whenReady.then(hide);
   window.setTimeout(hide, MAX_MS);
 </script>
