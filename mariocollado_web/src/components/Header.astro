@@ -11,8 +11,8 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const navItems = [
   { href: "#work", key: "nav.work" },
-  { href: "#contact", key: "nav.contact" },
   { href: "#about", key: "nav.about" },
+  { href: "#contact", key: "nav.contact" },
 ];
 ---
 
@@ -183,7 +183,7 @@ const navItems = [
     }
     const active = current ? navOf(current) : undefined;
     navCols.forEach((col, i) => {
-      const href = ["#work", "#contact", "#about"][i];
+      const href = ["#work", "#about", "#contact"][i];
       col.style.setProperty("--fill", href === active ? "1" : "0");
     });
   };
